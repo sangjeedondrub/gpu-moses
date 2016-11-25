@@ -11,8 +11,19 @@
 #include "InputFileStream.h"
 #include "Util.h"
 
+#include <thrust/host_vector.h>
+#include <thrust/device_vector.h>
+#include <thrust/binary_search.h>
+#include <thrust/execution_policy.h>
+
 using namespace std;
 
+Node &Node::AddNode(const std::vector<VOCABID> &words, size_t pos)
+{
+
+}
+
+/////////////////////////////////////////////////////////////////////////////////
 PhraseTableMemory::PhraseTableMemory() {
 	// TODO Auto-generated constructor stub
 
@@ -40,6 +51,10 @@ void PhraseTableMemory::Load(const std::string &path)
 
 		vector<VOCABID> sourceIds = vocab.GetOrCreateIds(toks[0]);
 		vector<VOCABID> TARGETIds = vocab.GetOrCreateIds(toks[1]);
+		vector<SCORE> scores;
+		Tokenize(scores, toks[2]);
+
+		Node &node = m_root.AddNode(sourceIds);
 
 	}
 

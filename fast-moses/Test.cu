@@ -5,8 +5,6 @@
 #define N 10
 #define N_SOUGHT 2
 
-using namespace std;
-
 void Test()
 {
   thrust::host_vector<int> data(N), sought(N_SOUGHT);
@@ -22,30 +20,30 @@ void Test()
   sought[1] = 5;
 
   // SET
-  cerr << "SET:" << endl;
+  std::cerr << "SET:" << std::endl;
   Set<int> myset(data);
   myset.Find(out, sought);
-  Print(cerr, out);
+  Print(std::cerr, out);
 
   bool found = myset.Find(3);
   bool found2 = myset.Find(4);
-  cerr << "found:" << found << " " << found2 << endl;
+  std::cerr << "found:" << found << " " << found2 << std::endl;
 
   // INSERT
-  cerr << "BEFORE:" << myset.Debug() << endl;
+  std::cerr << "BEFORE:" << myset.Debug() << std::endl;
   myset.Insert(5);
-  cerr << "AFTER:" << myset.Debug() << endl;
+  std::cerr << "AFTER:" << myset.Debug() << std::endl;
 
   // ERASE
   myset.Erase(14);
-  cerr << "AFTER:" << myset.Debug() << endl;
+  std::cerr << "AFTER:" << myset.Debug() << std::endl;
 
   myset.Erase(11);
-  cerr << "AFTER:" << myset.Debug() << endl;
+  std::cerr << "AFTER:" << myset.Debug() << std::endl;
 
 	// MAP
 
-  cerr << "MAP:" << endl;
+  std::cerr << "MAP:" << std::endl;
   typedef thrust::pair<int, float> Pair;
 	thrust::host_vector<Pair> dataMap(5);
 	dataMap[0] = Pair(4, 2342.4f);
@@ -55,22 +53,22 @@ void Test()
 	dataMap[4] = Pair(34545, -343.7675f);
 
  	Map<int, float, ComparePair<int, float> > mymap(dataMap);
-  cerr << "BEFORE:" << mymap.Debug() << endl;
+  std::cerr << "BEFORE:" << mymap.Debug() << std::endl;
 
 	found = mymap.FindMap(3);
   found2 = mymap.FindMap(4);
-  cerr << "found:"
+  std::cerr << "found:"
   		<< found << " "
   		<< found2 << " "
   		<< mymap.FindMap(5) << " "
   		<< mymap.FindMap(6) << " "
   		<< mymap.FindMap(7) << " "
   		<< mymap.FindMap(8) << " "
-  		<< endl;
+  		<< std::endl;
 
 	mymap.Insert(9, -323.2);
 	mymap.Insert(5, -999.2);
 
-  cerr << "AFTER:" << mymap.Debug() << endl;
+  std::cerr << "AFTER:" << mymap.Debug() << std::endl;
 
 }

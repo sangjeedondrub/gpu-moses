@@ -5,8 +5,7 @@
  *      Author: hieu
  */
 
-#ifndef UTIL_CUH_
-#define UTIL_CUH_
+#pragma once
 
 #include <sstream>
 #include <iostream>
@@ -106,4 +105,3 @@ protected:
 
 
 
-#endif /* UTIL_CUH_ */

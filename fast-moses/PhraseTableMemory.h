@@ -6,14 +6,20 @@
  */
 #pragma once
 #include <string>
+#include <vector>
+#include "TypeDef.h"
+#include "CUDA/Map.cuh"
 
 class Node
 {
+public:
+  Node &AddNode(const std::vector<VOCABID> &words, size_t pos = 0);
 
 protected:
-
+  Map<int, float> m_children;
 };
 
+/////////////////////////////////////////////////////////////////////////////////
 class PhraseTableMemory
 {
 public:

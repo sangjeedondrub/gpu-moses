@@ -4,10 +4,9 @@
  *  Created on: 25 Nov 2016
  *      Author: hieu
  */
+#pragma once
 
-#ifndef MAP_CUH_
-#define MAP_CUH_
-
+#include <cassert>
 #include <thrust/pair.h>
 #include "Set.cuh"
 
@@ -24,12 +23,16 @@ public:
 
 };
 
-template<typename Key, typename Value, typename Compare >
+template<typename Key, typename Value, typename Compare = ComparePair<Key, Value> >
 class Map : public Set<thrust::pair<Key, Value>, Compare>
 {
 public:
 	typedef thrust::pair<Key, Value> Pair;
   typedef Set<Pair, Compare> Parent;
+
+  Map()
+	:Parent()
+	{}
 
   Map(const thrust::host_vector<Pair> &vec)
 	:Parent(vec)
@@ -104,4 +107,3 @@ protected:
 };
 
 
-#endif /* MAP_CUH_ */
