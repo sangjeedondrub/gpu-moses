@@ -8,7 +8,8 @@ LIBS = -L$(DALM_DIR)/lib -L$(KENLM_DIR)/lib  \
 	-lz -llzma -lbz2 -lrt -lpthread \
 	#-lkenlm  -liconv #-lrt # 
 
-OBJECTS = Main.cu Test.cu MyVocab.o TypeDef.o
+OBJECTS = InputFileStream.o MyVocab.o PhraseTableMemory.o TypeDef.o \
+		Main.cu Test.cu 
 
 
 OBJECTS_fast_moses = $(OBJECTS)

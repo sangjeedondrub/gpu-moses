@@ -4,9 +4,8 @@
  *  Created on: 25 Nov 2016
  *      Author: hieu
  */
-
-#ifndef PHRASETABLEMEMORY_H_
-#define PHRASETABLEMEMORY_H_
+#pragma once
+#include <string>
 
 class Node
 {
@@ -21,9 +20,9 @@ public:
 	PhraseTableMemory();
 	virtual ~PhraseTableMemory();
 
+	void Load(const std::string &path);
 
 protected:
 	Node m_root;
 };
 
-#endif /* PHRASETABLEMEMORY_H_ */
