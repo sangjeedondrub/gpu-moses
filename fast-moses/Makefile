@@ -8,7 +8,7 @@ LIBS = -L$(DALM_DIR)/lib -L$(KENLM_DIR)/lib  \
 	-lz -llzma -lbz2 -lrt -lpthread \
 	#-lkenlm  -liconv #-lrt # 
 
-OBJECTS = Main.cu
+OBJECTS = Main.cu Test.cu
 
 
 OBJECTS_fast_moses = $(OBJECTS)
