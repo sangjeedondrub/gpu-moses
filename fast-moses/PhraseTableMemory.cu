@@ -20,6 +20,11 @@ using namespace std;
 
 Node &Node::AddNode(const std::vector<VOCABID> &words, size_t pos)
 {
+	if (pos >= words.size()) {
+		return *this;
+	}
+
+	VOCABID vocabid = words[pos];
 
 }
 

@@ -62,7 +62,7 @@ public:
   {
     thrust::host_vector<bool> out(1);
 
-    Pair pair(sought, 0.0f);
+    Pair pair(sought, Value());
     thrust::device_vector<Pair> d_sought(1, pair);
 
     FindMap(out, d_sought);
