@@ -38,6 +38,21 @@ VOCABID MyVocab::GetOrCreateId(const std::string &str)
   }
 }
 
+std::vector<VOCABID> MyVocab::GetOrCreateIds(const std::string &str)
+{
+  vector<string> toks;
+  Tokenize(toks, str);
+
+  std::vector<VOCABID> ret(toks.size());
+
+  for (size_t i = 0; i < toks.size(); ++i) {
+	  VOCABID vocabId = GetOrCreateId(toks[i]);
+	  ret[i] = vocabId;
+  }
+
+  return ret;
+}
+
 const std::string &MyVocab::GetString(VOCABID id) const
 {
   assert(id < m_coll.size());

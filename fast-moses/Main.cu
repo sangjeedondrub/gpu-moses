@@ -13,7 +13,7 @@ int main()
 
   FastMoses::MyVocab vocab;
   PhraseTableMemory pt;
-  pt.Load("pt.txt");
+  pt.Load("phrase-table");
 
   cerr << "Finished" << endl;
 }

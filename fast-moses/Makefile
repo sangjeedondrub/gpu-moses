@@ -9,6 +9,7 @@ LIBS = -L$(DALM_DIR)/lib -L$(KENLM_DIR)/lib  \
 	#-lkenlm  -liconv #-lrt # 
 
 OBJECTS = InputFileStream.o MyVocab.o PhraseTableMemory.o TypeDef.o \
+		Util.o \
 		Main.cu Test.cu 
 
 

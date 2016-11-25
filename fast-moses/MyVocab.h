@@ -26,6 +26,7 @@ public:
   {}
 
   VOCABID GetOrCreateId(const std::string &str);
+  std::vector<VOCABID> GetOrCreateIds(const std::string &str);
   const std::string &GetString(VOCABID id) const;
 protected:
   static MyVocab s_instance;
