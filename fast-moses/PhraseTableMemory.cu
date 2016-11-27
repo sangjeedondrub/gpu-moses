@@ -29,15 +29,17 @@ Node &Node::AddNode(const std::vector<VOCABID> &words, size_t pos)
 	Children::Iterator iter = m_children.LowerBound(vocabId);
 	const Children::Pair &element = *iter;
 	VOCABID foundId = element.first;
+	Node *node;
+
 	if (foundId == vocabId) {
-		return *element.second;
+		node = element.second;
 	}
 	else {
-		Node *node = new Node();
+		node = new Node();
 		Children::Pair pair(vocabId, node);
 		m_children.Insert(iter, pair);
-		return *node;
 	}
+	return *node;
 }
 
 /////////////////////////////////////////////////////////////////////////////////
