@@ -24,8 +24,20 @@ Node &Node::AddNode(const std::vector<VOCABID> &words, size_t pos)
 		return *this;
 	}
 
-	VOCABID vocabid = words[pos];
-
+	VOCABID vocabId = words[pos];
+	//bool exists = m_children.FindMap(vocabid);
+	Children::Iterator iter = m_children.LowerBound(vocabId);
+	const Children::Pair &element = *iter;
+	VOCABID foundId = element.first;
+	if (foundId == vocabId) {
+		return *element.second;
+	}
+	else {
+		Node *node = new Node();
+		Children::Pair pair(vocabId, node);
+		m_children.Insert(iter, pair);
+		return *node;
+	}
 }
 
 /////////////////////////////////////////////////////////////////////////////////

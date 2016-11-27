@@ -27,8 +27,11 @@ template<typename Key, typename Value, typename Compare = ComparePair<Key, Value
 class Map : public Set<thrust::pair<Key, Value>, Compare>
 {
 public:
-	typedef thrust::pair<Key, Value> Pair;
+  typedef thrust::pair<Key, Value> Pair;
   typedef Set<Pair, Compare> Parent;
+
+  typedef thrust::device_vector<typename Map::Pair> Vec;
+  typedef typename Vec::iterator Iterator;
 
   Map()
 	:Parent()
@@ -72,17 +75,34 @@ public:
 
   }
 
+  Iterator LowerBound(const Pair &element) {
+	Iterator iter = thrust::lower_bound(thrust::device,
+									Parent::m_vec.begin(), Parent::m_vec.end(),
+									element,
+									Compare() );
+	return iter;
+  }
+
+  Iterator LowerBound(const Key &key) {
+	Pair element(key, Value());
+	Iterator iter = thrust::lower_bound(thrust::device,
+									Parent::m_vec.begin(), Parent::m_vec.end(),
+									element,
+									Compare() );
+	return iter;
+  }
+
   // assumes there's nothing there. Otherwise it will be a multiset
   void Insert(const Key &key, const Value &value)
   {
-    typedef thrust::device_vector<typename Map::Pair> Vec;
-    typedef typename Vec::iterator Iter;
+	Pair element(key, value);
+  	Iterator iter = LowerBound(element);
+    Parent::m_vec.insert(iter, element);
 
-		Pair element(key, value);
-  	Iter iter = thrust::lower_bound(thrust::device,
-  												Parent::m_vec.begin(), Parent::m_vec.end(),
-  												element,
-  												Compare() );
+  }
+
+  void Insert(Iterator &iter, Pair &element)
+  {
     Parent::m_vec.insert(iter, element);
 
   }

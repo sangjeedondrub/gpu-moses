@@ -16,7 +16,8 @@ public:
   Node &AddNode(const std::vector<VOCABID> &words, size_t pos = 0);
 
 protected:
-  Map<VOCABID, Node*> m_children;
+  typedef Map<VOCABID, Node*> Children;
+  Children m_children;
 };
 
 /////////////////////////////////////////////////////////////////////////////////
