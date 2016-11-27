@@ -29,6 +29,8 @@ template<typename T, typename Compare = thrust::less<T> >
 class Set
 {
 public:
+  typedef thrust::device_vector<T> Vec;
+
   Set()
   {}
 

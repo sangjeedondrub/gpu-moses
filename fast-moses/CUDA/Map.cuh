@@ -30,8 +30,7 @@ public:
   typedef thrust::pair<Key, Value> Pair;
   typedef Set<Pair, Compare> Parent;
 
-  typedef thrust::device_vector<typename Map::Pair> Vec;
-  typedef typename Vec::iterator Iterator;
+  typedef typename Parent::Vec::iterator Iterator;
 
   Map()
 	:Parent()
