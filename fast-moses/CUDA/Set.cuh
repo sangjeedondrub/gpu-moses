@@ -40,8 +40,11 @@ public:
 
   }
 
-  const T &GetVec() const
+  const Vec &GetVec() const
   { return m_vec; }
+
+  size_t size() const
+  { return m_vec.size(); }
 
   void Find(thrust::device_vector<bool> &out, const thrust::device_vector<T> &sought) const
   {
