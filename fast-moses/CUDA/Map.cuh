@@ -85,11 +85,7 @@ public:
 
   Iterator LowerBound(const Key &key) {
 	Pair element(key, Value());
-	Iterator iter = thrust::lower_bound(thrust::device,
-									Parent::m_vec.begin(), Parent::m_vec.end(),
-									element,
-									Compare() );
-	return iter;
+	return LowerBound(element);
   }
 
   // assumes there's nothing there. Otherwise it will be a multiset

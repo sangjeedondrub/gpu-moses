@@ -15,9 +15,13 @@ class Node
 public:
   Node &AddNode(const std::vector<VOCABID> &words, size_t pos = 0);
 
+  void AddTargetPhrase(const char *str);
+
 protected:
   typedef Map<VOCABID, Node*> Children;
   Children m_children;
+
+  thrust::device_vector<int> tps;
 };
 
 /////////////////////////////////////////////////////////////////////////////////
