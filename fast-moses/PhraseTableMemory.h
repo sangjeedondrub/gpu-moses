@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include "TypeDef.h"
+#include "TargetPhrases.cuh"
 #include "CUDA/Map.cuh"
 
 class Node
@@ -21,7 +22,7 @@ protected:
   typedef Map<VOCABID, Node*> Children;
   Children m_children;
 
-  thrust::device_vector<int> tps;
+  TargetPhrases tps;
 };
 
 /////////////////////////////////////////////////////////////////////////////////

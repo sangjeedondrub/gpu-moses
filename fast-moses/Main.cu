@@ -3,6 +3,11 @@
 #include "MyVocab.h"
 #include "PhraseTableMemory.h"
 
+#include "Phrase.cuh"
+#include "Scores.cuh"
+#include "TargetPhrase.cuh"
+#include "TargetPhrases.cuh"
+
 using namespace std;
 
 

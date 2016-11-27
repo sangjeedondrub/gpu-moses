@@ -66,7 +66,7 @@ Node &Node::AddNode(const std::vector<VOCABID> &words, size_t pos)
 
 void Node::AddTargetPhrase(const char *str)
 {
-	tps.push_back(tps.size() * 2);
+	//tps.push_back(tps.size() * 2);
 }
 
 /////////////////////////////////////////////////////////////////////////////////
