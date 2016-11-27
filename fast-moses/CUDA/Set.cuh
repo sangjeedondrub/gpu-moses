@@ -40,6 +40,9 @@ public:
 
   }
 
+  const T &GetVec() const
+  { return m_vec; }
+
   void Find(thrust::device_vector<bool> &out, const thrust::device_vector<T> &sought) const
   {
     out.resize(sought.size());

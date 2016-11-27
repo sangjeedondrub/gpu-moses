@@ -74,24 +74,29 @@ public:
 
   }
 
-  Iterator LowerBound(const Pair &element) {
-	Iterator iter = thrust::lower_bound(thrust::device,
-									Parent::m_vec.begin(), Parent::m_vec.end(),
-									element,
-									Compare() );
-	return iter;
-  }
-
-  Iterator LowerBound(const Key &key) {
+  unsigned int LowerBound(const Key &key) {
 	Pair element(key, Value());
-	return LowerBound(element);
+	thrust::device_vector<Pair> values(1, element);
+	//values[0] = element;
+	thrust::device_vector<unsigned int> output(1);
+
+	thrust::lower_bound(
+									Parent::m_vec.begin(), Parent::m_vec.end(),
+									values.begin(), values.end(),
+									output.begin(),
+									Compare() );
+
+	return output[0];
   }
 
   // assumes there's nothing there. Otherwise it will be a multiset
   void Insert(const Key &key, const Value &value)
   {
 	Pair element(key, value);
-  	Iterator iter = LowerBound(element);
+	Iterator iter = thrust::lower_bound(thrust::device,
+									Parent::m_vec.begin(), Parent::m_vec.end(),
+									element,
+									Compare() );
     Parent::m_vec.insert(iter, element);
 
   }

@@ -28,32 +28,9 @@ Node &Node::AddNode(const std::vector<VOCABID> &words, size_t pos)
 	VOCABID vocabId = words[pos];
 	//bool exists = m_children.FindMap(vocabid);
 	cerr << "HH1:" << vocabId << endl;
-	Children::Iterator iter = m_children.LowerBound(vocabId);
-	cerr << "HH2" << endl;
-	const Children::Pair &element = *iter;
-	cerr << "HH2.1" << endl;
-	VOCABID foundId = element.first;
-	cerr << "HH2.2" << endl;
-	Node *node;
+	unsigned int i = m_children.LowerBound(vocabId);
+	cerr << "HH2:" << i << endl;
 
-	cerr << "HH3" << endl;
-	if (foundId == vocabId) {
-		cerr << "HH4" << endl;
-		node = element.second;
-		assert(node);
-		cerr << "HH5" << endl;
-	}
-	else {
-		cerr << "HH6" << endl;
-		node = new Node();
-		cerr << "HH7" << endl;
-		Children::Pair pair(vocabId, node);
-		cerr << "HH8" << endl;
-		m_children.Insert(iter, pair);
-		cerr << "HH9" << endl;
-	}
-	cerr << "HH1" << endl;
-	return node->AddNode(words, pos + 1);
 }
 
 void Node::AddTargetPhrase(const char *str)
