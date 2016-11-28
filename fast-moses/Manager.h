@@ -7,6 +7,7 @@
 
 #pragma once
 #include <string>
+#include "Stacks.h"
 
 class Phrase;
 
@@ -17,6 +18,7 @@ public:
 	virtual ~Manager();
 protected:
 	Phrase *m_input;
+	Stacks m_stacks;
 };
 
 

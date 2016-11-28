@@ -106,7 +106,7 @@ public:
 
 
 protected:
-  thrust::device_vector<T> m_vec;
+  Vec m_vec;
 
 };
 

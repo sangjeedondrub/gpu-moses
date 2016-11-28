@@ -10,7 +10,9 @@ LIBS = -L$(DALM_DIR)/lib -L$(KENLM_DIR)/lib  \
 
 OBJECTS = InputFileStream.o MyVocab.o TypeDef.o \
 		Util.o \
-		Main.cu Manager.cu Phrase.cu PhraseTableMemory.cu Scores.cu TargetPhrase.cu TargetPhrases.cu Test.cu 
+		Hypothesis.cu Main.cu Manager.cu Phrase.cu PhraseTableMemory.cu \
+		Scores.cu Stack.cu Stacks.cu \
+		TargetPhrase.cu TargetPhrases.cu Test.cu 
 
 
 OBJECTS_fast_moses = $(OBJECTS)
