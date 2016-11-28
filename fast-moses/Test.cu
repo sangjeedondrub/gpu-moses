@@ -5,8 +5,26 @@
 #define N 10
 #define N_SOUGHT 2
 
+class TClass
+{
+public:
+	int i;
+
+	__device__ TClass(int v)
+	:i(v)
+	{}
+};
+
+__global__ void KernelTCLass()
+{
+  TClass c(5);
+
+}
+
 void Test()
 {
+	KernelTCLass<<<1,1>>>();
+
   thrust::host_vector<int> data(N), sought(N_SOUGHT);
   thrust::host_vector<bool> out;
 
