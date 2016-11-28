@@ -7,6 +7,7 @@
 #include "Scores.h"
 #include "TargetPhrase.h"
 #include "TargetPhrases.h"
+#include "Manager.h"
 
 using namespace std;
 
@@ -22,10 +23,7 @@ int main()
 
   string line;
   while (getline(cin, line)) {
-	  Phrase *input = Phrase::CreateFromString(line);
-	  cerr << "input=" << input->Debug() << endl;
-
-	  delete input;
+	  Manager mgr(line);
   }
 
   cerr << "Finished" << endl;
