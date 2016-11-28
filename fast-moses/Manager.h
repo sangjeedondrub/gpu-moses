@@ -10,11 +10,12 @@
 #include "Stacks.h"
 
 class Phrase;
+class PhraseTableMemory;
 
 class Manager
 {
 public:
-	Manager(const std::string &inputStr);
+	Manager(const std::string &inputStr, const PhraseTableMemory &pt);
 	virtual ~Manager();
 protected:
 	Phrase *m_input;

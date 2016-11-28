@@ -10,7 +10,7 @@ LIBS = -L$(DALM_DIR)/lib -L$(KENLM_DIR)/lib  \
 
 OBJECTS = InputFileStream.o MyVocab.o TypeDef.o \
 		Util.o \
-		Bitmap.cu Hypothesis.cu \
+		Bitmap.cu Hypothesis.cu  InputPath.cu InputPaths.cu \
 		Main.cu Manager.cu Phrase.cu PhraseTableMemory.cu Range.cu \
 		Scores.cu Stack.cu Stacks.cu \
 		TargetPhrase.cu TargetPhrases.cu Test.cu 
