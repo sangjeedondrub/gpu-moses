@@ -13,7 +13,7 @@ TargetPhrase *TargetPhrase::CreateFromString(const std::string &str)
 
 TargetPhrase::TargetPhrase(const std::vector<VOCABID> &targetIds)
 :Phrase(targetIds.size())
-//,m_scores(4)
+,m_scores(4)
 {
 	for (size_t i = 0; i < targetIds.size(); ++i) {
 		m_vec[i] = targetIds[i];

@@ -17,10 +17,10 @@ public:
 
 	TargetPhrase(const std::vector<VOCABID> &targetIds);
 
-	//Scores &GetScores()
-	//{ return m_scores; }
+	Scores &GetScores()
+	{ return m_scores; }
 protected:
-	//Scores m_scores;
+	Scores m_scores;
 
 };
 

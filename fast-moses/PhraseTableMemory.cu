@@ -91,11 +91,11 @@ void PhraseTableMemory::Load(const std::string &path)
 			cerr << "\t" << toks[i]<< endl;
 		}
 
-		//vector<VOCABID> sourceIds = vocab.GetOrCreateIds(toks[0]);
-		//Node &node = m_root.AddNode(sourceIds);
+		vector<VOCABID> sourceIds = vocab.GetOrCreateIds(toks[0]);
+		Node &node = m_root.AddNode(sourceIds);
 
-		//TargetPhrase *tp = TargetPhrase::CreateFromString(toks[1]);
-		//tp->GetScores().CreateFromString(toks[2]);
+		TargetPhrase *tp = TargetPhrase::CreateFromString(toks[1]);
+		tp->GetScores().CreateFromString(toks[2]);
 
 		//node.AddTargetPhrase("dsds");
 
