@@ -8,8 +8,8 @@
 #include <string>
 #include <vector>
 #include "TypeDef.h"
-#include "TargetPhrases.cuh"
-#include "CUDA/Map.cuh"
+#include "TargetPhrases.h"
+#include "CUDA/Map.h"
 
 class Node
 {

@@ -1,6 +1,6 @@
-#include "Test.cuh"
-#include "CUDA/Set.cuh"
-#include "CUDA/Map.cuh"
+#include "Test.h"
+#include "CUDA/Set.h"
+#include "CUDA/Map.h"
 
 #define N 10
 #define N_SOUGHT 2

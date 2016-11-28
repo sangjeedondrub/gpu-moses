@@ -1,12 +1,12 @@
 #include <iostream>
-#include "Test.cuh"
+#include "Test.h"
 #include "MyVocab.h"
 #include "PhraseTableMemory.h"
 
-#include "Phrase.cuh"
-#include "Scores.cuh"
-#include "TargetPhrase.cuh"
-#include "TargetPhrases.cuh"
+#include "Phrase.h"
+#include "Scores.h"
+#include "TargetPhrase.h"
+#include "TargetPhrases.h"
 
 using namespace std;
 
@@ -19,6 +19,11 @@ int main()
   FastMoses::MyVocab vocab;
   PhraseTableMemory pt;
   pt.Load("phrase-table");
+
+  string line;
+  while (getline(cin, line)) {
+
+  }
 
   cerr << "Finished" << endl;
 }

@@ -1,5 +1,4 @@
-#include "TargetPhrases.cuh"
-
+#include "TargetPhrases.h"
 
 void TargetPhrases::Add(const TargetPhrase &tp)
 {

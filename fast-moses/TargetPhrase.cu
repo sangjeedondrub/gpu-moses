@@ -1,4 +1,4 @@
-#include "TargetPhrase.cuh"
+#include "TargetPhrase.h"
 #include "MyVocab.h"
 
 using namespace std;

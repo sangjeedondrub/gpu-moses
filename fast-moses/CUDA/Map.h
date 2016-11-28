@@ -8,7 +8,7 @@
 
 #include <cassert>
 #include <thrust/pair.h>
-#include "Set.cuh"
+#include "Set.h"
 
 template<typename Key, typename Value>
 class ComparePair

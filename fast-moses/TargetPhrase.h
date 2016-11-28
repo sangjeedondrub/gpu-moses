@@ -7,8 +7,8 @@
 
 #pragma once
 #include <vector>
-#include "Phrase.cuh"
-#include "Scores.cuh"
+#include "Phrase.h"
+#include "Scores.h"
 
 class TargetPhrase : public Phrase
 {

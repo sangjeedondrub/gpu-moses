@@ -7,7 +7,7 @@
 
 #pragma once
 #include <thrust/device_vector.h>
-#include "TargetPhrase.cuh"
+#include "TargetPhrase.h"
 
 class TargetPhrases
 {

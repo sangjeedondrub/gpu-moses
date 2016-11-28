@@ -1,5 +1,5 @@
 #include <vector>
-#include "Scores.cuh"
+#include "Scores.h"
 #include "Util.h"
 
 using namespace std;
