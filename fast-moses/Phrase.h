@@ -6,14 +6,15 @@
  */
 #pragma once
 #include <thrust/device_vector.h>
+#include <string>
 #include "TypeDef.h"
 
 class Phrase
 {
 public:
-	Phrase(size_t length)
-	:m_vec(length)
-	{}
+	static Phrase *CreateFromString(const std::string &str);
+
+	Phrase(const std::vector<VOCABID> &ids);
 
 protected:
   thrust::device_vector<VOCABID> m_vec;

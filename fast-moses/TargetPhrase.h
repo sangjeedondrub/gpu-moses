@@ -7,6 +7,7 @@
 
 #pragma once
 #include <vector>
+#include <string>
 #include "Phrase.h"
 #include "Scores.h"
 
@@ -19,6 +20,7 @@ public:
 
 	Scores &GetScores()
 	{ return m_scores; }
+
 protected:
 	Scores m_scores;
 
