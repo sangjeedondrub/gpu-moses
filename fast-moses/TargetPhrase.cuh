@@ -6,15 +6,13 @@
  */
 
 #pragma once
+#include <vector>
 #include "Phrase.cuh"
 #include "Scores.cuh"
 
 class TargetPhrase : public Phrase
 {
-	TargetPhrase(size_t length)
-	:Phrase(length)
-	,m_scores(4)
-	{}
+	TargetPhrase(const std::vector<VOCABID> &targetIds, const std::vector<SCORE> &scores);
 
 protected:
 	Scores m_scores;
