@@ -23,8 +23,8 @@ namespace {
   // On Mac OS X, clock_gettime is not implemented.
   // CLOCK_MONOTONIC is not defined either.
 #ifdef __MACH__
-#define CLOCK_MONOTONIC 0
-  
+//#define CLOCK_MONOTONIC 0
+  /*
   int clock_gettime(int clk_id, struct timespec *tp) {
     struct timeval tv;
     gettimeofday(&tv, NULL);
@@ -32,6 +32,7 @@ namespace {
     tp->tv_nsec = tv.tv_usec * 1000;
     return 0;
   }
+  */
 #endif // __MACH__
   
   float FloatSec(const struct timeval &tv) {
