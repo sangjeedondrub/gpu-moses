@@ -40,16 +40,23 @@ void Test2()
 {
   //KernelTCLass<<<1,1>>>();
   //KernelTAdd<<<1,1>>>(3);
-  C2 *oCPU = new C2(6);
+  C2 *oHeap = new C2(6);
   cudaDeviceSynchronize();
-  cerr << "oCPU=" << oCPU->i << endl;
+  cerr << "oHeap=" << oHeap->i << endl;
 
-  KernelC2<<<1,1>>>(*oCPU);
+  KernelC2<<<1,1>>>(*oHeap);
   cudaDeviceSynchronize();
-  cerr << "oCPU=" << oCPU->i << endl;
+  cerr << "oHeap=" << oHeap->i << endl;
 
-  Temp<<<2,1>>>(*oCPU);
-  //oCPU->Add<<<1,1>>>(4);
+  Temp<<<2,1>>>(*oHeap);
+  //oHeap->Add<<<1,1>>>(4);
+
+  delete oHeap;
+
+  C2 oStack(7);
+  cerr << "oStack=" << oStack.i << endl;
+  //oStack.Add(4);
+  //cerr << "oStack=" << oStack.i << endl;
 
 }
 
