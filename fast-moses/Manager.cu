@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Manager::Manager(const std::string inputStr)
+Manager::Manager(const std::string &inputStr)
 {
   m_input = Phrase::CreateFromString(inputStr);
   cerr << "m_input=" << m_input->Debug() << endl;

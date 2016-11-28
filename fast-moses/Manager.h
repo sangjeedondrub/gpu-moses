@@ -14,7 +14,7 @@ class Phrase;
 class Manager
 {
 public:
-	Manager(const std::string inputStr);
+	Manager(const std::string &inputStr);
 	virtual ~Manager();
 protected:
 	Phrase *m_input;
