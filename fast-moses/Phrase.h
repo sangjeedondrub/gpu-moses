@@ -16,6 +16,7 @@ public:
 
 	Phrase(const std::vector<VOCABID> &ids);
 
+	std::string Debug() const;
 protected:
   thrust::device_vector<VOCABID> m_vec;
 };

@@ -22,7 +22,10 @@ int main()
 
   string line;
   while (getline(cin, line)) {
+	  Phrase *input = Phrase::CreateFromString(line);
+	  cerr << "input=" << input->Debug() << endl;
 
+	  delete input;
   }
 
   cerr << "Finished" << endl;
