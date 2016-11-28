@@ -60,11 +60,6 @@ Node &Node::AddNode(const std::vector<VOCABID> &words, size_t pos)
 	return *node;
 }
 
-void Node::AddTargetPhrase(const char *str)
-{
-	//tps.push_back(tps.size() * 2);
-}
-
 /////////////////////////////////////////////////////////////////////////////////
 PhraseTableMemory::PhraseTableMemory() {
 	// TODO Auto-generated constructor stub
@@ -97,7 +92,7 @@ void PhraseTableMemory::Load(const std::string &path)
 		TargetPhrase *tp = TargetPhrase::CreateFromString(toks[1]);
 		tp->GetScores().CreateFromString(toks[2]);
 
-		//node.AddTargetPhrase("dsds");
+		node.GetTargetPhrases().Add(*tp);
 
 	}
 

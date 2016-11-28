@@ -16,7 +16,8 @@ class Node
 public:
   Node &AddNode(const std::vector<VOCABID> &words, size_t pos = 0);
 
-  void AddTargetPhrase(const char *str);
+  TargetPhrases &GetTargetPhrases()
+  { return tps; }
 
 protected:
   typedef Map<VOCABID, Node*> Children;
