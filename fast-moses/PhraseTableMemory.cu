@@ -20,9 +20,9 @@ using namespace std;
 
 Node &Node::AddNode(const std::vector<VOCABID> &words, size_t pos)
 {
-	cerr << "pos=" << pos << endl;
+	//cerr << "pos=" << pos << endl;
 	if (pos >= words.size()) {
-		cerr << "found=" << pos << endl;
+		//cerr << "found=" << pos << endl;
 		return *this;
 	}
 
@@ -72,19 +72,21 @@ PhraseTableMemory::~PhraseTableMemory() {
 
 void PhraseTableMemory::Load(const std::string &path)
 {
-	cerr << "begin loading" << endl;
+	//cerr << "begin loading" << endl;
 	FastMoses::InputFileStream strm(path);
 
 	FastMoses::MyVocab &vocab = FastMoses::MyVocab::Instance();
 
 	std::string line;
 	while (getline(strm, line)) {
-		cerr << line << endl;
+		//cerr << line << endl;
 		std::vector<std::string> toks;
 		TokenizeMultiCharSeparator(toks, line, "|||");
+		/*
 		for (size_t i = 0; i < toks.size(); ++i) {
 			cerr << "\t" << toks[i]<< endl;
 		}
+		*/
 
 		vector<VOCABID> sourceIds = vocab.GetOrCreateIds(toks[0]);
 		Node &node = m_root.AddNode(sourceIds);

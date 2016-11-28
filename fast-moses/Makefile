@@ -1,7 +1,7 @@
 BOOST_DIR = boost
 
 CXX = nvcc #g++ #clang++
-CPPFLAGS =  -arch=sm_30 -O3 -I. -I$(BOOST_DIR)/include
+CPPFLAGS =  -arch=sm_50 -rdc=true  -O3 -I. -I$(BOOST_DIR)/include
 #-DKENLM_MAX_ORDER=7 -DUSE_KENLM 
 
 LIBS = -L$(DALM_DIR)/lib -L$(KENLM_DIR)/lib  \
@@ -11,7 +11,7 @@ LIBS = -L$(DALM_DIR)/lib -L$(KENLM_DIR)/lib  \
 OBJECTS = InputFileStream.o MyVocab.o TypeDef.o \
 		Util.o \
 		Bitmap.cu Hypothesis.cu  InputPath.cu InputPaths.cu \
-		Main.cu Manager.cu Phrase.cu PhraseTableMemory.cu Range.cu \
+		Main.cu Managed.cu Manager.cu Phrase.cu PhraseTableMemory.cu Range.cu \
 		Scores.cu Stack.cu Stacks.cu \
 		TargetPhrase.cu TargetPhrases.cu Test.cu 
 

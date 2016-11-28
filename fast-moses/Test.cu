@@ -1,30 +1,64 @@
+#include <iostream>
 #include "Test.h"
+#include "Managed.h"
 #include "CUDA/Set.h"
 #include "CUDA/Map.h"
 
-#define N 10
-#define N_SOUGHT 2
+using namespace std;
 
-class TClass
+//////////////////////////////////////////////////////
+
+class C2 : public Managed
 {
 public:
 	int i;
 
-	__device__ TClass(int v)
-	:i(v)
-	{}
+	C2(int v)
+	{
+		i = v;
+	}
+
+	__device__ void Add(int v)
+	{
+		i += v;
+	}
+
 };
 
-__global__ void KernelTCLass()
+__global__ void Temp(C2 &o)
 {
-  TClass c(5);
+  o.Add(2);
+}
+
+__global__ void KernelC2(C2 &o)
+{
+  o.Add(3);
+  Temp<<<2,1>>>(o);
+}
+
+void Test2()
+{
+  //KernelTCLass<<<1,1>>>();
+  //KernelTAdd<<<1,1>>>(3);
+  C2 *oCPU = new C2(6);
+  cudaDeviceSynchronize();
+  cerr << "oCPU=" << oCPU->i << endl;
+
+  KernelC2<<<1,1>>>(*oCPU);
+  cudaDeviceSynchronize();
+  cerr << "oCPU=" << oCPU->i << endl;
+
+  Temp<<<2,1>>>(*oCPU);
+  //oCPU->Add<<<1,1>>>(4);
 
 }
 
+//////////////////////////////////////////////////////
+#define N 10
+#define N_SOUGHT 2
+
 void Test()
 {
-	KernelTCLass<<<1,1>>>();
-
   thrust::host_vector<int> data(N), sought(N_SOUGHT);
   thrust::host_vector<bool> out;
 
@@ -89,4 +123,5 @@ void Test()
 
   std::cerr << "AFTER:" << mymap.Debug() << std::endl;
 
+  Test2();
 }
