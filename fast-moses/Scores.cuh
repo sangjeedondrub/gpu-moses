@@ -16,6 +16,9 @@ public:
 	:m_vec(length)
 	{}
 
+	void CreateFromString(const std::string &str);
+
+
 protected:
   thrust::device_vector<SCORE> m_vec;
 

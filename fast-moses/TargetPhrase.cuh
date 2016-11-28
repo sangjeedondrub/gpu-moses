@@ -12,10 +12,15 @@
 
 class TargetPhrase : public Phrase
 {
-	TargetPhrase(const std::vector<VOCABID> &targetIds, const std::vector<SCORE> &scores);
+public:
+	static TargetPhrase *CreateFromString(const std::string &str);
 
+	TargetPhrase(const std::vector<VOCABID> &targetIds);
+
+	//Scores &GetScores()
+	//{ return m_scores; }
 protected:
-	Scores m_scores;
+	//Scores m_scores;
 
 };
 

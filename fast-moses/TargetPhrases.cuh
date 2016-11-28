@@ -11,6 +11,7 @@
 
 class TargetPhrases
 {
+	void Add(const TargetPhrase &tp);
 
 protected:
   thrust::device_vector<TargetPhrase> m_vec;
