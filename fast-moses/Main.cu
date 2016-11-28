@@ -21,10 +21,12 @@ int main()
   PhraseTableMemory pt;
   pt.Load("phrase-table");
 
+  /*
   string line;
   while (getline(cin, line)) {
 	  Manager mgr(line, pt);
   }
+  */
 
   cerr << "Finished" << endl;
 }

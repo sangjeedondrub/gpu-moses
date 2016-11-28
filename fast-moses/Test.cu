@@ -1,3 +1,5 @@
+#include <array>
+#include <iterator>
 #include <iostream>
 #include "Test.h"
 #include "Managed.h"
@@ -6,12 +8,17 @@
 
 using namespace std;
 
+#define N 10
+#define N_SOUGHT 2
+
 //////////////////////////////////////////////////////
 
 class C2 : public Managed
 {
 public:
 	int i;
+	int arr[N] = {2,4,6,8,10,12,14,16,18,20};
+	int out[3];
 
 	C2(int v)
 	{
@@ -23,11 +30,21 @@ public:
 		i += v;
 	}
 
+	void Search()
+	{
+		int sought[3] = {4, 5, 6};
+
+	    thrust::binary_search(std::begin(arr), std::end(arr),
+	    		std::begin(sought), std::end(sought),
+	    		std::begin(out));
+
+	}
 };
 
 __global__ void Temp(C2 &o)
 {
   o.Add(2);
+  //o.Search();
 }
 
 __global__ void KernelC2(C2 &o)
@@ -51,6 +68,12 @@ void Test2()
   Temp<<<2,1>>>(*oHeap);
   //oHeap->Add<<<1,1>>>(4);
 
+  oHeap->Search();
+  for (size_t i = 0; i < 3; ++i) {
+	  cerr << oHeap->out[i] << " ";
+  }
+  cerr << endl;
+
   delete oHeap;
 
   C2 oStack(7);
@@ -61,8 +84,6 @@ void Test2()
 }
 
 //////////////////////////////////////////////////////
-#define N 10
-#define N_SOUGHT 2
 
 void Test()
 {
