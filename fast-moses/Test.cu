@@ -90,7 +90,7 @@ void Test3()
 {
   Phrase *input = Phrase::CreateFromString("dast ist eine kleines haus");
   cerr << "input=" << input->Debug() << endl;
-  exit(0);
+  //exit(0);
 }
 
 

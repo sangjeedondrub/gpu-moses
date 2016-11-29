@@ -17,7 +17,7 @@ Phrase::Phrase(const std::vector<VOCABID> &ids)
 :m_vec(ids.size())
 {
 	//cudaDeviceSynchronize();
-	cerr << "GetSize()=" << m_vec->GetSize() << endl;
+	//cerr << "GetSize()=" << m_vec->GetSize() << endl;
 	for (size_t i = 0; i < ids.size(); ++i) {
 	    //cerr << i << "=" << ids[i] << endl;
   	    m_vec.Set(i, ids[i]);

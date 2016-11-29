@@ -22,7 +22,7 @@ TargetPhrase::TargetPhrase(const std::vector<VOCABID> &ids)
 __host__ std::string TargetPhrase::Debug() const
 {
   stringstream strm;
-  //strm << Phrase::Debug() << " Scores:" << m_scores.Debug();
+  strm << Phrase::Debug() << " Scores:" << m_scores.Debug();
 
   return strm.str();
 }
