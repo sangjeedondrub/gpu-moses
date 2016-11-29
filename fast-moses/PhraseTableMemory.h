@@ -9,12 +9,15 @@
 #include <vector>
 #include "TypeDef.h"
 #include "TargetPhrases.h"
+#include "Managed.h"
 #include "CUDA/Map.h"
 
-class Node
+class Node : public Managed
 {
 public:
   Node &AddNode(const std::vector<VOCABID> &words, size_t pos = 0);
+
+  virtual ~Node();
 
   TargetPhrases &GetTargetPhrases()
   { return tps; }

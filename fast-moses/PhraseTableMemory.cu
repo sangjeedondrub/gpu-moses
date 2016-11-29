@@ -18,6 +18,16 @@
 
 using namespace std;
 
+Node::~Node()
+{
+  const Children::Vec &vec = m_children.GetVec();
+  for (size_t i = 0; i < vec.size(); ++i) {
+    const Children::Pair &pair = vec[i];
+    const Node *node = pair.second;
+    delete node;
+  }
+}
+
 Node &Node::AddNode(const std::vector<VOCABID> &words, size_t pos)
 {
 	//cerr << "pos=" << pos << endl;

@@ -20,6 +20,11 @@ public:
     m_arr = (T*) malloc(sizeof(T) * size);
   }
 
+  __device__ ~Array()
+  {
+    delete(m_arr);
+  }
+
   size_t size() const
   {
     return m_size;
