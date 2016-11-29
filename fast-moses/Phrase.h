@@ -19,7 +19,7 @@ public:
 	Phrase(const std::vector<VOCABID> &ids);
 
 	size_t GetSize() const
-	{ return m_vec.size(); }
+	{ return m_vec.GetSize(); }
 
 	std::string Debug() const;
 protected:

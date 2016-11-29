@@ -6,6 +6,7 @@
  */
 
 #pragma once
+#include <iostream>
 #include <sstream>
 #include <string>
 #include <cuda.h>
@@ -27,11 +28,17 @@ public:
     delete(m_arr);
   }
 
-  size_t size() const
+  __device__ size_t size() const
   {
     return m_size;
   }
 
+  __host__ size_t GetSize() const
+  {
+    size_t ret;
+    cudaMemcpy(&ret, &m_size, sizeof(size_t), cudaMemcpyDeviceToHost);
+    return ret;
+  }
 
   __device__ const T& operator[](size_t ind) const
   {
@@ -58,7 +65,9 @@ public:
   __host__ std::string Debug() const
   {
     std::stringstream strm;
-    for (size_t i = 0; i < m_size; ++i) {
+    size_t size = GetSize();
+    strm << size << ":";
+    for (size_t i = 0; i < size; ++i) {
       strm << Get(i) << " ";
     }
 
