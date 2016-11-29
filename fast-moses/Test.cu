@@ -90,6 +90,13 @@ void Test3()
 {
   Phrase *input = Phrase::CreateFromString("dast ist eine kleines haus");
   cerr << "input=" << input->Debug() << endl;
+  
+  VOCABID *checkId;
+  cudaMallocHost(&checkId, sizeof(VOCABID));
+  checkPhrase<<<1,1>>>(*checkId, input);
+  cudaDeviceSynchronize();
+  cerr << "checkId=" << *checkId << endl;
+
   //exit(0);
 }
 
