@@ -18,7 +18,7 @@ public:
 
 	Phrase(const std::vector<VOCABID> &ids);
 
-        __device__ const VOCABID& operator[](size_t ind) const
+  __device__ const VOCABID& operator[](size_t ind) const
 	{
 	  return m_vec[ind];
 	}
