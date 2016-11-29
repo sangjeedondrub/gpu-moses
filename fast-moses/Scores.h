@@ -8,6 +8,7 @@
 #pragma once
 #include <thrust/device_vector.h>
 #include "TypeDef.h"
+#include "Array.h"
 
 class Scores
 {
@@ -20,7 +21,7 @@ public:
 
 
 protected:
-  thrust::device_vector<SCORE> m_vec;
+  Array<SCORE> m_vec;
 
 };
 
