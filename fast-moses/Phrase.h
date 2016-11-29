@@ -8,6 +8,7 @@
 #include <thrust/device_vector.h>
 #include <string>
 #include "TypeDef.h"
+#include "Array.h"
 
 class Phrase
 {
@@ -21,6 +22,6 @@ public:
 
 	std::string Debug() const;
 protected:
-  thrust::device_vector<VOCABID> m_vec;
+	Array<VOCABID> m_vec;
 };
 

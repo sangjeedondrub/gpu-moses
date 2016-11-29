@@ -20,6 +20,12 @@ public:
     m_arr = (T*) malloc(sizeof(T) * size);
   }
 
+  size_t size() const
+  {
+    return m_size;
+  }
+
+
   __device__ const T& operator[](size_t ind) const
   {
     return m_arr[ind];
@@ -28,6 +34,13 @@ public:
   __device__ T& operator[](size_t ind)
   {
     return m_arr[ind];
+  }
+
+  __host__ const T Get(size_t ind) const
+  {
+    T ret;
+    cudaMemcpy(&ret, &m_arr[ind], sizeof(T), cudaMemcpyDeviceToHost);
+    return ret;
   }
 
   __host__ void Set(size_t ind, const T &val)

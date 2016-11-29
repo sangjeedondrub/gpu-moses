@@ -17,7 +17,7 @@ Phrase::Phrase(const std::vector<VOCABID> &ids)
 :m_vec(ids.size())
 {
 	for (size_t i = 0; i < ids.size(); ++i) {
-		m_vec[i] = ids[i];
+		m_vec.Set(i, ids[i]);
 	}
 }
 
@@ -25,7 +25,7 @@ std::string Phrase::Debug() const
 {
 	stringstream strm;
 	for (size_t i = 0; i < m_vec.size(); ++i) {
-		strm << m_vec[i] << " ";
+		strm << m_vec.Get(i) << " ";
 	}
 	return strm.str();
 }
