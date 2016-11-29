@@ -10,6 +10,6 @@ void Scores::CreateFromString(const std::string &str)
 	Tokenize(scores, str);
 
 	for (size_t i = 0; i < scores.size(); ++i) {
-		m_vec[i] = scores[i];
+		m_vec.Set(i, scores[i]);
 	}
 }

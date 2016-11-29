@@ -13,25 +13,26 @@ template<typename T>
 class Array : public Managed
 {
 public:
-  __device__ Array(size_t size = 0, const T &val = T())
+  __device__ Array(size_t size)
   {
     m_size = size;
     m_maxSize = size;
     m_arr = (T*) malloc(sizeof(T) * size);
-    //cudaMallocManaged(&m_arr, sizeof(T) * size);
-    for (size_t i = 0; i < size; ++i) {
-      m_arr[i] = val;
-    }
   }
 
-  const T& operator[](size_t ind) const
+  __device__ const T& operator[](size_t ind) const
   {
     return m_arr[ind];
   }
 
-  T& operator[](size_t ind)
+  __device__ T& operator[](size_t ind)
   {
     return m_arr[ind];
+  }
+
+  __host__ void Set(size_t ind, const T &val)
+  {
+    cudaMemcpy(&m_arr[ind], &val, sizeof(T), cudaMemcpyHostToDevice);
   }
 
 protected:
