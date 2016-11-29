@@ -21,6 +21,8 @@ public:
 	Scores &GetScores()
 	{ return m_scores; }
 
+  __host__ std::string Debug() const;
+
 protected:
 	Scores m_scores;
 

@@ -12,7 +12,8 @@
 class TargetPhrases
 {
 public:
-	void Add(const TargetPhrase *tp);
+	__host__ void Add(const TargetPhrase *tp);
+	__host__ std::string Debug() const;
 
 protected:
   thrust::host_vector<const TargetPhrase*> m_vec;
