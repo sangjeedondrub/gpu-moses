@@ -12,10 +12,10 @@
 class TargetPhrases
 {
 public:
-	void Add(const TargetPhrase &tp);
+	void Add(const TargetPhrase *tp);
 
 protected:
-  thrust::host_vector<TargetPhrase> m_vec;
+  thrust::host_vector<const TargetPhrase*> m_vec;
   // not right. should be a device vector but causes compile error
 
 };

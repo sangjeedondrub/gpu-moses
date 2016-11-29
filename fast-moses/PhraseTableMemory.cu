@@ -94,7 +94,7 @@ void PhraseTableMemory::Load(const std::string &path)
 		TargetPhrase *tp = TargetPhrase::CreateFromString(toks[1]);
 		tp->GetScores().CreateFromString(toks[2]);
 
-		node.GetTargetPhrases().Add(*tp);
+		node.GetTargetPhrases().Add(tp);
 
 	}
 

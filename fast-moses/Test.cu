@@ -50,7 +50,7 @@ __global__ void Temp(C2 &o)
 __global__ void KernelC2(C2 &o)
 {
   o.Add(3);
-  Temp<<<2,1>>>(o);
+  //Temp<<<2,1>>>(o);
 }
 
 void Test2()
