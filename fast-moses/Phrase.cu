@@ -23,9 +23,5 @@ Phrase::Phrase(const std::vector<VOCABID> &ids)
 
 std::string Phrase::Debug() const
 {
-	stringstream strm;
-	for (size_t i = 0; i < m_vec.size(); ++i) {
-		strm << m_vec.Get(i) << " ";
-	}
-	return strm.str();
+	return m_vec.Debug();
 }

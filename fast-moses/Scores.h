@@ -18,7 +18,9 @@ public:
 	:m_vec(length)
 	{}
 
-	void CreateFromString(const std::string &str);
+	__host__ void CreateFromString(const std::string &str);
+
+  __host__ std::string Debug() const;
 
 
 protected:

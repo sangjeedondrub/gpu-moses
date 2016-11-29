@@ -6,6 +6,8 @@
  */
 
 #pragma once
+#include <sstream>
+#include <string>
 #include <cuda.h>
 #include "Managed.h"
 
@@ -51,6 +53,16 @@ public:
   __host__ void Set(size_t ind, const T &val)
   {
     cudaMemcpy(&m_arr[ind], &val, sizeof(T), cudaMemcpyHostToDevice);
+  }
+
+  __host__ std::string Debug() const
+  {
+    std::stringstream strm;
+    for (size_t i = 0; i < m_size; ++i) {
+      strm << Get(i) << " ";
+    }
+
+    return strm.str();
   }
 
 protected:

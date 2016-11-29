@@ -103,6 +103,7 @@ void PhraseTableMemory::Load(const std::string &path)
 
 		TargetPhrase *tp = TargetPhrase::CreateFromString(toks[1]);
 		tp->GetScores().CreateFromString(toks[2]);
+		cerr << "tp=" << tp->Debug() << endl;
 
 		node.GetTargetPhrases().Add(tp);
 
