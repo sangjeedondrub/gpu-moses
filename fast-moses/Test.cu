@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Test.h"
 #include "Managed.h"
+#include "Phrase.h"
 #include "CUDA/Set.h"
 #include "CUDA/Map.h"
 
@@ -85,7 +86,15 @@ void Test2()
 
 //////////////////////////////////////////////////////
 
-void Test()
+void Test3()
+{
+  Phrase *input = Phrase::CreateFromString("dast ist eine kleines haus");
+  cerr << "input=" << input->Debug() << endl;
+  //exit(0);
+}
+
+
+void Test1()
 {
   thrust::host_vector<int> data(N), sought(N_SOUGHT);
   thrust::host_vector<bool> out;
@@ -151,5 +160,12 @@ void Test()
 
   std::cerr << "AFTER:" << mymap.Debug() << std::endl;
 
-  Test2();
+}
+
+
+void Test()
+{
+  //Test1();
+  //Test2();
+  Test3();
 }

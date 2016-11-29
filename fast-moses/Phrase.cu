@@ -16,12 +16,16 @@ Phrase *Phrase::CreateFromString(const std::string &str)
 Phrase::Phrase(const std::vector<VOCABID> &ids)
 :m_vec(ids.size())
 {
+	//cudaDeviceSynchronize();
+	//cerr << "GetSize()=" << m_vec->GetSize() << endl;
 	for (size_t i = 0; i < ids.size(); ++i) {
-		m_vec.Set(i, ids[i]);
+	    //cerr << i << "=" << ids[i] << endl;
+  	    m_vec.Set(i, ids[i]);
 	}
+	//cudaDeviceSynchronize();
 }
 
-std::string Phrase::Debug() const
+__host__ std::string Phrase::Debug() const
 {
-	return m_vec.Debug();
+  return m_vec.Debug();
 }

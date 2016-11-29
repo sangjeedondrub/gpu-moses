@@ -87,7 +87,7 @@ PhraseTableMemory::~PhraseTableMemory() {
 
 void PhraseTableMemory::Load(const std::string &path)
 {
-	//cerr << "begin loading" << endl;
+	cerr << "begin loading" << endl;
 	FastMoses::InputFileStream strm(path);
 
 	FastMoses::MyVocab &vocab = FastMoses::MyVocab::Instance();
