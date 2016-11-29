@@ -12,7 +12,9 @@
 class TargetPhrases
 {
 public:
-	void Add(const TargetPhrase *tp);
+  virtual ~TargetPhrases();
+
+  void Add(const TargetPhrase *tp);
 
 protected:
   thrust::host_vector<const TargetPhrase*> m_vec;
