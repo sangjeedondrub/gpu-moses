@@ -76,18 +76,6 @@ PhraseTableMemory::PhraseTableMemory() {
 
 }
 
-__global__ void checkTotalVocabId(VOCABID &totVocabId, const TargetPhrase *tp)
-{
-  size_t size = tp->size();
-  totVocabId = size;
-  for (size_t i = 0; i < size; ++i) {
-    VOCABID id = (*tp)[i];
-    totVocabId += id;
-  }
-
-  //cudaMemcpy(&totVocabId, &sum, sizeof(VOCABID), cudaMemcpyDeviceToHost);
-}
-
 PhraseTableMemory::~PhraseTableMemory() {
 	// TODO Auto-generated destructor stub
 }
@@ -115,12 +103,15 @@ void PhraseTableMemory::Load(const std::string &path)
 
 		TargetPhrase *tp = TargetPhrase::CreateFromString(toks[1]);
 		tp->GetScores().CreateFromString(toks[2]);
+		
+
 		cerr << "tp=" << tp->Debug() << endl;
 
-		cudaDeviceSynchronize();
 		VOCABID *totVocabId;
 		cudaMallocHost(&totVocabId, sizeof(VOCABID));
-		checkTotalVocabId<<<1,1>>>(*totVocabId, tp);
+		checkPhrase<<<1,1>>>(*totVocabId, tp);
+		
+		cudaDeviceSynchronize();
 		cerr << "totVocabId=" << *totVocabId << endl;
 
 		node.GetTargetPhrases().Add(tp);
