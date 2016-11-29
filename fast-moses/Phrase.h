@@ -18,6 +18,14 @@ public:
 
 	Phrase(const std::vector<VOCABID> &ids);
 
+        __device__ const VOCABID& operator[](size_t ind) const
+	{
+	  return m_vec[ind];
+	}
+
+	__device__ size_t size() const
+        { return m_vec.size(); }
+
 	__host__ size_t GetSize() const
 	{ return m_vec.GetSize(); }
 
