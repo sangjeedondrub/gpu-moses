@@ -9,8 +9,9 @@
 #include <thrust/device_vector.h>
 #include "TypeDef.h"
 #include "Array.h"
+#include "Managed.h"
 
-class Scores
+class Scores : public Managed
 {
 public:
 	Scores(size_t length)

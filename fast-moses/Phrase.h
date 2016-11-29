@@ -9,8 +9,9 @@
 #include <string>
 #include "TypeDef.h"
 #include "Array.h"
+#include "Managed.h"
 
-class Phrase
+class Phrase : public Managed
 {
 public:
 	static Phrase *CreateFromString(const std::string &str);
