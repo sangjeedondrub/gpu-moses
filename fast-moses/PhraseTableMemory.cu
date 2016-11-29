@@ -76,6 +76,11 @@ PhraseTableMemory::PhraseTableMemory() {
 
 }
 
+__global__ void checkTotalVocabId(VOCABID &totVocabId, const TargetPhrase *tp)
+{
+
+}
+
 PhraseTableMemory::~PhraseTableMemory() {
 	// TODO Auto-generated destructor stub
 }
@@ -104,6 +109,10 @@ void PhraseTableMemory::Load(const std::string &path)
 		TargetPhrase *tp = TargetPhrase::CreateFromString(toks[1]);
 		tp->GetScores().CreateFromString(toks[2]);
 		cerr << "tp=" << tp->Debug() << endl;
+
+		VOCABID totVocabId = 0;
+		checkTotalVocabId<<<1,1>>>(totVocabId, tp);
+		cerr << "totVocabId=" << totVocabId << endl;
 
 		node.GetTargetPhrases().Add(tp);
 
