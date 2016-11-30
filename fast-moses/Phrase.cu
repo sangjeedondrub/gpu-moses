@@ -13,7 +13,7 @@ Phrase *Phrase::CreateFromString(const std::string &str)
 	return tp;
 }
 
-Phrase::Phrase(const std::vector<VOCABID> &ids)
+__host__ Phrase::Phrase(const std::vector<VOCABID> &ids)
 :m_vec(ids.size())
 {
 	//cudaDeviceSynchronize();
