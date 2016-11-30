@@ -52,3 +52,17 @@ size_t strlenDevice(const char *str)
   for (s = str; *s; ++s);
   return(s - str);
 }
+
+
+__device__ void MemCpy(char *dest, const char *src, size_t count)
+{
+  for (size_t i = 0; i < count; ++i) {
+    dest[i] = src[i];
+  }
+}
+
+__device__ void StrCpy(char *dest, const char *src)
+{
+  size_t len = strlenDevice(src);
+  MemCpy(dest, src, len + 1);
+}

@@ -1,6 +1,6 @@
 #include <sstream>
 #include "TargetPhrases.h"
-#include "itoa.h"
+#include "CUDA/Util.h"
 
 using namespace std;
 
@@ -28,18 +28,6 @@ __host__ std::string TargetPhrases::Debug() const
   return strm.str();
 }
 
-__device__ void MemCpy(char *dest, const char *src, size_t count)
-{
-  for (size_t i = 0; i < count; ++i) {
-    dest[i] = src[i];
-  }
-}
-
-__device__ void StrCpy(char *dest, const char *src)
-{
-  size_t len = strlenDevice(src);
-  MemCpy(dest, src, len + 1);
-}
 __global__ void checkTargetPhrases(char *str, const TargetPhrases &tps)
 {
   size_t size = tps.size();
