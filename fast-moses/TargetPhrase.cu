@@ -26,3 +26,22 @@ __host__ std::string TargetPhrase::Debug() const
 
   return strm.str();
 }
+
+__global__ void checkTargetPhrase(VOCABID &totVocabId, SCORE &totScore, const TargetPhrase &phrase)
+{
+  size_t size = phrase.size();
+  totVocabId = size;
+  for (size_t i = 0; i < size; ++i) {
+    VOCABID id = phrase[i];
+    totVocabId += id;
+  }
+
+  size = phrase.GetScores().size();
+  totScore = size;
+  for (size_t i = 0; i < size; ++i) {
+      SCORE score = phrase.GetScores()[i];
+      totScore += score;
+  }
+
+}
+

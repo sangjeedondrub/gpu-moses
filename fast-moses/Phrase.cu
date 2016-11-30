@@ -31,14 +31,15 @@ __host__ std::string Phrase::Debug() const
 }
 
 
-__global__ void checkPhrase(VOCABID &totVocabId, const Phrase *phrase)
+__global__ void checkPhrase(VOCABID &totVocabId, const Phrase &phrase)
 {
-  size_t size = phrase->size();
+  size_t size = phrase.size();
   totVocabId = size;
   for (size_t i = 0; i < size; ++i) {
-    VOCABID id = (*phrase)[i];
+    VOCABID id = phrase[i];
     totVocabId += id;
   }
 
   //cudaMemcpy(&totVocabId, &sum, sizeof(VOCABID), cudaMemcpyDeviceToHost);                                             
 }
+

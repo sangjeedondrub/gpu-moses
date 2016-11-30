@@ -93,7 +93,7 @@ void Test3()
   
   VOCABID *checkId;
   cudaMallocHost(&checkId, sizeof(VOCABID));
-  checkPhrase<<<1,1>>>(*checkId, input);
+  checkPhrase<<<1,1>>>(*checkId, *input);
   cudaDeviceSynchronize();
   cerr << "checkId=" << *checkId << endl;
 

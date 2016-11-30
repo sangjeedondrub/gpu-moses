@@ -21,12 +21,17 @@ public:
 	Scores &GetScores()
 	{ return m_scores; }
 
+  __device__ const Scores &GetScores() const
+  { return m_scores; }
+
   __host__ std::string Debug() const;
 
 protected:
 	Scores m_scores;
 
 };
+
+__global__ void checkTargetPhrase(VOCABID &totVocabId, SCORE &totScore, const TargetPhrase &phrase);
 
 
 
