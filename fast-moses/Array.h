@@ -42,28 +42,28 @@ public:
   {
     size_t ret;
     cudaMemcpy(&ret, &m_size, sizeof(size_t), cudaMemcpyDeviceToHost);
-    //cudaDeviceSynchronize();
+    cudaDeviceSynchronize();
     return ret;
   }
 
   __host__ void SetSize(size_t val)
   {
     cudaMemcpy(&m_size, &val, sizeof(size_t), cudaMemcpyHostToDevice);
-    //cudaDeviceSynchronize();
+    cudaDeviceSynchronize();
   }
 
   __host__ size_t GetMaxSize() const
   {
     size_t ret;
     cudaMemcpy(&ret, &m_maxSize, sizeof(size_t), cudaMemcpyDeviceToHost);
-    //cudaDeviceSynchronize();
+    cudaDeviceSynchronize();
     return ret;
   }
 
   __host__ void SetMaxSize(size_t val)
   {
     cudaMemcpy(&m_maxSize, &val, sizeof(size_t), cudaMemcpyHostToDevice);
-    //cudaDeviceSynchronize();
+    cudaDeviceSynchronize();
   }
 
   __device__ const T& operator[](size_t ind) const
@@ -76,14 +76,14 @@ public:
   {
     T ret;
     cudaMemcpy(&ret, &m_arr[ind], sizeof(T), cudaMemcpyDeviceToHost);
-    //cudaDeviceSynchronize();
+    cudaDeviceSynchronize();
     return ret;
   }
 
   __host__ void Set(size_t ind, const T &val)
   {
     cudaMemcpy(&m_arr[ind], &val, sizeof(T), cudaMemcpyHostToDevice);
-    //cudaDeviceSynchronize();
+    cudaDeviceSynchronize();
   }
 
   __host__ void Resize(size_t newSize)
@@ -91,14 +91,14 @@ public:
     if (newSize > GetMaxSize()) {
       T *temp;
       cudaMalloc(&temp, sizeof(T) * newSize);
-      //cudaDeviceSynchronize();
+      cudaDeviceSynchronize();
 
       size_t currSize = GetSize();
       cudaMemcpy(temp, m_arr, sizeof(T) * currSize, cudaMemcpyDeviceToDevice);
-      //cudaDeviceSynchronize();
+      cudaDeviceSynchronize();
 
       cudaFree(m_arr);
-      //cudaDeviceSynchronize();
+      cudaDeviceSynchronize();
 
       m_arr = temp;
 
@@ -112,12 +112,13 @@ public:
   {
     size_t currSize = GetSize();
     size_t maxSize = GetMaxSize();
+
     if (currSize >= maxSize) {
       Resize(1 + maxSize * 2);
     }
 
     Set(currSize, v);
-    SetMaxSize(maxSize + 1);
+    SetSize(currSize + 1);
   }
 
   __host__ std::string Debug() const

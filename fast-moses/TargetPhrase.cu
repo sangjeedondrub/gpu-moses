@@ -8,7 +8,8 @@ TargetPhrase *TargetPhrase::CreateFromString(const std::string &str)
 {
 	FastMoses::MyVocab &vocab = FastMoses::MyVocab::Instance();
 	vector<VOCABID> ids = vocab.GetOrCreateIds(str);
-        cerr << "ids=" << ids.size() << endl;
+  //cerr << "ids=" << ids.size() << endl;
+
 	TargetPhrase *tp = new TargetPhrase(ids);
 	return tp;
 }
