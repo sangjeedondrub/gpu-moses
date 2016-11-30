@@ -21,7 +21,8 @@ __host__ Phrase::Phrase(const std::vector<VOCABID> &ids)
 	//cerr << "GetSize()=" << m_vec->GetSize() << endl;
 	for (size_t i = 0; i < ids.size(); ++i) {
 	    //cerr << i << "=" << ids[i] << endl;
-  	    m_vec.Set(i, ids[i]);
+  	    //m_vec.Set(i, ids[i]);
+  	    m_vec[i] = ids[i];
 	}
 	//cudaDeviceSynchronize();
 }

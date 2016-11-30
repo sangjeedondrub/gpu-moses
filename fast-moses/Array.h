@@ -23,7 +23,7 @@ public:
 
     if (size) {
       //m_arr = (T*) malloc(sizeof(T) * size);
-      cudaMalloc(&m_arr, sizeof(T) * size);
+      cudaMallocManaged(&m_arr, sizeof(T) * size);
     }
     else {
       m_arr = NULL;
@@ -40,50 +40,68 @@ public:
 
   __host__ size_t GetSize() const
   {
+    return m_size;
+    /*
     size_t ret;
     cudaMemcpy(&ret, &m_size, sizeof(size_t), cudaMemcpyDeviceToHost);
     cudaDeviceSynchronize();
     return ret;
+    */
   }
 
   __host__ void SetSize(size_t val)
   {
+    m_size = val;
+    /*
     cudaMemcpy(&m_size, &val, sizeof(size_t), cudaMemcpyHostToDevice);
     cudaDeviceSynchronize();
+    */
   }
 
   __host__ size_t GetMaxSize() const
   {
+    return m_maxSize;
+    /*
     size_t ret;
     cudaMemcpy(&ret, &m_maxSize, sizeof(size_t), cudaMemcpyDeviceToHost);
     cudaDeviceSynchronize();
     return ret;
+    */
   }
 
   __host__ void SetMaxSize(size_t val)
   {
+    m_maxSize = val;
+    /*
     cudaMemcpy(&m_maxSize, &val, sizeof(size_t), cudaMemcpyHostToDevice);
     cudaDeviceSynchronize();
+    */
   }
 
   __device__ const T& operator[](size_t ind) const
   { return m_arr[ind]; }
 
-  __device__ T& operator[](size_t ind)
+  __host__ __device__ T& operator[](size_t ind)
   { return m_arr[ind]; }
 
   __host__ const T Get(size_t ind) const
   {
+    return m_arr[ind];
+    /*
     T ret;
     cudaMemcpy(&ret, &m_arr[ind], sizeof(T), cudaMemcpyDeviceToHost);
     cudaDeviceSynchronize();
     return ret;
+    */
   }
 
   __host__ void Set(size_t ind, const T &val)
   {
+    //m_arr[ind] = val;
+
     cudaMemcpy(&m_arr[ind], &val, sizeof(T), cudaMemcpyHostToDevice);
     cudaDeviceSynchronize();
+
   }
 
   __host__ void Resize(size_t newSize)
