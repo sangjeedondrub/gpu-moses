@@ -25,7 +25,8 @@ int main()
   cerr << "Start Decoding:" << endl;
   string line;
   while (getline(cin, line)) {
-	  Manager mgr(line, pt);
+	  Manager *mgr = new Manager(line, pt);
+	  mgr->Process();
   }
 
   cerr << "Finished" << endl;
