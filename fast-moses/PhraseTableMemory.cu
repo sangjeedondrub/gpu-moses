@@ -83,7 +83,9 @@ Node &Node::AddNode(const std::vector<VOCABID> &words, size_t pos)
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-PhraseTableMemory::PhraseTableMemory() {
+PhraseTableMemory::PhraseTableMemory()
+:m_root(new Node)
+{
 	// TODO Auto-generated constructor stub
 
 }
@@ -111,7 +113,7 @@ void PhraseTableMemory::Load(const std::string &path)
 		*/
 
 		vector<VOCABID> sourceIds = vocab.GetOrCreateIds(toks[0]);
-		Node &node = m_root.AddNode(sourceIds);
+		Node &node = m_root->AddNode(sourceIds);
 
 		TargetPhrase *tp = TargetPhrase::CreateFromString(toks[1]);
 		tp->GetScores().CreateFromString(toks[2]);
