@@ -16,12 +16,18 @@ template<typename T>
 class Array : public Managed
 {
 public:
-  __host__ Array(size_t size)
+  __host__ Array(size_t size = 0)
   {
     m_size = size;
     m_maxSize = size;
-    //m_arr = (T*) malloc(sizeof(T) * size);
-    cudaMalloc(&m_arr, sizeof(T) * size);    
+
+    if (size) {
+      //m_arr = (T*) malloc(sizeof(T) * size);
+      cudaMalloc(&m_arr, sizeof(T) * size);
+    }
+    else {
+      m_arr = NULL;
+    }
   }
 
   __device__ ~Array()
@@ -62,16 +68,23 @@ public:
 
   __host__ void Resize(size_t newSize)
   {
-    if (newSize <= m_maxSize) {
-      m_size = newSize;
-    }
-    else {
+    if (newSize > m_maxSize) {
       T *temp;
       cudaMalloc(&temp, sizeof(T) * newSize);
+      cudaDeviceSynchronize();
+
       cudaMemcpy(temp, m_arr, sizeof(T) * m_size, cudaMemcpyDeviceToDevice);
+      cudaDeviceSynchronize();
+
       cudaFree(m_arr);
+      cudaDeviceSynchronize();
+
       m_arr = temp;
+
+      m_maxSize = newSize;
     }
+
+    m_size = newSize;
   }
 
   __host__ void push_back(T &v)
