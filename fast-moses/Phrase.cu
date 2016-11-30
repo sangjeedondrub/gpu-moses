@@ -2,6 +2,7 @@
 #include <vector>
 #include "Phrase.h"
 #include "MyVocab.h"
+#include "CUDA/Util.h"
 
 using namespace std;
 
@@ -31,14 +32,17 @@ __host__ std::string Phrase::Debug() const
 }
 
 
-__global__ void checkPhrase(VOCABID &totVocabId, const Phrase &phrase)
+__global__ void checkPhrase(char *str, const Phrase &phrase)
 {
   size_t size = phrase.size();
-  totVocabId = size;
+  size_t totVocabId = size;
   for (size_t i = 0; i < size; ++i) {
     VOCABID id = phrase[i];
     totVocabId += id;
   }
+
+  char *tmp = itoaDevice(totVocabId);
+  StrCpy(str, tmp);
 
   //cudaMemcpy(&totVocabId, &sum, sizeof(VOCABID), cudaMemcpyDeviceToHost);                                             
 }

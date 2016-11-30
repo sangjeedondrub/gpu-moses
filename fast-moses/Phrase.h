@@ -34,5 +34,5 @@ protected:
 	Array<VOCABID> m_vec;
 };
 
-__global__ void checkPhrase(VOCABID &totVocabId, const Phrase &phrase);
+__global__ void checkPhrase(char *str, const Phrase &phrase);
 
