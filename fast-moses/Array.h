@@ -30,9 +30,7 @@ public:
   }
 
   __device__ size_t size() const
-  {
-    return m_size;
-  }
+  { return m_size; }
 
   __host__ size_t GetSize() const
   {
@@ -60,6 +58,30 @@ public:
   {
     cudaMemcpy(&m_arr[ind], &val, sizeof(T), cudaMemcpyHostToDevice);
     //cudaDeviceSynchronize();
+  }
+
+  __host__ void Resize(size_t newSize)
+  {
+    if (newSize <= m_maxSize) {
+      m_size = newSize;
+    }
+    else {
+      T *temp;
+      cudaMalloc(&temp, sizeof(T) * newSize);
+      cudaMemcpy(temp, m_arr, sizeof(T) * m_size, cudaMemcpyDeviceToDevice);
+      cudaFree(m_arr);
+      m_arr = temp;
+    }
+  }
+
+  __host__ void push_back(T &v)
+  {
+    if (m_size >= m_maxSize) {
+      Resize(1 + m_maxSize * 2);
+    }
+
+    m_arr[m_size] = v;
+    ++m_size;
   }
 
   __host__ std::string Debug() const
