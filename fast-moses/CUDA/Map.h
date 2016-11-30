@@ -40,6 +40,7 @@ public:
 	:Parent(vec)
 	{}
 
+  __host__
   void FindMap(thrust::device_vector<bool> &out, const thrust::device_vector<Pair> &sought) const
   {
     out.resize(sought.size());
@@ -52,6 +53,7 @@ public:
 
   }
 
+  __host__
   void FindMap(thrust::host_vector<bool> &out, const thrust::host_vector<Pair> &sought) const
   {
     thrust::device_vector<bool> d_out(sought.size());
@@ -74,39 +76,47 @@ public:
 
   }
 
-  unsigned int LowerBound(const Key &key) {
-	Pair element(key, Value());
-	thrust::device_vector<Pair> values(1, element);
-	//values[0] = element;
-	thrust::device_vector<unsigned int> output(1);
+  __host__
+  unsigned int LowerBound(const Key &key) const {
+    Pair element(key, Value());
+    thrust::device_vector<Pair> values(1, element);
+    //values[0] = element;
+    thrust::device_vector<unsigned int> output(1);
 
-	thrust::lower_bound(
-									Parent::m_vec.begin(), Parent::m_vec.end(),
-									values.begin(), values.end(),
-									output.begin(),
-									Compare() );
+    thrust::lower_bound(
+                    Parent::m_vec.begin(), Parent::m_vec.end(),
+                    values.begin(), values.end(),
+                    output.begin(),
+                    Compare() );
 
-	return output[0];
+    return output[0];
+  }
+
+  __device__
+  unsigned int LowerBoundDevice(const Key &key) const {
+
   }
 
   // assumes there's nothing there. Otherwise it will be a multiset
+  __host__
   void Insert(const Key &key, const Value &value)
   {
-	Pair element(key, value);
-	Iterator iter = thrust::lower_bound(thrust::device,
-									Parent::m_vec.begin(), Parent::m_vec.end(),
-									element,
-									Compare() );
+    Pair element(key, value);
+    Iterator iter = thrust::lower_bound(thrust::device,
+                    Parent::m_vec.begin(), Parent::m_vec.end(),
+                    element,
+                    Compare() );
     Parent::m_vec.insert(iter, element);
 
   }
 
+  __host__
   void Insert(Iterator &iter, Pair &element)
   {
     Parent::m_vec.insert(iter, element);
-
   }
 
+  __host__
   std::string Debug() const
   {
     std::ostringstream strm;

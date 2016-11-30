@@ -40,12 +40,15 @@ public:
 
   }
 
+  __host__
   const Vec &GetVec() const
   { return m_vec; }
 
+  __host__
   size_t size() const
   { return m_vec.size(); }
 
+  __host__
   void Find(thrust::device_vector<bool> &out, const thrust::device_vector<T> &sought) const
   {
     out.resize(sought.size());
@@ -55,6 +58,7 @@ public:
                       Compare() );
   }
 
+  __host__
   void Find(thrust::host_vector<bool> &out, const thrust::host_vector<T> &sought) const
   {
     thrust::device_vector<bool> d_out(sought.size());
@@ -62,6 +66,7 @@ public:
     out = d_out;
   }
 
+  __host__
   bool Find(const T &sought) const
   {
     thrust::host_vector<T> d_sought(1, sought);
@@ -74,6 +79,7 @@ public:
   }
 
   // assumes there's nothing there. Otherwise it will be a multiset
+  __host__
   void Insert(const T &val)
   {
     typedef typename thrust::device_vector<T>::iterator Iter;
@@ -86,6 +92,7 @@ public:
   }
 
   // assume key is in there. Otherwise will delete the next 1 along!
+  __host__
   void Erase(const T &val)
   {
     typedef typename thrust::device_vector<T>::iterator Iter;
@@ -97,6 +104,7 @@ public:
     m_vec.erase(iter);
   }
 
+  __host__
   std::string Debug() const
   {
     std::ostringstream strm;
