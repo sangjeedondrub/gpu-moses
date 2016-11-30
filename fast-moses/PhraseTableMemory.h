@@ -19,12 +19,17 @@ public:
 
   Node();
 
+  virtual ~Node();
+
+  __host__
   const Children &GetChildren() const
   { return m_children; }
 
+  __host__
   Node &AddNode(const std::vector<VOCABID> &words, size_t pos = 0);
 
-  virtual ~Node();
+  __device__
+  void Lookup(const Phrase &phrase, size_t pos = 0) const;
 
   TargetPhrases &GetTargetPhrases();
 

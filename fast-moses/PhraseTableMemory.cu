@@ -40,6 +40,7 @@ TargetPhrases &Node::GetTargetPhrases()
   return *tps;
 }
 
+__host__
 Node &Node::AddNode(const std::vector<VOCABID> &words, size_t pos)
 {
 	//cerr << "pos=" << pos << endl;
@@ -80,6 +81,12 @@ Node &Node::AddNode(const std::vector<VOCABID> &words, size_t pos)
 
 	node = &node->AddNode(words, pos + 1);
 	return *node;
+}
+
+__device__
+void Node::Lookup(const Phrase &phrase, size_t pos) const
+{
+
 }
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -147,6 +154,6 @@ void PhraseTableMemory::Load(const std::string &path)
 __device__
 void PhraseTableMemory::Lookup(const Phrase &phrase, size_t start, size_t end) const
 {
-
+  m_root.Lookup(phrase, 0);
 }
 
