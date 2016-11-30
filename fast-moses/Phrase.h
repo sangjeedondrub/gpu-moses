@@ -9,7 +9,7 @@
 #include <string>
 #include "TypeDef.h"
 #include "Array.h"
-#include "Managed.h"
+#include "CUDA/Managed.h"
 
 class Phrase : public Managed
 {

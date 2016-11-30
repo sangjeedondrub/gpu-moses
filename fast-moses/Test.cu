@@ -2,10 +2,10 @@
 #include <iterator>
 #include <iostream>
 #include "Test.h"
-#include "Managed.h"
 #include "Phrase.h"
 #include "CUDA/Set.h"
 #include "CUDA/Map.h"
+#include "CUDA/Managed.h"
 
 using namespace std;
 

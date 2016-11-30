@@ -9,7 +9,7 @@
 #include <thrust/device_vector.h>
 #include "TypeDef.h"
 #include "Array.h"
-#include "Managed.h"
+#include "CUDA/Managed.h"
 
 class Scores : public Managed
 {

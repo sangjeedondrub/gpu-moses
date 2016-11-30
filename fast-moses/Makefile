@@ -28,10 +28,10 @@ LIBS = -L$(DALM_DIR)/lib -L$(KENLM_DIR)/lib  \
 OBJECTS = InputFileStream.o MyVocab.o TypeDef.o \
 		Util.o \
 		Bitmap.o Hypothesis.o  InputPath.o InputPaths.o \
-		Main.o Managed.o Manager.o Phrase.o PhraseTableMemory.o Range.o \
+		Main.o Manager.o Phrase.o PhraseTableMemory.o Range.o \
 		Scores.o Stack.o Stacks.o \
 		TargetPhrase.o TargetPhrases.o Test.o \
-		CUDA/Util.o
+		CUDA/Managed.o CUDA/Util.o
 
 
 OBJECTS_fast_moses = $(OBJECTS)

@@ -22,12 +22,11 @@ int main()
   PhraseTableMemory pt;
   pt.Load("phrase-table");
 
-  /*
+  cerr << "Start Decoding:" << endl;
   string line;
   while (getline(cin, line)) {
 	  Manager mgr(line, pt);
   }
-  */
 
   cerr << "Finished" << endl;
 }

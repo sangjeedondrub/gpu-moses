@@ -9,7 +9,7 @@
 #include <vector>
 #include "TypeDef.h"
 #include "TargetPhrases.h"
-#include "Managed.h"
+#include "CUDA/Managed.h"
 #include "CUDA/Map.h"
 
 class Node : public Managed

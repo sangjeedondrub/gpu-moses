@@ -10,7 +10,7 @@
 #include <sstream>
 #include <string>
 #include <cuda.h>
-#include "Managed.h"
+#include "CUDA/Managed.h"
 
 template<typename T>
 class Array : public Managed

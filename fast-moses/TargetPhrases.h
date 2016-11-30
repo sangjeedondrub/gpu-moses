@@ -8,7 +8,7 @@
 #pragma once
 #include "TargetPhrase.h"
 #include "Array.h"
-#include "Managed.h"
+#include "CUDA/Managed.h"
 
 class TargetPhrases : public Managed
 {
