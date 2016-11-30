@@ -8,6 +8,7 @@
 #pragma once
 #include <thrust/device_vector.h>
 #include "TargetPhrase.h"
+#include "Array.h"
 
 class TargetPhrases
 {
@@ -22,7 +23,7 @@ public:
   __host__ std::string Debug() const;
 
 protected:
-  thrust::device_vector<const TargetPhrase*> m_vec;
+  Array<const TargetPhrase*> m_vec;
   // not right. should be a device vector but causes compile error
 
 };

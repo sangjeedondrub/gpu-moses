@@ -5,8 +5,8 @@ using namespace std;
 
 TargetPhrases::~TargetPhrases()
 {
-  for (size_t i = 0; i < m_vec.size(); ++i) {
-    const TargetPhrase *tp = m_vec[i];
+  for (size_t i = 0; i < m_vec.GetSize(); ++i) {
+    const TargetPhrase *tp = m_vec.Get(i);
     delete tp;
   }
 }
@@ -20,8 +20,8 @@ __host__ std::string TargetPhrases::Debug() const
 {
   stringstream strm;
 
-  for (size_t i = 0; i < m_vec.size(); ++i) {
-    const TargetPhrase *tp = m_vec[i];
+  for (size_t i = 0; i < m_vec.GetSize(); ++i) {
+    const TargetPhrase *tp = m_vec.Get(i);
     strm << tp->Debug() << endl;
   }
   return strm.str();

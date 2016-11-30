@@ -46,6 +46,26 @@ public:
     return ret;
   }
 
+  __host__ void SetSize(size_t val)
+  {
+    cudaMemcpy(&m_size, &val, sizeof(size_t), cudaMemcpyHostToDevice);
+    //cudaDeviceSynchronize();
+  }
+
+  __host__ size_t GetMaxSize() const
+  {
+    size_t ret;
+    cudaMemcpy(&ret, &m_maxSize, sizeof(size_t), cudaMemcpyDeviceToHost);
+    //cudaDeviceSynchronize();
+    return ret;
+  }
+
+  __host__ void SetMaxSize(size_t val)
+  {
+    cudaMemcpy(&m_maxSize, &val, sizeof(size_t), cudaMemcpyHostToDevice);
+    //cudaDeviceSynchronize();
+  }
+
   __device__ const T& operator[](size_t ind) const
   { return m_arr[ind]; }
 
@@ -68,33 +88,36 @@ public:
 
   __host__ void Resize(size_t newSize)
   {
-    if (newSize > m_maxSize) {
+    if (newSize > GetMaxSize()) {
       T *temp;
       cudaMalloc(&temp, sizeof(T) * newSize);
-      cudaDeviceSynchronize();
+      //cudaDeviceSynchronize();
 
-      cudaMemcpy(temp, m_arr, sizeof(T) * m_size, cudaMemcpyDeviceToDevice);
-      cudaDeviceSynchronize();
+      size_t currSize = GetSize();
+      cudaMemcpy(temp, m_arr, sizeof(T) * currSize, cudaMemcpyDeviceToDevice);
+      //cudaDeviceSynchronize();
 
       cudaFree(m_arr);
-      cudaDeviceSynchronize();
+      //cudaDeviceSynchronize();
 
       m_arr = temp;
 
-      m_maxSize = newSize;
+      SetMaxSize(newSize);
     }
 
-    m_size = newSize;
+     SetSize(newSize);
   }
 
-  __host__ void push_back(T &v)
+  __host__ void push_back(const T &v)
   {
-    if (m_size >= m_maxSize) {
-      Resize(1 + m_maxSize * 2);
+    size_t currSize = GetSize();
+    size_t maxSize = GetMaxSize();
+    if (currSize >= maxSize) {
+      Resize(1 + maxSize * 2);
     }
 
-    m_arr[m_size] = v;
-    ++m_size;
+    Set(currSize, v);
+    SetMaxSize(maxSize + 1);
   }
 
   __host__ std::string Debug() const
