@@ -78,7 +78,7 @@ Node &Node::AddNode(const std::vector<VOCABID> &words, size_t pos)
 		m_children.Insert(vocabId, node);
 	}
 
-	node = &AddNode(words, pos + 1);
+	node = &node->AddNode(words, pos + 1);
 	return *node;
 }
 
