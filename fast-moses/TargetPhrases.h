@@ -6,11 +6,11 @@
  */
 
 #pragma once
-#include <thrust/device_vector.h>
 #include "TargetPhrase.h"
 #include "Array.h"
+#include "Managed.h"
 
-class TargetPhrases
+class TargetPhrases : public Managed
 {
 public:
 

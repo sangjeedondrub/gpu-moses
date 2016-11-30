@@ -18,6 +18,10 @@
 
 using namespace std;
 
+Node::Node()
+:tps(NULL)
+{}
+
 Node::~Node()
 {
   const Children::Vec &vec = m_children.GetVec();
@@ -26,6 +30,14 @@ Node::~Node()
     const Node *node = pair.second;
     delete node;
   }
+}
+
+TargetPhrases &Node::GetTargetPhrases()
+{
+  if (tps == NULL) {
+    tps = new TargetPhrases();
+  }
+  return *tps;
 }
 
 Node &Node::AddNode(const std::vector<VOCABID> &words, size_t pos)
@@ -107,7 +119,7 @@ void PhraseTableMemory::Load(const std::string &path)
     TargetPhrases &tps = node.GetTargetPhrases();
 		tps.Add(tp);
 
-		cerr << "tp=" << tp->Debug() << endl;
+		cerr << endl << "tp=" << tp->Debug() << endl;
 
 		VOCABID *totVocabId;
 		cudaMallocHost(&totVocabId, sizeof(VOCABID));
@@ -124,6 +136,8 @@ void PhraseTableMemory::Load(const std::string &path)
     size_t *tot;
     cudaMallocHost(&tot, sizeof(size_t));
 		checkTargetPhrases<<<1,1>>>(*tot, tps);
+		cudaDeviceSynchronize();
+    cerr << "tps=" << *tot << endl;
 
 	}
 

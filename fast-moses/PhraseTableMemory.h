@@ -15,18 +15,19 @@
 class Node : public Managed
 {
 public:
+  Node();
+
   Node &AddNode(const std::vector<VOCABID> &words, size_t pos = 0);
 
   virtual ~Node();
 
-  TargetPhrases &GetTargetPhrases()
-  { return tps; }
+  TargetPhrases &GetTargetPhrases();
 
 protected:
   typedef Map<VOCABID, Node*> Children;
   Children m_children;
 
-  TargetPhrases tps;
+  TargetPhrases *tps;
 };
 
 /////////////////////////////////////////////////////////////////////////////////
