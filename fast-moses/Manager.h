@@ -24,6 +24,9 @@ public:
 	__device__ const Phrase &GetInput() const
 	{ return *m_input; }
 
+	__device__ const PhraseTableMemory &GetPhraseTable() const
+  { return m_pt; }
+
 protected:
 	Phrase *m_input;
 	Stacks m_stacks;

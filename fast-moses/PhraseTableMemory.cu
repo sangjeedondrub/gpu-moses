@@ -143,3 +143,10 @@ void PhraseTableMemory::Load(const std::string &path)
 
 	cerr << "finished loading" << endl;
 }
+
+__device__
+void PhraseTableMemory::Lookup(const Phrase &phrase, size_t start, size_t end) const
+{
+
+}
+

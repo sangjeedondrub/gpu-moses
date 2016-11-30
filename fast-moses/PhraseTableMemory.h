@@ -43,6 +43,9 @@ public:
 
 	void Load(const std::string &path);
 
+	__device__
+	void Lookup(const Phrase &phrase, size_t start, size_t end) const;
+
 protected:
 	Node *m_root;
 };

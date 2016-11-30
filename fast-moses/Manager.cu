@@ -28,6 +28,17 @@ __global__ void checkManager(char *str, const Manager &mgr)
 ///////////////////////////////////////
 __global__ void Lookup(Manager &mgr)
 {
+  int start = blockIdx.x;
+  int end = threadIdx.x;
+
+  if (start > end) {
+    return;
+  }
+
+  const Phrase &input = mgr.GetInput();
+  const PhraseTableMemory &pt = mgr.GetPhraseTable();
+  pt.Lookup(input, start, end);
+
 
 }
 
@@ -42,6 +53,7 @@ void Manager::Process()
 
   size_t inputSize = m_input->GetSize();
   cerr << "inputSize=" << inputSize << endl;
+  Lookup<<<inputSize, inputSize>>>(*this);
 
   /*
   m_stacks.Init(*this, m_input->GetSize() + 1);
