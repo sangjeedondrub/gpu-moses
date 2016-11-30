@@ -119,6 +119,7 @@ void PhraseTableMemory::Load(const std::string &path)
     TargetPhrases &tps = node.GetTargetPhrases();
 		tps.Add(tp);
 
+		cerr << "node=" << &node << " " << node.GetChildren().size() << endl;
 		/*
 		cerr << endl << "tp=" << tp->Debug() << endl;
 

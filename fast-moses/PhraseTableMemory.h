@@ -15,7 +15,12 @@
 class Node : public Managed
 {
 public:
+  typedef Map<VOCABID, Node*> Children;
+
   Node();
+
+  const Children &GetChildren() const
+  { return m_children; }
 
   Node &AddNode(const std::vector<VOCABID> &words, size_t pos = 0);
 
@@ -24,7 +29,6 @@ public:
   TargetPhrases &GetTargetPhrases();
 
 protected:
-  typedef Map<VOCABID, Node*> Children;
   Children m_children;
 
   TargetPhrases *tps;
