@@ -19,13 +19,13 @@ int main()
   Test();
 
   FastMoses::MyVocab vocab;
-  PhraseTableMemory pt;
-  pt.Load("phrase-table");
+  PhraseTableMemory *pt = new PhraseTableMemory();
+  pt->Load("phrase-table");
 
   cerr << "Start Decoding:" << endl;
   string line;
   while (getline(cin, line)) {
-	  Manager *mgr = new Manager(line, pt);
+	  Manager *mgr = new Manager(line, *pt);
 	  mgr->Process();
   }
 

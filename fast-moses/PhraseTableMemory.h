@@ -35,7 +35,7 @@ protected:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-class PhraseTableMemory
+class PhraseTableMemory : public Managed
 {
 public:
 	PhraseTableMemory();
@@ -47,6 +47,6 @@ public:
 	void Lookup(const Phrase &phrase, size_t start, size_t end) const;
 
 protected:
-	Node *m_root;
+	Node m_root;
 };
 
