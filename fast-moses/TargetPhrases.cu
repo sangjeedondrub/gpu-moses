@@ -26,3 +26,9 @@ __host__ std::string TargetPhrases::Debug() const
   }
   return strm.str();
 }
+
+__global__ void checkTargetPhrases(size_t &tot, const TargetPhrases &tps)
+{
+  //tot = tps.size();
+}
+

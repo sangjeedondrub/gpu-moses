@@ -15,11 +15,17 @@ public:
 
   virtual ~TargetPhrases();
 
+  __device__ size_t size() const
+  { return m_vec.size(); }
+
   __host__ void Add(const TargetPhrase *tp);
   __host__ std::string Debug() const;
 
 protected:
-  thrust::host_vector<const TargetPhrase*> m_vec;
+  thrust::device_vector<const TargetPhrase*> m_vec;
   // not right. should be a device vector but causes compile error
 
 };
+
+__global__ void checkTargetPhrases(size_t &tot, const TargetPhrases &tps);
+
