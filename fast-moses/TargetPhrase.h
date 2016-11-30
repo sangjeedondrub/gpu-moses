@@ -16,9 +16,9 @@ class TargetPhrase : public Phrase
 public:
 	static TargetPhrase *CreateFromString(const std::string &str);
 
-	TargetPhrase(const std::vector<VOCABID> &targetIds);
+	__host__ TargetPhrase(const std::vector<VOCABID> &targetIds);
 
-	Scores &GetScores()
+	__host__ Scores &GetScores()
 	{ return m_scores; }
 
   __host__ std::string Debug() const;
