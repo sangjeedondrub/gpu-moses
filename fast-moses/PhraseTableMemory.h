@@ -44,6 +44,6 @@ public:
 	void Load(const std::string &path);
 
 protected:
-	Node *m_root;
+	Node m_root;
 };
 

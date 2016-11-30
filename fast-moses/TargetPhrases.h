@@ -28,5 +28,5 @@ protected:
 
 };
 
-__global__ void checkTargetPhrases(size_t &tot, const TargetPhrases &tps);
+__global__ void checkTargetPhrases(char *str, const TargetPhrases &tps);
 

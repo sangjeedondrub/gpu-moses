@@ -84,7 +84,6 @@ Node &Node::AddNode(const std::vector<VOCABID> &words, size_t pos)
 
 /////////////////////////////////////////////////////////////////////////////////
 PhraseTableMemory::PhraseTableMemory()
-:m_root(new Node)
 {
 	// TODO Auto-generated constructor stub
 
@@ -113,7 +112,7 @@ void PhraseTableMemory::Load(const std::string &path)
 		*/
 
 		vector<VOCABID> sourceIds = vocab.GetOrCreateIds(toks[0]);
-		Node &node = m_root->AddNode(sourceIds);
+		Node &node = m_root.AddNode(sourceIds);
 
 		TargetPhrase *tp = TargetPhrase::CreateFromString(toks[1]);
 		tp->GetScores().CreateFromString(toks[2]);
@@ -138,11 +137,11 @@ void PhraseTableMemory::Load(const std::string &path)
 		cerr << "totVocabId=" << *totVocabId << " " << *totScore << endl;
 		 */
 
-    size_t *tot;
-    cudaMallocHost(&tot, sizeof(size_t));
-		checkTargetPhrases<<<1,1>>>(*tot, tps);
+    char *str;
+    cudaMallocHost(&str, 10000);
+		checkTargetPhrases<<<1,1>>>(str, tps);
 		cudaDeviceSynchronize();
-    cerr << "tps=" << *tot << endl;
+    cerr << "tps=" << str << endl;
 
 	}
 
