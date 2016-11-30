@@ -31,7 +31,7 @@ protected:
 
 };
 
-__global__ void checkTargetPhrase(VOCABID &totVocabId, SCORE &totScore, const TargetPhrase &phrase);
+__global__ void checkTargetPhrase(char *str, const TargetPhrase &phrase);
 
 
 

@@ -1,6 +1,7 @@
 #include <sstream>
 #include "TargetPhrase.h"
 #include "MyVocab.h"
+#include "CUDA/Util.h"
 
 using namespace std;
 
@@ -28,8 +29,11 @@ __host__ std::string TargetPhrase::Debug() const
   return strm.str();
 }
 
-__global__ void checkTargetPhrase(VOCABID &totVocabId, SCORE &totScore, const TargetPhrase &phrase)
+__global__ void checkTargetPhrase(char *str, const TargetPhrase &phrase)
 {
+  VOCABID totVocabId;
+  SCORE totScore;
+
   size_t size = phrase.size();
   totVocabId = size;
   for (size_t i = 0; i < size; ++i) {
@@ -43,6 +47,9 @@ __global__ void checkTargetPhrase(VOCABID &totVocabId, SCORE &totScore, const Ta
       SCORE score = phrase.GetScores()[i];
       totScore += score;
   }
+
+  char *tmp = itoaDevice(totVocabId + totScore);
+  StrCpy(str, tmp);
 
 }
 

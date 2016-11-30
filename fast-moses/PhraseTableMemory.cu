@@ -131,13 +131,9 @@ void PhraseTableMemory::Load(const std::string &path)
 		cudaDeviceSynchronize();
 		cerr << "totVocabId=" << str << endl;
 
-		/*
-		SCORE *totScore;
-		cudaMallocHost(&totScore, sizeof(SCORE));
-		checkTargetPhrase<<<1,1>>>(*totVocabId, *totScore, *tp);
+		checkTargetPhrase<<<1,1>>>(str, *tp);
 		cudaDeviceSynchronize();
-		cerr << "totVocabId=" << *totVocabId << " " << *totScore << endl;
-		 */
+		cerr << "totVocabId=" << str << endl;
 
 		checkTargetPhrases<<<1,1>>>(str, tps);
 		cudaDeviceSynchronize();
