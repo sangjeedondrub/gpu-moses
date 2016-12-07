@@ -323,8 +323,8 @@ public:
   {
     std::ostringstream strm;
 
-    for (size_t i = 0; i < Parent::m_vec.size(); ++i) {
-      const Pair &pair = Parent::m_vec[i];
+    for (size_t i = 0; i < Parent::m_arr.GetSize(); ++i) {
+      const Pair &pair = Parent::m_arr[i];
       const Key &key = pair.first;
       const Value &value = pair.second;
       strm << key << "=" << value << " ";
