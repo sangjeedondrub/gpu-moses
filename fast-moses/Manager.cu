@@ -53,6 +53,8 @@ void Manager::Process()
 
   size_t inputSize = m_input->GetSize();
   cerr << "inputSize=" << inputSize << endl;
+  m_tpsArr.Resize(inputSize * inputSize, NULL);
+
   Lookup<<<inputSize, inputSize>>>(*this);
 
   /*

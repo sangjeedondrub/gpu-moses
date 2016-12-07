@@ -18,7 +18,7 @@ template<typename T, typename Compare = thrust::less<T> >
 class Array : public Managed
 {
 public:
-  __host__ Array(size_t size = 0)
+  __host__ Array(size_t size = 0, const T &val = T())
   {
     m_size = size;
     m_maxSize = size;
@@ -110,7 +110,7 @@ public:
 
   }
 
-  __host__ void Resize(size_t newSize)
+  __host__ void Resize(size_t newSize, const T &val = T())
   {
     //std::cerr << "newSize=" << newSize << std::endl;
     if (newSize > GetMaxSize()) {

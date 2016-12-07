@@ -9,9 +9,11 @@
 #include <string>
 #include "Stacks.h"
 #include "CUDA/Managed.h"
+#include "CUDA/Array.h"
 
 class Phrase;
 class PhraseTableMemory;
+class TargetPhrases;
 
 class Manager : public Managed
 {
@@ -31,6 +33,7 @@ protected:
 	Phrase *m_input;
 	Stacks m_stacks;
 	const PhraseTableMemory &m_pt;
+	Array<const TargetPhrases*> m_tpsArr;
 };
 
 
