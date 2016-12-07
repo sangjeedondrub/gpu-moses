@@ -35,7 +35,7 @@ public:
   void Insert(const T &val)
   {
     thrust::pair<bool, size_t> upper;
-    upper = m_arr.UpperBound(val);
+    upper = UpperBound(val);
     assert(!upper.first);
     size_t ind = upper.second;
     //std::cerr << "ind=" << ind << std::endl;
