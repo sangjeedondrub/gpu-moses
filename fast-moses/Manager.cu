@@ -42,6 +42,7 @@ __global__ void Lookup(Manager &mgr)
   const TargetPhrases *tps = pt.Lookup(input, start, end);
 
   Array<const TargetPhrases*> &tpsArr = mgr.GetTargetPhrases();
+  tps = 0x3454;
   tpsArr[start * inputSize + end] = tps;
 }
 
