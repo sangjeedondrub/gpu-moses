@@ -233,10 +233,10 @@ public:
   __host__
   void Insert(const T &val)
   {
-    thrust::pair<bool, size_t> pair;
-    pair = m_arr.UpperBound(val);
-    assert(!pair.first);
-    size_t ind = pair.second;
+    thrust::pair<bool, size_t> upper;
+    upper = m_arr.UpperBound(val);
+    assert(!upper.first);
+    size_t ind = upper.second;
     //std::cerr << "ind=" << ind << std::endl;
 
     m_arr.Insert(ind, val);
@@ -252,4 +252,50 @@ protected:
   Array<T> m_arr;
 
 };
+
+////////////////////////////////////////////////////////
+template<typename Key, typename Value>
+class ComparePair2
+{
+public:
+  typedef thrust::pair<Key, Value> Pair;
+
+  __device__ bool operator()(const Pair &a, const Pair &b)
+  {
+    return a.first < b.first;
+  }
+
+};
+
+template<typename Key, typename Value, typename Compare = ComparePair2<Key, Value> >
+class Map2 : public Set2<thrust::pair<Key, Value>, Compare>
+{
+public:
+  typedef thrust::pair<Key, Value> Pair;
+  typedef Set2<Pair, Compare> Parent;
+
+  __host__
+  void Insert(const Key &key, const Value &value)
+  {
+    Pair element(key, value);
+    Parent::Insert(element);
+  }
+
+  __host__
+  std::string Debug() const
+  {
+    std::ostringstream strm;
+
+    for (size_t i = 0; i < Parent::m_vec.size(); ++i) {
+      const Pair &pair = Parent::m_vec[i];
+      const Key &key = pair.first;
+      const Value &value = pair.second;
+      strm << key << "=" << value << " ";
+    }
+
+    return strm.str();
+  }
+
+};
+
 

@@ -218,11 +218,22 @@ void Test5()
   cerr << "set2=" << s.Debug() << endl;
 }
 
+void Test6()
+{
+  Map<int, float> m;
+  m.Insert(4, 5.45);
+  m.Insert(6, 5654.34);
+  m.Insert(3, 1.99);
+
+  cerr << "map2=" << m.Debug() << endl;
+}
+
 void Test()
 {
   //Test1();
   //Test2();
   //Test3();
   //Test4();
-  Test5();
+  //Test5();
+  Test6();
 }
