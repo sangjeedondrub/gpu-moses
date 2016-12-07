@@ -13,7 +13,7 @@
 #include <cuda.h>
 #include "CUDA/Managed.h"
 
-template<typename T>
+template<typename T, typename Compare = thrust::less<T> >
 class Array : public Managed
 {
 public:
@@ -164,11 +164,11 @@ public:
       const T &currEle = m_arr[i];
       //std::cerr << i << "=" << currEle << std::endl;
 
-      if (currEle < sought) {
+      if (Compare()(currEle, sought)) {
         // carry on, do nothing
         //std::cerr << "HH1" << std::endl;
       }
-      else if (sought < currEle) {
+      else if (Compare()(sought, currEle)) {
         // overshot without finding sought
         //std::cerr << "HH2" << std::endl;
         ret.first = false;
