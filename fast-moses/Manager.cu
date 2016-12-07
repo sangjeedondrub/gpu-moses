@@ -58,7 +58,9 @@ void Manager::Process()
   cerr << "inputSize=" << inputSize << endl;
   m_tpsArr.Resize(inputSize * inputSize, NULL);
 
+  cerr << "before:" << DebugTPSArr() << endl;
   Lookup<<<inputSize, inputSize>>>(*this);
+  cerr << "after:" << DebugTPSArr() << endl;
 
   /*
   m_stacks.Init(*this, m_input->GetSize() + 1);
@@ -68,4 +70,11 @@ void Manager::Process()
   */
 }
 
-
+std::string Manager::DebugTPSArr() const
+{
+  std::stringstream strm;
+  for (size_t i = 0; i < m_tpsArr.GetSize(); ++i) {
+    strm << m_tpsArr[i] << " ";
+  }
+  return strm.str();
+}

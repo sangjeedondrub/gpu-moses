@@ -41,6 +41,8 @@ protected:
 	Stacks m_stacks;
 	const PhraseTableMemory &m_pt;
 	Array<const TargetPhrases*> m_tpsArr;
+
+	std::string DebugTPSArr() const;
 };
 
 
