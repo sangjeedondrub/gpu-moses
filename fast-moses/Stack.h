@@ -9,5 +9,5 @@ public:
 	void Add(Hypothesis *hypo);
 
 protected:
-	Set2<Hypothesis*> m_coll;
+	Set<Hypothesis*> m_coll;
 };

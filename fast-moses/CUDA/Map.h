@@ -9,7 +9,7 @@
 #include "Set.h"
 
 template<typename Key, typename Value>
-class ComparePair2
+class ComparePair
 {
 public:
   typedef thrust::pair<Key, Value> Pair;
@@ -22,12 +22,12 @@ public:
 
 };
 
-template<typename Key, typename Value, typename Compare = ComparePair2<Key, Value> >
-class Map2 : public Set2<thrust::pair<Key, Value>, Compare>
+template<typename Key, typename Value, typename Compare = ComparePair<Key, Value> >
+class Map : public Set<thrust::pair<Key, Value>, Compare>
 {
 public:
   typedef thrust::pair<Key, Value> Pair;
-  typedef Set2<Pair, Compare> Parent;
+  typedef Set<Pair, Compare> Parent;
 
   __host__
   void Insert(const Key &key, const Value &value)

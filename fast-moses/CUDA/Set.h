@@ -10,10 +10,10 @@
 #include <cassert>
 #include <sstream>
 #include <iostream>
-#include "../Array.h"
+#include "Array.h"
 
 template<typename T, typename Compare = thrust::less<T> >
-class Set2 : public Managed
+class Set : public Managed
 {
 public:
   typedef Array<T> Vec;

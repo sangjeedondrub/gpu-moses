@@ -8,7 +8,7 @@
 #include "TargetPhrase.h"
 #include "TargetPhrases.h"
 #include "Manager.h"
-#include "Array.h"
+#include "CUDA/Array.h"
 
 using namespace std;
 

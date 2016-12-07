@@ -7,7 +7,7 @@
 #include "CUDA/Set.h"
 #include "CUDA/Map.h"
 #include "CUDA/Managed.h"
-#include "Array.h"
+#include "CUDA/Array.h"
 
 using namespace std;
 
@@ -210,7 +210,7 @@ void Test4()
 
 void Test5()
 {
-  Set2<int> s;
+  Set<int> s;
 
   s.Insert(4);
   s.Insert(3);
@@ -222,7 +222,7 @@ void Test5()
 
 void Test6()
 {
-  Map2<int, float> m;
+  Map<int, float> m;
   m.Insert(4, 5.45);
   m.Insert(6, 5654.34);
   m.Insert(3, 1.99);

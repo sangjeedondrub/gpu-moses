@@ -8,7 +8,7 @@
 #pragma once
 #include <thrust/device_vector.h>
 #include "TypeDef.h"
-#include "Array.h"
+#include "CUDA/Array.h"
 #include "CUDA/Managed.h"
 
 class Scores : public Managed

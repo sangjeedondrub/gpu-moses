@@ -8,7 +8,7 @@
 #include <thrust/device_vector.h>
 #include <string>
 #include "TypeDef.h"
-#include "Array.h"
+#include "CUDA/Array.h"
 #include "CUDA/Managed.h"
 
 class Phrase : public Managed
