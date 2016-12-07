@@ -151,20 +151,27 @@ public:
     return strm.str();
   }
 
-  __host__ __device__ bool upperBound(const T &sought, size_t &ind)
+  __host__ bool upperBound(const T &sought, size_t &ind)
   {
+    //std::cerr << "sought=" << sought << std::endl;
+    //std::cerr << "m_size=" << m_size << std::endl;
     for (size_t i = 0; i < m_size; ++i) {
       const T &currEle = m_arr[i];
-      if (sought < currEle) {
+      //std::cerr << i << "=" << currEle << std::endl;
+
+      if (currEle < sought) {
         // carry on, do nothing
+	//std::cerr << "HH1" << std::endl;
       }
-      else if (currEle < sought) {
+      else if (sought < currEle) {
         // overshot without finding sought
+	//std::cerr << "HH2" << std::endl;
         ind = i;
         return false;
       }
       else {
         // =
+	//std::cerr << "HH3" << std::endl;
         ind = i;
         return true;
       }
