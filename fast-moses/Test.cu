@@ -6,7 +6,7 @@
 #include "CUDA/Set.h"
 #include "CUDA/Map.h"
 #include "CUDA/Managed.h"
-#include "CUDA/Vector.h"
+#include "Array.h"
 
 using namespace std;
 
@@ -176,16 +176,16 @@ void Test1()
 //////////////////////////
 template<typename T>
 __global__
-void Resize(Vector<T> &vec)
+void Resize(Array<T> &arr)
 {
-  vec.resize(100);
+  //vec.resize(100);
 
 }
 
 void Test4()
 {
-  Vector<int> vec;
-  Resize<int><<<1,1>>>(vec);
+  Array<int> arr;
+  Resize<int><<<1,1>>>(arr);
 }
 
 void Test()
