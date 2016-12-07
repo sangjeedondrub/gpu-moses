@@ -200,10 +200,22 @@ void Test4()
   found = arr.UpperBound(30);  cerr << 30 << " found=" << found.first << " " << found.second << endl;
 
   cerr << "BEFORE=" << arr.Debug() << endl;
-  arr.Insert(3);
+  //arr.Insert(3);
   cerr << "AFTER=" << arr.Debug() << endl;
 
   Resize<int><<<1,1>>>(arr);
+}
+
+void Test5()
+{
+  Set2<int> s;
+
+  s.Insert(4);
+  s.Insert(3);
+  s.Insert(5);
+  s.Insert(2);
+
+  cerr << "set2=" << s.Debug() << endl;
 }
 
 void Test()
@@ -211,5 +223,6 @@ void Test()
   //Test1();
   //Test2();
   //Test3();
-  Test4();
+  //Test4();
+  Test5();
 }

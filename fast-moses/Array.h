@@ -190,23 +190,16 @@ public:
     return ret;
   }
 
-  // assumes duplicate doesn't exist. Otherwise it will be a multiset
   __host__
-  void Insert(const T &val)
+  void Insert(size_t ind, const T &val)
   {
-    thrust::pair<bool, size_t> pair;
-    pair = UpperBound(val);
-    assert(!pair.first);
-    size_t ind = pair.second;
-    //std::cerr << "HH1" << Debug() << std::endl;    
-
     Resize(GetSize() + 1);
-    //std::cerr << "HH2" << Debug() << std::endl;
-    Shift(pair.second, 1);
-    //std::cerr << "HH3" << Debug() << std::endl;                                                        
+    //std::cerr << "HH5" << GetSize() << std::endl;
+    Shift(ind, 1);
+    //std::cerr << "HH6" << std::endl;
 
     m_arr[ind] = val;
-    //std::cerr << "HH4" << Debug() << std::endl;                                                          
+    //std::cerr << "HH7" << std::endl;
   }
 
 protected:
@@ -214,7 +207,7 @@ protected:
   T *m_arr;
 
   __host__
-  void Shift(size_t start, size_t offset)
+  void Shift(int start, int offset)
   {
     for (int destInd = m_size - 1; destInd >= start; --destInd) {
       int sourceInd = destInd - offset;
@@ -231,10 +224,29 @@ protected:
 
 ////////////////////////////////////////////////////////
 
-template<typename T>
+template<typename T, typename Compare = thrust::less<T> >
 class Set2 : public Managed
 {
 public:
+
+  // assumes there's nothing there. Otherwise it will be a multiset
+  __host__
+  void Insert(const T &val)
+  {
+    thrust::pair<bool, size_t> pair;
+    pair = m_arr.UpperBound(val);
+    assert(!pair.first);
+    size_t ind = pair.second;
+    //std::cerr << "ind=" << ind << std::endl;
+
+    m_arr.Insert(ind, val);
+  }
+
+  __host__
+  std::string Debug() const
+  {
+    return m_arr.Debug();
+  }
 
 protected:
   Array<T> m_arr;
