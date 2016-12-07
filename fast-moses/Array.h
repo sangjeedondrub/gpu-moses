@@ -151,7 +151,8 @@ public:
     return strm.str();
   }
 
-  __host__ bool upperBound(const T &sought, size_t &ind)
+  __host__
+  bool UpperBound(const T &sought, size_t &ind)
   {
     //std::cerr << "sought=" << sought << std::endl;
     //std::cerr << "m_size=" << m_size << std::endl;
@@ -161,17 +162,17 @@ public:
 
       if (currEle < sought) {
         // carry on, do nothing
-	//std::cerr << "HH1" << std::endl;
+        //std::cerr << "HH1" << std::endl;
       }
       else if (sought < currEle) {
         // overshot without finding sought
-	//std::cerr << "HH2" << std::endl;
+        //std::cerr << "HH2" << std::endl;
         ind = i;
         return false;
       }
       else {
         // =
-	//std::cerr << "HH3" << std::endl;
+        //std::cerr << "HH3" << std::endl;
         ind = i;
         return true;
       }
@@ -180,6 +181,16 @@ public:
     // sought is not in array
     ind = m_size;
     return false;
+  }
+
+  // assumes there's nothing there. Otherwise it will be a multiset
+  __host__
+  void Insert(const T &val)
+  {
+    typedef typename thrust::device_vector<T>::iterator Iter;
+
+    //Iter iter = UpperBound(val);
+    //m_vec.insert(iter, val);
   }
 
 protected:

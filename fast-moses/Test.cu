@@ -193,11 +193,11 @@ void Test4()
 
   size_t ind;
   bool found;
-  found  = arr.upperBound(3, ind);   cerr << 3 << " found=" << found << " " << ind << endl;
-  found = arr.upperBound(4, ind);   cerr << 4 << " found=" << found << " " << ind << endl;
-  found = arr.upperBound(1, ind);  cerr << 1 << " found=" << found << " " << ind << endl;
-  found = arr.upperBound(20, ind);   cerr << 20 << " found=" << found << " " << ind << endl;
-  found = arr.upperBound(30, ind);  cerr << 30 << " found=" << found << " " << ind << endl;
+  found  = arr.UpperBound(3, ind);   cerr << 3 << " found=" << found << " " << ind << endl;
+  found = arr.UpperBound(4, ind);   cerr << 4 << " found=" << found << " " << ind << endl;
+  found = arr.UpperBound(1, ind);  cerr << 1 << " found=" << found << " " << ind << endl;
+  found = arr.UpperBound(20, ind);   cerr << 20 << " found=" << found << " " << ind << endl;
+  found = arr.UpperBound(30, ind);  cerr << 30 << " found=" << found << " " << ind << endl;
 
 
   Resize<int><<<1,1>>>(arr);
