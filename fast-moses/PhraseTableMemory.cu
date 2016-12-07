@@ -75,6 +75,7 @@ const TargetPhrases *Node::Lookup(const Phrase &phrase, size_t start, size_t end
 
   VOCABID vocabId = phrase[pos];
   thrust::pair<bool, size_t> upper = m_children.UpperBound(vocabId);
+  return (const TargetPhrases *) m_children.size();
 
   if (upper.first) {
     const Node *node = m_children.GetValue(upper.second);
@@ -82,6 +83,7 @@ const TargetPhrases *Node::Lookup(const Phrase &phrase, size_t start, size_t end
     return node->Lookup(phrase, start, end, pos + 1);
   }
   else {
+    return (const TargetPhrases *) 0x987;
     return NULL;
   }
 }
@@ -128,6 +130,7 @@ void PhraseTableMemory::Load(const std::string &path)
 		cerr << "node=" << &node << " " << node.GetChildren().GetSize() << endl;
 		cerr << "tp=" << tp->Debug() << endl;
     */
+
     char *str;
     cudaMallocHost(&str, 10000);
 
@@ -146,6 +149,7 @@ void PhraseTableMemory::Load(const std::string &path)
     cudaFree(str);
 	}
 
+	cerr << "root=" << m_root.Debug() << endl;
 	cerr << "finished loading" << endl;
 }
 
