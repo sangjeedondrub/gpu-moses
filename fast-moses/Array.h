@@ -107,9 +107,10 @@ public:
 
   __host__ void Resize(size_t newSize)
   {
+    //std::cerr << "newSize=" << newSize << std::endl;
     if (newSize > GetMaxSize()) {
       T *temp;
-      cudaMalloc(&temp, sizeof(T) * newSize);
+      cudaMallocManaged(&temp, sizeof(T) * newSize);
       cudaDeviceSynchronize();
 
       size_t currSize = GetSize();
@@ -197,11 +198,15 @@ public:
     pair = UpperBound(val);
     assert(!pair.first);
     size_t ind = pair.second;
+    //std::cerr << "HH1" << Debug() << std::endl;    
 
     Resize(GetSize() + 1);
+    //std::cerr << "HH2" << Debug() << std::endl;
     Shift(pair.second, 1);
+    //std::cerr << "HH3" << Debug() << std::endl;                                                        
 
     m_arr[ind] = val;
+    //std::cerr << "HH4" << Debug() << std::endl;                                                          
   }
 
 protected:
@@ -211,11 +216,12 @@ protected:
   __host__
   void Shift(size_t start, size_t offset)
   {
-    for (int destInd = m_size - 1; destInd <= start; --destInd) {
+    for (int destInd = m_size - 1; destInd >= start; --destInd) {
       int sourceInd = destInd - offset;
       if (sourceInd < start) {
         return;
       }
+      //std::cerr << sourceInd << "->" << destInd << " " << m_arr <<  std::endl;
       m_arr[destInd] = m_arr[sourceInd];
     }
   }
