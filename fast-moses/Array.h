@@ -228,6 +228,15 @@ template<typename T, typename Compare = thrust::less<T> >
 class Set2 : public Managed
 {
 public:
+  typedef Array<T> Vec;
+
+  __host__
+  const Vec &GetVec() const
+  { return m_arr; }
+
+  __host__
+  size_t size() const
+  { return m_arr.size(); }
 
   // assumes there's nothing there. Otherwise it will be a multiset
   __host__
@@ -249,7 +258,7 @@ public:
   }
 
 protected:
-  Array<T> m_arr;
+  Vec m_arr;
 
 };
 
