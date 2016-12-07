@@ -58,7 +58,7 @@ Node &Node::AddNode(const std::vector<VOCABID> &words, size_t pos)
 	  node = m_children.GetValue(ind);
 	}
 	else {
-    node = new Node;
+	  cudaMallocManaged(&node, sizeof(Node));
     m_children.Insert(vocabId, node);
 	}
 
