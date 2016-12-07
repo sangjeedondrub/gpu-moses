@@ -29,7 +29,7 @@ public:
   Node &AddNode(const std::vector<VOCABID> &words, size_t pos = 0);
 
   __device__
-  void Lookup(const Phrase &phrase, size_t pos = 0) const;
+  const TargetPhrases *Lookup(const Phrase &phrase, size_t start, size_t end, size_t pos) const;
 
   TargetPhrases &GetTargetPhrases();
 

@@ -29,6 +29,20 @@ public:
   typedef thrust::pair<Key, Value> Pair;
   typedef Set<Pair, Compare> Parent;
 
+  __device__
+  const Value &GetValue(size_t ind) const
+  {
+    const Pair &pair = Parent::m_arr[ind];
+    return pair.second;
+  }
+
+  __host__ __device__
+  Value &GetValue(size_t ind)
+  {
+    Pair &pair = Parent::m_arr[ind];
+    return pair.second;
+  }
+
   __host__
   void Insert(const Key &key, const Value &value)
   {
