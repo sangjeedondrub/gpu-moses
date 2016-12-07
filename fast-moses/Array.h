@@ -6,6 +6,7 @@
  */
 
 #pragma once
+#include <thrust/pair.h>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -139,7 +140,8 @@ public:
     SetSize(currSize + 1);
   }
 
-  __host__ std::string Debug() const
+  __host__
+  std::string Debug() const
   {
     std::stringstream strm;
     size_t size = GetSize();
@@ -151,9 +153,10 @@ public:
     return strm.str();
   }
 
-  __host__
-  bool UpperBound(const T &sought, size_t &ind)
+  __host__ __device__
+  thrust::pair<bool, size_t> UpperBound(const T &sought) const
   {
+    thrust::pair<bool, size_t> ret;
     //std::cerr << "sought=" << sought << std::endl;
     //std::cerr << "m_size=" << m_size << std::endl;
     for (size_t i = 0; i < m_size; ++i) {
@@ -167,35 +170,55 @@ public:
       else if (sought < currEle) {
         // overshot without finding sought
         //std::cerr << "HH2" << std::endl;
-        ind = i;
-        return false;
+        ret.first = false;
+        ret.second = i;
+        return ret;
       }
       else {
         // =
         //std::cerr << "HH3" << std::endl;
-        ind = i;
-        return true;
+        ret.first = true;
+        ret.second = i;
+        return ret;
       }
     }
 
     // sought is not in array
-    ind = m_size;
-    return false;
+    ret.first = false;
+    ret.second = m_size;
+    return ret;
   }
 
-  // assumes there's nothing there. Otherwise it will be a multiset
+  // assumes duplicate doesn't exist. Otherwise it will be a multiset
   __host__
   void Insert(const T &val)
   {
-    typedef typename thrust::device_vector<T>::iterator Iter;
+    thrust::pair<bool, size_t> pair;
+    pair = UpperBound(val);
+    assert(!pair.first);
+    size_t ind = pair.second;
 
-    //Iter iter = UpperBound(val);
-    //m_vec.insert(iter, val);
+    Resize(GetSize() + 1);
+    Shift(pair.second, 1);
+
+    m_arr[ind] = val;
   }
 
 protected:
   size_t m_size, m_maxSize;
   T *m_arr;
+
+  __host__
+  void Shift(size_t start, size_t offset)
+  {
+    for (int destInd = m_size - 1; destInd <= start; --destInd) {
+      int sourceInd = destInd - offset;
+      if (sourceInd < start) {
+        return;
+      }
+      m_arr[destInd] = m_arr[sourceInd];
+    }
+  }
 
 };
 

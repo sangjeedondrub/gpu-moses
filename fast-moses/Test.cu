@@ -178,7 +178,8 @@ template<typename T>
 __global__
 void Resize(Array<T> &arr)
 {
-  //vec.resize(100);
+  thrust::pair<bool, size_t> found;
+  found = arr.UpperBound(100);
 
 }
 
@@ -191,14 +192,16 @@ void Test4()
   arr[3] = 8;
   arr[4] = 20;
 
-  size_t ind;
-  bool found;
-  found  = arr.UpperBound(3, ind);   cerr << 3 << " found=" << found << " " << ind << endl;
-  found = arr.UpperBound(4, ind);   cerr << 4 << " found=" << found << " " << ind << endl;
-  found = arr.UpperBound(1, ind);  cerr << 1 << " found=" << found << " " << ind << endl;
-  found = arr.UpperBound(20, ind);   cerr << 20 << " found=" << found << " " << ind << endl;
-  found = arr.UpperBound(30, ind);  cerr << 30 << " found=" << found << " " << ind << endl;
+  thrust::pair<bool, size_t> found;
+  found  = arr.UpperBound(3);   cerr << 3 << " found=" << found.first << " " << found.second << endl;
+  found = arr.UpperBound(4);   cerr << 4 << " found=" << found.first << " " << found.second << endl;
+  found = arr.UpperBound(1);  cerr << 1 << " found=" << found.first << " " << found.second << endl;
+  found = arr.UpperBound(20);   cerr << 20 << " found=" << found.first << " " << found.second << endl;
+  found = arr.UpperBound(30);  cerr << 30 << " found=" << found.first << " " << found.second << endl;
 
+  cerr << "BEFORE=" << arr.Debug() << endl;
+  arr.Insert(3);
+  cerr << "AFTER=" << arr.Debug() << endl;
 
   Resize<int><<<1,1>>>(arr);
 }
