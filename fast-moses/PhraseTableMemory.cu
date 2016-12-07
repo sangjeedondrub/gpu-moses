@@ -149,7 +149,7 @@ void PhraseTableMemory::Load(const std::string &path)
     cudaFree(str);
 	}
 
-	cerr << "root=" << m_root.Debug() << endl;
+	cerr << "root=" << m_root.GetChildren().Debug() << endl;
 	cerr << "finished loading" << endl;
 }
 
