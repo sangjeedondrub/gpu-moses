@@ -6,6 +6,7 @@
 #include "CUDA/Set.h"
 #include "CUDA/Map.h"
 #include "CUDA/Managed.h"
+#include "CUDA/Vector.h"
 
 using namespace std;
 
@@ -172,10 +173,25 @@ void Test1()
 
 }
 
+//////////////////////////
+template<typename T>
+__global__
+void Resize(Vector<T> &vec)
+{
+  vec.resize(100);
+
+}
+
+void Test4()
+{
+  Vector<int> vec;
+  Resize<int><<<1,1>>>(vec);
+}
 
 void Test()
 {
   //Test1();
   //Test2();
-  Test3();
+  //Test3();
+  Test4();
 }

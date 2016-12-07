@@ -88,6 +88,7 @@ void Node::Lookup(const Phrase &phrase, size_t pos) const
 {
   VOCABID vocabId = phrase[pos];
   unsigned int ind = m_children.LowerBoundDevice(vocabId);
+
 }
 
 /////////////////////////////////////////////////////////////////////////////////
