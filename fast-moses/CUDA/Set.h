@@ -7,117 +7,61 @@
 
 #pragma once
 
+#include <cassert>
 #include <sstream>
 #include <iostream>
-#include <thrust/host_vector.h>
-#include <thrust/device_vector.h>
-#include <thrust/binary_search.h>
-#include <thrust/execution_policy.h>
-
-template<typename T>
-void Print(std::ostream &out, const thrust::host_vector<T> &vec)
-{
-  for (size_t i = 0; i < vec.size(); ++i) {
-    out << vec[i] << " ";
-  }
-  out << std::endl;
-}
-
-/////////////////////////////////////////////////////////////////////////////////////
+#include "../Array.h"
 
 template<typename T, typename Compare = thrust::less<T> >
-class Set
+class Set2 : public Managed
 {
 public:
-  typedef thrust::device_vector<T> Vec;
-
-  Set()
-  {}
-
-  Set(const thrust::host_vector<T> &vec)
-  :m_vec(vec)
-  {
-
-  }
+  typedef Array<T> Vec;
 
   __host__
   const Vec &GetVec() const
-  { return m_vec; }
+  { return m_arr; }
 
-  __host__
+  __device__
   size_t size() const
-  { return m_vec.size(); }
+  { return m_arr.size(); }
 
   __host__
-  void Find(thrust::device_vector<bool> &out, const thrust::device_vector<T> &sought) const
-  {
-    out.resize(sought.size());
-    thrust::binary_search(m_vec.begin(), m_vec.end(),
-                      sought.begin(), sought.end(),
-                      out.begin(),
-                      Compare() );
-  }
-
-  __host__
-  void Find(thrust::host_vector<bool> &out, const thrust::host_vector<T> &sought) const
-  {
-    thrust::device_vector<bool> d_out(sought.size());
-    Find(d_out, sought);
-    out = d_out;
-  }
-
-  __host__
-  bool Find(const T &sought) const
-  {
-    thrust::host_vector<T> d_sought(1, sought);
-    thrust::host_vector<bool> out(1);
-
-    Find(out, d_sought);
-
-    assert(out.size() == 1);
-    return out[0];
-  }
+  size_t GetSize() const
+  { return m_arr.GetSize(); }
 
   // assumes there's nothing there. Otherwise it will be a multiset
   __host__
   void Insert(const T &val)
   {
-    typedef typename thrust::device_vector<T>::iterator Iter;
+    thrust::pair<bool, size_t> upper;
+    upper = m_arr.UpperBound(val);
+    assert(!upper.first);
+    size_t ind = upper.second;
+    //std::cerr << "ind=" << ind << std::endl;
 
-  	Iter iter = thrust::lower_bound(thrust::device,
-  												m_vec.begin(), m_vec.end(),
-  												val,
-  												Compare() );
-    m_vec.insert(iter, val);
+    m_arr.Insert(ind, val);
   }
 
-  // assume key is in there. Otherwise will delete the next 1 along!
-  __host__
-  void Erase(const T &val)
+  __host__ __device__
+  thrust::pair<bool, size_t> UpperBound(const T &sought) const
   {
-    typedef typename thrust::device_vector<T>::iterator Iter;
-
-  	Iter iter = thrust::lower_bound(thrust::device,
-  												m_vec.begin(), m_vec.end(),
-  												val,
-  												Compare() );
-    m_vec.erase(iter);
+    thrust::pair<bool, size_t> upper;
+    upper = m_arr.UpperBound(sought);
+    return upper;
   }
+
 
   __host__
   std::string Debug() const
   {
-    std::ostringstream strm;
-    Print<T>(strm, m_vec);
-    return strm.str();
+    return m_arr.Debug();
   }
 
-
 protected:
-  Vec m_vec;
+  Vec m_arr;
 
 };
-
 
 
 

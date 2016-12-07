@@ -1,6 +1,7 @@
 #include <array>
 #include <iterator>
 #include <iostream>
+#include <thrust/binary_search.h>
 #include "Test.h"
 #include "Phrase.h"
 #include "CUDA/Set.h"
@@ -120,6 +121,7 @@ void Test1()
   sought[1] = 5;
 
   // SET
+  /*
   std::cerr << "SET:" << std::endl;
   Set<int> myset(data);
   myset.Find(out, sought);
@@ -151,7 +153,7 @@ void Test1()
 	dataMap[2] = Pair(7, -34.3434);
 	dataMap[3] = Pair(10, 43.33f);
 	dataMap[4] = Pair(34545, -343.7675f);
-/*
+
  	Map<int, float, ComparePair<int, float> > mymap(dataMap);
   std::cerr << "BEFORE:" << mymap.Debug() << std::endl;
 

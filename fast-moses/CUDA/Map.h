@@ -6,7 +6,7 @@
  */
 #pragma once
 
-#include "../Array.h"
+#include "Set.h"
 
 template<typename Key, typename Value>
 class ComparePair2

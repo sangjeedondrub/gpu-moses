@@ -7,6 +7,7 @@
 
 #pragma once
 #include <thrust/pair.h>
+#include <thrust/functional.h>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -227,57 +228,6 @@ protected:
 
 
 ////////////////////////////////////////////////////////
-
-template<typename T, typename Compare = thrust::less<T> >
-class Set2 : public Managed
-{
-public:
-  typedef Array<T> Vec;
-
-  __host__
-  const Vec &GetVec() const
-  { return m_arr; }
-
-  __device__
-  size_t size() const
-  { return m_arr.size(); }
-
-  __host__
-  size_t GetSize() const
-  { return m_arr.GetSize(); }
-
-  // assumes there's nothing there. Otherwise it will be a multiset
-  __host__
-  void Insert(const T &val)
-  {
-    thrust::pair<bool, size_t> upper;
-    upper = m_arr.UpperBound(val);
-    assert(!upper.first);
-    size_t ind = upper.second;
-    //std::cerr << "ind=" << ind << std::endl;
-
-    m_arr.Insert(ind, val);
-  }
-
-  __host__ __device__
-  thrust::pair<bool, size_t> UpperBound(const T &sought) const
-  {
-    thrust::pair<bool, size_t> upper;
-    upper = m_arr.UpperBound(sought);
-    return upper;
-  }
-
-
-  __host__
-  std::string Debug() const
-  {
-    return m_arr.Debug();
-  }
-
-protected:
-  Vec m_arr;
-
-};
 
 
 
