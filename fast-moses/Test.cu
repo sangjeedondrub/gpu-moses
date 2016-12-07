@@ -151,7 +151,7 @@ void Test1()
 	dataMap[2] = Pair(7, -34.3434);
 	dataMap[3] = Pair(10, 43.33f);
 	dataMap[4] = Pair(34545, -343.7675f);
-
+/*
  	Map<int, float, ComparePair<int, float> > mymap(dataMap);
   std::cerr << "BEFORE:" << mymap.Debug() << std::endl;
 
@@ -170,7 +170,7 @@ void Test1()
 	mymap.Insert(5, -999.2);
 
   std::cerr << "AFTER:" << mymap.Debug() << std::endl;
-
+*/
 }
 
 //////////////////////////
