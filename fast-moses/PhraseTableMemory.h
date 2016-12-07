@@ -11,11 +11,12 @@
 #include "TargetPhrases.h"
 #include "CUDA/Managed.h"
 #include "CUDA/Map.h"
+#include "Array.h"
 
 class Node : public Managed
 {
 public:
-  typedef Map<VOCABID, Node*> Children;
+  typedef Map2<VOCABID, Node*> Children;
 
   Node();
 

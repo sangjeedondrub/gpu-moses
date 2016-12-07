@@ -25,7 +25,7 @@ Node::Node()
 Node::~Node()
 {
   const Children::Vec &vec = m_children.GetVec();
-  for (size_t i = 0; i < vec.size(); ++i) {
+  for (size_t i = 0; i < vec.GetSize(); ++i) {
     const Children::Pair &pair = vec[i];
     const Node *node = pair.second;
     delete node;
@@ -54,29 +54,14 @@ Node &Node::AddNode(const std::vector<VOCABID> &words, size_t pos)
 	VOCABID vocabId = words[pos];
 	Node *node;
 
-	if (m_children.size()) {
-		//bool exists = m_children.FindMap(vocabid);
-		unsigned int ind = m_children.LowerBound(vocabId);
-
-		if (ind < m_children.size()) {
-			const Children::Pair &pair = vec[ind];
-			VOCABID foundId = pair.first;
-			if (foundId == vocabId) {
-				node = pair.second;
-			}
-			else {
-				node = new Node;
-				m_children.Insert(vocabId, node);
-			}
-		}
-		else {
-			node = new Node;
-			m_children.Insert(vocabId, node);
-		}
+	thrust::pair<bool, size_t> upper = m_children.UpperBound(vocabId);
+	if (upper.first) {
+	  size_t ind = upper.second;
+	  node = m_children.GetVec()[ind].second;
 	}
 	else {
-		node = new Node;
-		m_children.Insert(vocabId, node);
+    node = new Node;
+    m_children.Insert(vocabId, node);
 	}
 
 	node = &node->AddNode(words, pos + 1);
@@ -87,7 +72,7 @@ __device__
 void Node::Lookup(const Phrase &phrase, size_t pos) const
 {
   VOCABID vocabId = phrase[pos];
-  unsigned int ind = m_children.LowerBoundDevice(vocabId);
+  thrust::pair<bool, size_t> upper = m_children.UpperBound(vocabId);
 
 }
 
@@ -129,7 +114,7 @@ void PhraseTableMemory::Load(const std::string &path)
 		tps.Add(tp);
 
 		cerr << endl;
-		cerr << "node=" << &node << " " << node.GetChildren().size() << endl;
+		cerr << "node=" << &node << " " << node.GetChildren().GetSize() << endl;
 		cerr << "tp=" << tp->Debug() << endl;
 
     char *str;

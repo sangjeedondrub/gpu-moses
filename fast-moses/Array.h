@@ -36,10 +36,12 @@ public:
     cudaFree(m_arr);
   }
 
-  __device__ size_t size() const
+  __device__
+  size_t size() const
   { return m_size; }
 
-  __host__ size_t GetSize() const
+  __host__
+  size_t GetSize() const
   {
     return m_size;
     /*
@@ -79,10 +81,12 @@ public:
     */
   }
 
-  __device__ const T& operator[](size_t ind) const
+  __host__ __device__
+  const T& operator[](size_t ind) const
   { return m_arr[ind]; }
 
-  __host__ __device__ T& operator[](size_t ind)
+  __host__ __device__
+  T& operator[](size_t ind)
   { return m_arr[ind]; }
 
   __host__ const T Get(size_t ind) const
@@ -234,9 +238,13 @@ public:
   const Vec &GetVec() const
   { return m_arr; }
 
-  __host__
+  __device__
   size_t size() const
   { return m_arr.size(); }
+
+  __host__
+  size_t GetSize() const
+  { return m_arr.GetSize(); }
 
   // assumes there's nothing there. Otherwise it will be a multiset
   __host__
@@ -250,6 +258,15 @@ public:
 
     m_arr.Insert(ind, val);
   }
+
+  __host__ __device__
+  thrust::pair<bool, size_t> UpperBound(const T &sought) const
+  {
+    thrust::pair<bool, size_t> upper;
+    upper = m_arr.UpperBound(sought);
+    return upper;
+  }
+
 
   __host__
   std::string Debug() const
@@ -269,7 +286,8 @@ class ComparePair2
 public:
   typedef thrust::pair<Key, Value> Pair;
 
-  __device__ bool operator()(const Pair &a, const Pair &b)
+  __device__
+  bool operator()(const Pair &a, const Pair &b)
   {
     return a.first < b.first;
   }
@@ -288,6 +306,16 @@ public:
   {
     Pair element(key, value);
     Parent::Insert(element);
+  }
+
+  __host__ __device__
+  thrust::pair<bool, size_t> UpperBound(const Key &sought) const
+  {
+    Pair pair(sought, Value());
+
+    thrust::pair<bool, size_t> upper;
+    upper = Parent::UpperBound(pair);
+    return upper;
   }
 
   __host__
