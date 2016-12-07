@@ -123,24 +123,25 @@ void PhraseTableMemory::Load(const std::string &path)
     TargetPhrases &tps = node.GetTargetPhrases();
 		tps.Add(tp);
 
+		/*
 		cerr << endl;
 		cerr << "node=" << &node << " " << node.GetChildren().GetSize() << endl;
 		cerr << "tp=" << tp->Debug() << endl;
-
+    */
     char *str;
     cudaMallocHost(&str, 10000);
 
 		checkPhrase<<<1,1>>>(str, *tp);
 		cudaDeviceSynchronize();
-		cerr << "totVocabId=" << str << endl;
+		//cerr << "totVocabId=" << str << endl;
 
 		checkTargetPhrase<<<1,1>>>(str, *tp);
 		cudaDeviceSynchronize();
-		cerr << "totVocabId=" << str << endl;
+		//cerr << "totVocabId=" << str << endl;
 
 		checkTargetPhrases<<<1,1>>>(str, tps);
 		cudaDeviceSynchronize();
-    cerr << "tps=" << str << endl;
+    //cerr << "tps=" << str << endl;
 
     cudaFree(str);
 	}
