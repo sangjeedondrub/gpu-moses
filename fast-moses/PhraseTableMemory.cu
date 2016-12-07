@@ -19,7 +19,7 @@
 using namespace std;
 
 Node::Node()
-:tps(NULL)
+:m_tps(NULL)
 {}
 
 Node::~Node()
@@ -34,10 +34,10 @@ Node::~Node()
 
 TargetPhrases &Node::GetTargetPhrases()
 {
-  if (tps == NULL) {
-    tps = new TargetPhrases();
+  if (m_tps == NULL) {
+    cudaMallocManaged(&m_tps, sizeof(TargetPhrases));
   }
-  return *tps;
+  return *m_tps;
 }
 
 __host__
@@ -70,7 +70,7 @@ __device__
 const TargetPhrases *Node::Lookup(const Phrase &phrase, size_t start, size_t end, size_t pos) const
 {
   if (pos > end) {
-    return tps;
+    return m_tps;
   }
 
   VOCABID vocabId = phrase[pos];

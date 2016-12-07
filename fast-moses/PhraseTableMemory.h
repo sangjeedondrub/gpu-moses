@@ -31,12 +31,13 @@ public:
   __device__
   const TargetPhrases *Lookup(const Phrase &phrase, size_t start, size_t end, size_t pos) const;
 
+  __host__
   TargetPhrases &GetTargetPhrases();
 
 protected:
   Children m_children;
 
-  TargetPhrases *tps;
+  TargetPhrases *m_tps;
 
 };
 
