@@ -149,8 +149,8 @@ void PhraseTableMemory::Load(const std::string &path)
 }
 
 __device__
-void PhraseTableMemory::Lookup(const Phrase &phrase, size_t start, size_t end) const
+const TargetPhrases *PhraseTableMemory::Lookup(const Phrase &phrase, size_t start, size_t end) const
 {
-  m_root.Lookup(phrase, start, end, start);
+  return m_root.Lookup(phrase, start, end, start);
 }
 

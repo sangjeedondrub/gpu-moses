@@ -21,13 +21,20 @@ public:
 	Manager(const std::string &inputStr, const PhraseTableMemory &pt);
 	virtual ~Manager();
 
-	__host__ void Process();
+	__host__
+	void Process();
 
-	__device__ const Phrase &GetInput() const
+	__device__
+	const Phrase &GetInput() const
 	{ return *m_input; }
 
-	__device__ const PhraseTableMemory &GetPhraseTable() const
+	__device__
+	const PhraseTableMemory &GetPhraseTable() const
   { return m_pt; }
+
+	__device__
+	Array<const TargetPhrases*> &GetTargetPhrases()
+	{ return m_tpsArr; }
 
 protected:
 	Phrase *m_input;

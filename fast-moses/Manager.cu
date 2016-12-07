@@ -36,10 +36,13 @@ __global__ void Lookup(Manager &mgr)
   }
 
   const Phrase &input = mgr.GetInput();
+  size_t inputSize = input.size();
+
   const PhraseTableMemory &pt = mgr.GetPhraseTable();
-  pt.Lookup(input, start, end);
+  const TargetPhrases *tps = pt.Lookup(input, start, end);
 
-
+  Array<const TargetPhrases*> &tpsArr = mgr.GetTargetPhrases();
+  tpsArr[start * inputSize + end] = tps;
 }
 
 void Manager::Process()
