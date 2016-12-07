@@ -184,7 +184,17 @@ void Resize(Array<T> &arr)
 
 void Test4()
 {
-  Array<int> arr;
+  Array<int> arr(5);
+  arr[0] = 2;
+  arr[1] = 4;
+  arr[2] = 5;
+  arr[3] = 8;
+  arr[4] = 20;
+
+  size_t ind;
+  bool found = arr.upperBound(4, ind);
+  cerr << "found=" << found << " " << ind << endl;
+
   Resize<int><<<1,1>>>(arr);
 }
 

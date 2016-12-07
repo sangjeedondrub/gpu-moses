@@ -151,20 +151,26 @@ public:
     return strm.str();
   }
 
-  __device__ bool upperBound(const T &sought, size_t &ind)
+  __host__ __device__ bool upperBound(const T &sought, size_t &ind)
   {
     for (size_t i = 0; i < m_size; ++i) {
       const T &currEle = m_arr[i];
-      if (sought == currEle) {
-        ind = i;
-        return true;
+      if (sought < currEle) {
+        // carry on, do nothing
       }
-      else if (sought > currEle) {
+      else if (currEle < sought) {
+        // overshot without finding sought
         ind = i;
         return false;
       }
+      else {
+        // =
+        ind = i;
+        return true;
+      }
     }
 
+    // sought is not in array
     ind = m_size;
     return false;
   }
