@@ -7,6 +7,8 @@
 void Hypothesis::Init(const Manager &mgr)
 {
   m_mgr = &mgr;
+  m_prevHypo = NULL;
+  m_targetPhrase = NULL;
 
   const Phrase &input = mgr.GetInput();
   size_t inputSize = input.size();
@@ -16,9 +18,10 @@ void Hypothesis::Init(const Manager &mgr)
 
 
   __device__
-void Hypothesis::Init(const Manager &mgr, const TargetPhrase &tp)
+void Hypothesis::Init(const Manager &mgr, const Hypothesis &prevHypo, const TargetPhrase &tp)
 {
 	m_mgr = &mgr;
+	m_prevHypo = &prevHypo;
 	m_targetPhrase = &tp;
 
   const Phrase &input = mgr.GetInput();
