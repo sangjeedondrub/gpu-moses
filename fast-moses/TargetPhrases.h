@@ -26,6 +26,10 @@ public:
   __host__ void Add(const TargetPhrase *tp);
   __host__ std::string Debug() const;
 
+  __host__ __device__
+  const TargetPhrase* operator[](size_t ind) const
+  { return m_vec[ind]; }
+
 protected:
   Array<const TargetPhrase*> m_vec;
   // not right. should be a device vector but causes compile error

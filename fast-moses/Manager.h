@@ -37,6 +37,12 @@ public:
 	Array<const TargetPhrases*> &GetTargetPhrases()
 	{ return m_tpsArr; }
 
+  __device__
+  const TargetPhrases *GetTargetPhrases(int start, int end) const;
+
+  __device__
+  void SetTargetPhrases(int start, int end, const TargetPhrases *tps);
+
 protected:
 	Phrase *m_input;
 	Stacks m_stacks;

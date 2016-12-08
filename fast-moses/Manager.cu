@@ -29,6 +29,25 @@ __global__ void checkManager(char *str, const Manager &mgr)
 }
 
 ///////////////////////////////////////
+
+__device__
+const TargetPhrases *Manager::GetTargetPhrases(int start, int end) const
+{
+  const Phrase &input = GetInput();
+  size_t inputSize = input.size();
+  const TargetPhrases *tps = m_tpsArr[start * inputSize + end];
+  return tps;
+}
+
+__device__
+void Manager::SetTargetPhrases(int start, int end, const TargetPhrases *tps)
+{
+  const Phrase &input = GetInput();
+  size_t inputSize = input.size();
+  m_tpsArr[start * inputSize + end] = tps;
+}
+
+///////////////////////////////////////
 __global__ void Lookup(Manager &mgr)
 {
   int start = blockIdx.x;
@@ -44,10 +63,7 @@ __global__ void Lookup(Manager &mgr)
   const PhraseTableMemory &pt = mgr.GetPhraseTable();
   const TargetPhrases *tps = pt.Lookup(input, start, end);
 
-  Array<const TargetPhrases*> &tpsArr = mgr.GetTargetPhrases();
-  tpsArr[start * inputSize + end] = tps;
-  //tpsArr[start * inputSize + end] = (const TargetPhrases*) 0x3434;
-
+  mgr.SetTargetPhrases(start, end, tps);
 }
 
 __global__ void Process1stStack(const Manager &mgr, Stacks &stacks)
@@ -68,22 +84,31 @@ __global__ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks
     return;
   }
 
+  const TargetPhrases *tps = mgr.GetTargetPhrases(start, end);
+  if (tps == NULL || tps->size() == 0) {
+    return;
+  }
+
   const Stack &stack = stacks[stackInd];
 
   const Set<Hypothesis*> &set = stack.GetSet();
   const Array<Hypothesis*> &vec = set.GetVec();
   const Hypothesis &prevHypo = *vec[hypoInd];
 
-  Hypothesis *hypo = new Hypothesis(mgr);
-  //hypo->Init(mgr, prevHypo);
-  Stack &destStack = stacks[0];
+  for (size_t i = 0; i < tps->size(); ++i) {
+    const TargetPhrase *tp = (*tps)[i];
+    assert(tp);
+    Hypothesis *hypo = new Hypothesis(mgr);
+    //hypo->Init(mgr, prevHypo);
 
-  lock.lock();
+    Stack &destStack = stacks[0];
 
-  destStack.Add(hypo);
+    lock.lock();
 
-  lock.unlock();
+    destStack.Add(hypo);
 
+    lock.unlock();
+  }
 }
 
 ///////////////////////////////////////
