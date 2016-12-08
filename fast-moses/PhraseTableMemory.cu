@@ -31,7 +31,7 @@ Node::~Node()
 TargetPhrases &Node::GetTargetPhrases()
 {
   if (m_tps == NULL) {
-    cudaMallocManaged(&m_tps, sizeof(TargetPhrases));
+    m_tps = new TargetPhrases();
   }
   return *m_tps;
 }

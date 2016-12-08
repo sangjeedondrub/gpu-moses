@@ -13,6 +13,7 @@
 class TargetPhrases : public Managed
 {
 public:
+  TargetPhrases();
 
   virtual ~TargetPhrases();
 

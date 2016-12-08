@@ -12,6 +12,7 @@
 #include <sstream>
 #include <string>
 #include <cuda.h>
+#include <cassert>
 #include "CUDA/Managed.h"
 
 template<typename T, typename Compare = thrust::less<T> >
@@ -25,8 +26,12 @@ public:
     m_maxSize = size;
 
     if (size) {
-      //m_arr = (T*) malloc(sizeof(T) * size);
-      cudaMallocManaged(&m_arr, sizeof(T) * size);
+      if (m_managed) {
+        cudaMallocManaged(&m_arr, sizeof(T) * size);
+      }
+      else {
+        m_arr = (T*) malloc(sizeof(T) * size);
+      }
     }
     else {
       m_arr = NULL;
@@ -35,7 +40,12 @@ public:
 
   ~Array()
   {
-    cudaFree(m_arr);
+    if (m_managed) {
+      cudaFree(m_arr);
+    }
+    else {
+      free(m_arr);
+    }
   }
 
   __device__
@@ -111,8 +121,32 @@ public:
 
   }
 
-  __host__ void Resize(size_t newSize, const T &val = T())
+  __device__
+  void resize(size_t newSize, const T &val = T())
   {
+    assert(!m_managed);
+
+    //std::cerr << "newSize=" << newSize << std::endl;
+    if (newSize > m_maxSize) {
+      T *temp = (T*) malloc(sizeof(T) * newSize);
+
+      size_t currSize = GetSize();
+      memcpy(temp, m_arr, sizeof(T) * currSize);
+
+      free(m_arr);
+      m_arr = temp;
+
+      m_maxSize = newSize;
+    }
+
+    m_size = newSize;
+  }
+
+  __host__
+  void Resize(size_t newSize, const T &val = T())
+  {
+    assert(m_managed);
+
     //std::cerr << "newSize=" << newSize << std::endl;
     if (newSize > GetMaxSize()) {
       T *temp;

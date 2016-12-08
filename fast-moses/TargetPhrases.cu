@@ -4,6 +4,11 @@
 
 using namespace std;
 
+TargetPhrases::TargetPhrases()
+:m_vec(true, 0)
+{
+}
+
 TargetPhrases::~TargetPhrases()
 {
   for (size_t i = 0; i < m_vec.GetSize(); ++i) {
