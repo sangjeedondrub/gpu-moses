@@ -4,14 +4,13 @@
 __device__
 Bitmap::Bitmap(size_t size)
 :m_size(size)
+,m_bitmap(size)
 {
-  m_bitmap = (bool*) malloc(sizeof(bool) * size);
 }
 
 __device__
 Bitmap::~Bitmap()
 {
-  free(m_bitmap);
 }
 
 __device__

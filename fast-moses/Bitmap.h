@@ -1,5 +1,6 @@
 #pragma once
 #include "Range.h"
+#include "CUDA/Array.h"
 
 class Range;
 
@@ -39,7 +40,7 @@ protected:
   size_t m_size;
   size_t m_numWordsCovered;
 
-  bool *m_bitmap;
+  Array<bool> m_bitmap;
 
   __device__
   void SetValueNonOverlap(Range const& range);
