@@ -7,5 +7,5 @@ Stack::Stack()
   __device__
 void Stack::Add(Hypothesis *hypo)
 {
-	//m_coll.insert(hypo);
+	m_coll.insert(hypo);
 }

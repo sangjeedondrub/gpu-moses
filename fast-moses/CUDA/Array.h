@@ -130,7 +130,7 @@ public:
     if (newSize > m_maxSize) {
       T *temp = (T*) malloc(sizeof(T) * newSize);
 
-      size_t currSize = GetSize();
+      size_t currSize = m_size;
       memcpy(temp, m_arr, sizeof(T) * currSize);
 
       free(m_arr);
@@ -230,6 +230,18 @@ public:
     return ret;
   }
 
+  __device__
+  void insert(size_t ind, const T &val)
+  {
+    resize(m_size + 1);
+    //std::cerr << "HH5" << GetSize() << std::endl;
+    Shift(ind, 1);
+    //std::cerr << "HH6" << std::endl;
+
+    m_arr[ind] = val;
+    //std::cerr << "HH7" << std::endl;
+  }
+
   __host__
   void Insert(size_t ind, const T &val)
   {
@@ -247,7 +259,7 @@ protected:
   size_t m_size, m_maxSize;
   T *m_arr;
 
-  __host__
+  __host__ __device__
   void Shift(int start, int offset)
   {
     for (int destInd = m_size - 1; destInd >= start; --destInd) {

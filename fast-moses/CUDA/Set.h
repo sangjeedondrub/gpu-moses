@@ -36,6 +36,18 @@ public:
   { return m_arr.GetSize(); }
 
   // assumes there's nothing there. Otherwise it will be a multiset
+  __device__
+  void insert(const T &val)
+  {
+    thrust::pair<bool, size_t> upper;
+    upper = UpperBound(val);
+    assert(!upper.first);
+    size_t ind = upper.second;
+    //std::cerr << "ind=" << ind << std::endl;
+
+    m_arr.insert(ind, val);
+  }
+
   __host__
   void Insert(const T &val)
   {

@@ -88,6 +88,7 @@ void Manager::Process()
   m_stacks.Init(*this, m_input->GetSize() + 1);
 
   Process1stStack<<<1,1>>>(*this, m_stacks);
+  cudaDeviceSynchronize();
 
   Stack &stack = m_stacks[0];
   cerr << "1st stack=" << stack.GetSize() << endl;
