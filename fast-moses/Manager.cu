@@ -26,6 +26,7 @@ __global__ void checkManager(char *str, const Manager &mgr)
   checkPhrase<<<1,1>>>(str, input);
 
 }
+
 ///////////////////////////////////////
 __global__ void Lookup(Manager &mgr)
 {
@@ -47,6 +48,13 @@ __global__ void Lookup(Manager &mgr)
   //tpsArr[start * inputSize + end] = (const TargetPhrases*) 0x3434;
 
 }
+
+__global__ void ProcessStack(size_t stackInd, Stacks &stacks)
+{
+
+}
+
+///////////////////////////////////////
 
 void Manager::Process()
 {
@@ -77,6 +85,13 @@ void Manager::Process()
 
   cerr << "1st stack=" << stack.GetSize() << endl;
 
+  for (size_t stackInd = 0; stackInd < inputSize; ++stackInd) {
+    const Stack &stack = m_stacks[stackInd];
+    size_t stackSize = stack.GetSize();
+
+    ProcessStack<<<stackSize, 1>>>(stackInd, m_stacks);
+
+  }
 }
 
 std::string Manager::DebugTPSArr() const
