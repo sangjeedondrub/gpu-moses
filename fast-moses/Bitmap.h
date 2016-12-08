@@ -1,9 +1,10 @@
 #pragma once
 #include <thrust/device_vector.h>
+#include "CUDA/Managed.h"
 
 class Range;
 
-class Bitmap
+class Bitmap : public Managed
 {
 public:
   typedef thrust::device_vector<bool> Vec;

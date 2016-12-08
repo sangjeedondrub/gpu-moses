@@ -11,11 +11,6 @@
 #include "InputFileStream.h"
 #include "Util.h"
 
-#include <thrust/host_vector.h>
-#include <thrust/device_vector.h>
-#include <thrust/binary_search.h>
-#include <thrust/execution_policy.h>
-
 using namespace std;
 
 Node::Node()
