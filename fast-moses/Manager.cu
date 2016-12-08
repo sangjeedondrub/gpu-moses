@@ -58,24 +58,31 @@ __global__ void Process1stStack(const Manager &mgr, Stacks &stacks)
   stack.Add(hypo);
 }
 
-__global__ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks)
+__global__ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks, Lock &lock)
 {
-  const Stack &stack = stacks[stackInd];
-
   int hypoInd = blockIdx.x;
-  int start = threadIdx.x;
+  int start = blockIdx.y;
+  int end = blockIdx.z;
+
+  if (start > end) {
+    return;
+  }
+
+  const Stack &stack = stacks[stackInd];
 
   const Set<Hypothesis*> &set = stack.GetSet();
   const Array<Hypothesis*> &vec = set.GetVec();
   const Hypothesis &prevHypo = *vec[hypoInd];
 
-  for (int end = start; end <= mgr.GetInput().size(); ++end) {
+  Hypothesis *hypo = new Hypothesis(mgr);
+  //hypo->Init(mgr, prevHypo);
+  Stack &destStack = stacks[0];
 
-    Hypothesis *hypo = new Hypothesis(mgr);
-    //hypo->Init(mgr, prevHypo);
-    Stack &destStack = stacks[0];
-    destStack.Add(hypo);
-  }
+  lock.lock();
+
+  destStack.Add(hypo);
+
+  lock.unlock();
 
 }
 
@@ -114,7 +121,13 @@ void Manager::Process()
     size_t stackSize = stack.GetSize();
 
     //ProcessStack<<<1,1>>>(stackInd, *this, m_stacks);
-    ProcessStack<<<stackSize, inputSize>>>(stackInd, *this, m_stacks);
+    //ProcessStack<<<stackSize, 1>>>(stackInd, *this, m_stacks);
+    //ProcessStack<<<1, inputSize>>>(stackInd, *this, m_stacks); // deadlock with lock
+    //ProcessStack<<<stackSize, inputSize>>>(stackInd, *this, m_stacks);
+
+    dim3 blocks(stackSize, inputSize, inputSize);
+    ProcessStack<<<blocks, 1>>>(stackInd, *this, m_stacks, m_lock);
+
     cudaDeviceSynchronize();
     m_stacks.PrintStacks();
   }

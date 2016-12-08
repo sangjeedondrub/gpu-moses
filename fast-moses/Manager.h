@@ -10,6 +10,7 @@
 #include "Stacks.h"
 #include "CUDA/Managed.h"
 #include "CUDA/Array.h"
+#include "CUDA/Lock.h"
 
 class Phrase;
 class PhraseTableMemory;
@@ -41,6 +42,7 @@ protected:
 	Stacks m_stacks;
 	const PhraseTableMemory &m_pt;
 	Array<const TargetPhrases*> m_tpsArr;
+	Lock m_lock;
 
 	std::string DebugTPSArr() const;
 
