@@ -113,8 +113,8 @@ void Manager::Process()
     const Stack &stack = m_stacks[stackInd];
     size_t stackSize = stack.GetSize();
 
-    ProcessStack<<<1,1>>>(stackInd, *this, m_stacks);
-    //ProcessStack<<<stackSize, inputSize>>>(stackInd, *this, m_stacks);
+    //ProcessStack<<<1,1>>>(stackInd, *this, m_stacks);
+    ProcessStack<<<stackSize, inputSize>>>(stackInd, *this, m_stacks);
     cudaDeviceSynchronize();
     m_stacks.PrintStacks();
   }
