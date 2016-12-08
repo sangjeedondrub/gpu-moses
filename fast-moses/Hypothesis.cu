@@ -31,5 +31,7 @@ void Hypothesis::Init(const Manager &mgr, const Hypothesis &prevHypo, const Targ
 
 	const Bitmap &prevBM = prevHypo.GetBitmap();
   m_bitmap.Init(prevBM, range);
+
+  m_scores.PlusEqual(prevHypo.m_scores);
 }
 
