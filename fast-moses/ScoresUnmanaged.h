@@ -17,6 +17,9 @@ public:
   :Array(size, val)
   {}
 
+  __device__
+  void PlusEqual(const ScoresUnmanaged &other);
+
 protected:
 };
 
