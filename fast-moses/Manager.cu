@@ -60,6 +60,19 @@ __global__ void Process1stStack(const Manager &mgr, Stacks &stacks)
 
 __global__ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks)
 {
+  const Stack &stack = stacks[stackInd];
+
+  int hypoInd = blockIdx.x;
+  int start = threadIdx.x;
+
+  const Set<Hypothesis*> &set = stack.GetSet();
+  const Array<Hypothesis*> &vec = set.GetVec();
+  const Hypothesis &prevHypo = *vec[hypoInd];
+
+  Hypothesis *hypo = new Hypothesis(mgr);
+  //hypo->Init(mgr, prevHypo);
+  Stack &destStack = stacks[0];
+  //destStack.Add(hypo);
 
 }
 
@@ -97,7 +110,7 @@ void Manager::Process()
     const Stack &stack = m_stacks[stackInd];
     size_t stackSize = stack.GetSize();
 
-    ProcessStack<<<stackSize, 1>>>(stackInd, *this, m_stacks);
+    ProcessStack<<<stackSize, inputSize>>>(stackInd, *this, m_stacks);
     cudaDeviceSynchronize();
   }
 }

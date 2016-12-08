@@ -23,7 +23,7 @@ public:
   :m_arr(managed, 0)
   {}
 
-  __host__
+  __host__ __device__
   const Vec &GetVec() const
   { return m_arr; }
 

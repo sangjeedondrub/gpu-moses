@@ -9,7 +9,7 @@
 #include "Set.h"
 
 template<typename Key, typename Value>
-class ComparePair
+class CompareMap
 {
 public:
   typedef thrust::pair<Key, Value> Pair;
@@ -22,7 +22,7 @@ public:
 
 };
 
-template<typename Key, typename Value, typename Compare = ComparePair<Key, Value> >
+template<typename Key, typename Value, typename Compare = CompareMap<Key, Value> >
 class Map : public Set<thrust::pair<Key, Value>, Compare>
 {
 public:

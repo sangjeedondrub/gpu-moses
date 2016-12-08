@@ -17,6 +17,10 @@ public:
   size_t GetSize() const
   { return m_coll.GetSize(); }
 
+  __device__
+  const Set<Hypothesis*> &GetSet() const
+  { return m_coll; }
+
 protected:
 	Set<Hypothesis*> m_coll;
 };
