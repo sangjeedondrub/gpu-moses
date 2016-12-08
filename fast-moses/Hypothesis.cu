@@ -23,7 +23,7 @@ void Hypothesis::Init(const Manager &mgr)
 }
 
 
-  __device__
+__device__
 void Hypothesis::Init(const Manager &mgr, const Hypothesis &prevHypo, const TargetPhrase &tp, const Range &range)
 {
 	m_mgr = &mgr;
@@ -35,5 +35,11 @@ void Hypothesis::Init(const Manager &mgr, const Hypothesis &prevHypo, const Targ
 
   m_scores.PlusEqual(tp.GetScores());
   m_scores.PlusEqual(prevHypo.m_scores);
+}
+
+__host__
+SCORE Hypothesis::GetFutureScore() const
+{
+  return 343.4;
 }
 

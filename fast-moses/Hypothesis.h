@@ -24,6 +24,9 @@ public:
   const Bitmap &GetBitmap() const
   { return m_bitmap; }
 
+  __host__
+  SCORE GetFutureScore() const;
+
 protected:
   const Manager *m_mgr;
   const TargetPhrase *m_targetPhrase;

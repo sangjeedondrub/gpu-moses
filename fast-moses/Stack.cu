@@ -1,4 +1,5 @@
 #include "Stack.h"
+#include "Hypothesis.h"
 
 Stack::Stack()
 :m_coll(false)
@@ -18,6 +19,7 @@ std::string Stack::Debug() const
   strm << size << ":";
   for (size_t i = 0; i < size; ++i) {
     const Hypothesis *hypo = m_coll.GetVec()[i];
+    //strm << hypo->GetFutureScore() << " ";
     //strm << (size_t) hypo << " ";
     //strm << i << " ";
   }
