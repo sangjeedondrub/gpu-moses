@@ -4,6 +4,7 @@
 #include "Hypothesis.h"
 #include "PhraseTableMemory.h"
 #include "Stack.h"
+#include "Range.h"
 
 using namespace std;
 
@@ -84,6 +85,8 @@ __global__ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks
     return;
   }
 
+  const Range range(start, end);
+
   const TargetPhrases *tps = mgr.GetTargetPhrases(start, end);
   if (tps == NULL || tps->size() == 0) {
     return;
@@ -94,14 +97,22 @@ __global__ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks
   const Set<Hypothesis*> &set = stack.GetSet();
   const Array<Hypothesis*> &vec = set.GetVec();
   const Hypothesis &prevHypo = *vec[hypoInd];
+  const Bitmap &prevBM = prevHypo.GetBitmap();
+
+  if (prevBM.Overlap(range)) {
+    return;
+  }
 
   for (size_t i = 0; i < tps->size(); ++i) {
     const TargetPhrase *tp = (*tps)[i];
     assert(tp);
-    Hypothesis *hypo = new Hypothesis(mgr);
-    //hypo->Init(mgr, prevHypo);
 
-    Stack &destStack = stacks[0];
+    Hypothesis *hypo = new Hypothesis(mgr);
+    hypo->Init(mgr, prevHypo, *tp, range);
+    const Bitmap &newBM = hypo->GetBitmap();
+    size_t wordsCovered = newBM.GetNumWordsCovered();
+
+    Stack &destStack = stacks[wordsCovered];
 
     Lock &lock = destStack.GetLock();
     lock.lock();

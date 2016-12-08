@@ -22,12 +22,13 @@ void Hypothesis::Init(const Manager &mgr)
 
 
   __device__
-void Hypothesis::Init(const Manager &mgr, const Hypothesis &prevHypo, const TargetPhrase &tp)
+void Hypothesis::Init(const Manager &mgr, const Hypothesis &prevHypo, const TargetPhrase &tp, const Range &range)
 {
 	m_mgr = &mgr;
 	m_prevHypo = &prevHypo;
 	m_targetPhrase = &tp;
 
-  m_bitmap.Init();
+	const Bitmap &prevBM = prevHypo.GetBitmap();
+  m_bitmap.Init(prevBM, range);
 }
 

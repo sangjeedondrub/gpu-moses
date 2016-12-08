@@ -4,6 +4,7 @@
 class Manager;
 class TargetPhrase;
 class Bitmap;
+class Range;
 
 class Hypothesis
 {
@@ -16,7 +17,11 @@ public:
   void Init(const Manager &mgr);
 
   __device__
-  void Init(const Manager &mgr, const Hypothesis &prevHypo, const TargetPhrase &tp);
+  void Init(const Manager &mgr, const Hypothesis &prevHypo, const TargetPhrase &tp, const Range &range);
+
+  __device__
+  const Bitmap &GetBitmap() const
+  { return m_bitmap; }
 
 protected:
   const Manager *m_mgr;
