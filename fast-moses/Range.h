@@ -11,10 +11,13 @@ public:
   {
   }
 
+  __device__
   inline size_t GetStartPos() const
   {
     return m_startPos;
   }
+
+  __device__
   inline size_t GetEndPos() const
   {
     return m_endPos;

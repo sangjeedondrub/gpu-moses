@@ -98,7 +98,7 @@ void Manager::Process()
     size_t stackSize = stack.GetSize();
 
     ProcessStack<<<stackSize, 1>>>(stackInd, *this, m_stacks);
-
+    cudaDeviceSynchronize();
   }
 }
 

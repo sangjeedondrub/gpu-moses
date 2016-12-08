@@ -2,6 +2,7 @@
 
 class Manager;
 class TargetPhrase;
+class Bitmap;
 
 class Hypothesis
 {
@@ -19,5 +20,6 @@ public:
 protected:
   const Manager *m_mgr;
   const TargetPhrase *m_targetPhrase;
+  Bitmap *m_bitmap;
 
 };

@@ -1,21 +1,24 @@
 #pragma once
-#include <thrust/device_vector.h>
-#include "CUDA/Managed.h"
 
 class Range;
 
-class Bitmap : public Managed
+class Bitmap
 {
 public:
-  typedef thrust::device_vector<bool> Vec;
+  __device__
   explicit Bitmap(size_t size);
 
+  __device__
   void Init();
+
+  __device__
   void Init(const Bitmap &copy, const Range &range);
 
 protected:
-  Vec m_bitmap;
+  size_t m_size;
+  bool *m_bitmap;
 
+  __device__
   void SetValueNonOverlap(Range const& range);
 
 };
