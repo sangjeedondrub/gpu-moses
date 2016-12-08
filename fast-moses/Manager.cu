@@ -74,7 +74,7 @@ __global__ void Process1stStack(const Manager &mgr, Stacks &stacks)
   stack.Add(hypo);
 }
 
-__global__ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks, Lock &lock)
+__global__ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks)
 {
   int hypoInd = blockIdx.x;
   int start = blockIdx.y;
@@ -103,6 +103,7 @@ __global__ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks
 
     Stack &destStack = stacks[0];
 
+    Lock &lock = destStack.GetLock();
     lock.lock();
 
     destStack.Add(hypo);
@@ -151,7 +152,7 @@ void Manager::Process()
     //ProcessStack<<<stackSize, inputSize>>>(stackInd, *this, m_stacks);
 
     dim3 blocks(stackSize, inputSize, inputSize);
-    ProcessStack<<<blocks, 1>>>(stackInd, *this, m_stacks, m_lock);
+    ProcessStack<<<blocks, 1>>>(stackInd, *this, m_stacks);
 
     cudaDeviceSynchronize();
     m_stacks.PrintStacks();

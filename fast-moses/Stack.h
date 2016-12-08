@@ -1,6 +1,7 @@
 #pragma once
 #include "CUDA/Set.h"
 #include "CUDA/Managed.h"
+#include "CUDA/Lock.h"
 
 class Hypothesis;
 
@@ -21,6 +22,12 @@ public:
   const Set<Hypothesis*> &GetSet() const
   { return m_coll; }
 
+  __device__
+  Lock &GetLock()
+  { return m_lock; }
+
 protected:
 	Set<Hypothesis*> m_coll;
+
+  Lock m_lock;
 };
