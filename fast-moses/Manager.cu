@@ -77,7 +77,12 @@ std::string Manager::DebugTPSArr() const
 {
   std::stringstream strm;
   for (size_t i = 0; i < m_tpsArr.GetSize(); ++i) {
-    strm << m_tpsArr[i] << " ";
+    const TargetPhrases *tps = m_tpsArr[i];
+    strm << tps;
+    if (tps) {
+      strm << "(" << tps->GetSize() << ")";
+    }
+    strm << " ";
   }
   return strm.str();
 }

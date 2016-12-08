@@ -52,6 +52,7 @@ Node &Node::AddNode(const std::vector<VOCABID> &words, size_t pos)
 	VOCABID vocabId = words[pos];
 	Node *node;
 
+	/*
   cerr << "vocabId=" << vocabId << endl;
   size_t numChildren = m_children.GetSize();
   cerr << "node=" << this << " " << numChildren << ":";
@@ -61,9 +62,10 @@ Node &Node::AddNode(const std::vector<VOCABID> &words, size_t pos)
     cerr << pair.first << " ";
   }
   cerr << endl;
+  */
 
 	thrust::pair<bool, size_t> upper = m_children.UpperBound(vocabId);
-	cerr << "upper=" << upper.first << " " << upper.second << endl;
+	//cerr << "upper=" << upper.first << " " << upper.second << endl;
 	if (upper.first) {
 	  size_t ind = upper.second;
 	  node = m_children.GetValue(ind);
@@ -87,7 +89,7 @@ const TargetPhrases *Node::Lookup(const Phrase &phrase, size_t start, size_t end
 
   VOCABID vocabId = phrase[pos];
   thrust::pair<bool, size_t> upper = m_children.UpperBound(vocabId);
-  return (const TargetPhrases *) m_children.size();
+  //return (const TargetPhrases *) m_children.size();
 
   if (upper.first) {
     const Node *node = m_children.GetValue(upper.second);
@@ -95,7 +97,7 @@ const TargetPhrases *Node::Lookup(const Phrase &phrase, size_t start, size_t end
     return node->Lookup(phrase, start, end, pos + 1);
   }
   else {
-    return (const TargetPhrases *) 0x987;
+    //return (const TargetPhrases *) 0x987;
     return NULL;
   }
 }
