@@ -18,7 +18,7 @@ __device__
 void Bitmap::Init()
 {
   for (size_t i = 0; i < m_size; ++i) {
-	m_bitmap[i] = false;
+    m_bitmap[i] = false;
   }
 }
 
@@ -26,7 +26,7 @@ void Bitmap::Init()
 void Bitmap::Init(const Bitmap &copy, const Range &range)
 {
   for (size_t i = 0; i < m_size; ++i) {
-	m_bitmap[i] = copy.m_bitmap[i];
+    m_bitmap[i] = copy.m_bitmap[i];
   }
   SetValueNonOverlap(range);
 }
