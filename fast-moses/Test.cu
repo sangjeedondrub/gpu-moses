@@ -222,7 +222,7 @@ void Test5()
 
 void Test6()
 {
-  Map<int, float> m;
+  Map<int, float> m(true);
   m.Insert(4, 5.45);
   m.Insert(6, 5654.34);
   m.Insert(3, 1.99);

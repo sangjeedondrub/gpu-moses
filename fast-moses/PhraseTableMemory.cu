@@ -14,7 +14,8 @@
 using namespace std;
 
 Node::Node()
-:m_tps(NULL)
+:m_children(true)
+,m_tps(NULL)
 {}
 
 Node::~Node()
