@@ -9,6 +9,7 @@ using namespace std;
 
 Manager::Manager(const std::string &inputStr, const PhraseTableMemory &pt)
 :m_pt(pt)
+,m_tpsArr(true, 0)
 {
   m_input = Phrase::CreateFromString(inputStr);
   //cerr << "m_input=" << m_input->Debug() << endl;

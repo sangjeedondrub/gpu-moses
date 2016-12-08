@@ -187,7 +187,7 @@ void Resize(Array<T> &arr)
 
 void Test4()
 {
-  Array<int> arr(5);
+  Array<int> arr(true, 5);
   arr[0] = 2;
   arr[1] = 4;
   arr[2] = 5;
@@ -210,7 +210,7 @@ void Test4()
 
 void Test5()
 {
-  Set<int> s;
+  Set<int> s(true);
 
   s.Insert(4);
   s.Insert(3);

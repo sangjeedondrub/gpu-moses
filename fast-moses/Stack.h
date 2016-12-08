@@ -7,6 +7,9 @@ class Hypothesis;
 class Stack : public Managed
 {
 public:
+  Stack()
+  :m_coll(true)
+  {}
 
   __device__
 	void Add(Hypothesis *hypo);

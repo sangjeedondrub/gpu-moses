@@ -18,8 +18,9 @@ template<typename T, typename Compare = thrust::less<T> >
 class Array : public Managed
 {
 public:
-  __host__ Array(size_t size = 0, const T &val = T())
+  __host__ Array(bool managed, size_t size, const T &val = T())
   {
+    m_managed = managed;
     m_size = size;
     m_maxSize = size;
 
@@ -208,6 +209,7 @@ public:
   }
 
 protected:
+  bool m_managed;
   size_t m_size, m_maxSize;
   T *m_arr;
 

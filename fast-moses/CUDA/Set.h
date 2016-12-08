@@ -19,6 +19,11 @@ public:
   typedef Array<T, Compare> Vec;
 
   __host__
+  Set(bool managed)
+  :m_arr(managed, 0)
+  {}
+
+  __host__
   const Vec &GetVec() const
   { return m_arr; }
 

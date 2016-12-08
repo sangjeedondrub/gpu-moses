@@ -29,6 +29,10 @@ public:
   typedef thrust::pair<Key, Value> Pair;
   typedef Set<Pair, Compare> Parent;
 
+  Map()
+  :Parent(true)
+  {}
+
   __device__
   const Value &GetValue(size_t ind) const
   {

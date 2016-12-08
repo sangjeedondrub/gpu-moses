@@ -15,7 +15,7 @@ class Scores : public Managed
 {
 public:
   Scores(size_t length)
-  :m_vec(length)
+  :m_vec(true, length)
   {}
 
   __host__ void CreateFromString(const std::string &str);
