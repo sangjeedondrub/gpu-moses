@@ -8,11 +8,11 @@ class TargetPhrase;
 class Hypothesis : public Managed
 {
 public:
-  void Init(Manager &mgr);
-  void Init(Manager &mgr, const TargetPhrase &tp);
+  void Init(const Manager &mgr);
+  void Init(const Manager &mgr, const TargetPhrase &tp);
 
 protected:
-  Manager *m_mgr;
+  const Manager *m_mgr;
   const TargetPhrase *m_targetPhrase;
 
 };

@@ -49,7 +49,17 @@ __global__ void Lookup(Manager &mgr)
 
 }
 
-__global__ void ProcessStack(size_t stackInd, Stacks &stacks)
+__global__ void Process1stStack(const Manager &mgr, Stacks &stacks)
+{
+  /*
+  Hypothesis *hypo = new Hypothesis();
+  hypo->Init(mgr);
+  Stack &stack = stacks[0];
+  stack.Add(hypo);
+  */
+}
+
+__global__ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks)
 {
 
 }
@@ -78,18 +88,16 @@ void Manager::Process()
 
   m_stacks.Init(*this, m_input->GetSize() + 1);
 
-  Hypothesis *hypo = new Hypothesis();
-  hypo->Init(*this);
-  Stack &stack = m_stacks[0];
-  stack.Add(hypo);
+  Process1stStack<<<1,1>>>(*this, m_stacks);
 
+  Stack &stack = m_stacks[0];
   cerr << "1st stack=" << stack.GetSize() << endl;
 
   for (size_t stackInd = 0; stackInd < inputSize; ++stackInd) {
     const Stack &stack = m_stacks[stackInd];
     size_t stackSize = stack.GetSize();
 
-    ProcessStack<<<stackSize, 1>>>(stackInd, m_stacks);
+    ProcessStack<<<stackSize, 1>>>(stackInd, *this, m_stacks);
 
   }
 }
