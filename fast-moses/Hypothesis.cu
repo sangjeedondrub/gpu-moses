@@ -2,6 +2,7 @@
 #include "Bitmap.h"
 #include "Phrase.h"
 #include "Manager.h"
+#include "TargetPhrase.h"
 
 __device__
 Hypothesis::Hypothesis(const Manager &mgr)
@@ -32,6 +33,7 @@ void Hypothesis::Init(const Manager &mgr, const Hypothesis &prevHypo, const Targ
 	const Bitmap &prevBM = prevHypo.GetBitmap();
   m_bitmap.Init(prevBM, range);
 
+  m_scores.PlusEqual(tp.GetScores());
   m_scores.PlusEqual(prevHypo.m_scores);
 }
 

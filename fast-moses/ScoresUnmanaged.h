@@ -8,6 +8,7 @@
 #pragma once
 #include "CUDA/Array.h"
 #include "TypeDef.h"
+#include "Scores.h"
 
 class ScoresUnmanaged : public Array<SCORE>
 {
@@ -19,6 +20,9 @@ public:
 
   __device__
   void PlusEqual(const ScoresUnmanaged &other);
+
+  __device__
+  void PlusEqual(const Scores &other);
 
 protected:
 };

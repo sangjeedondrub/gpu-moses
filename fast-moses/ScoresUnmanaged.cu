@@ -14,6 +14,13 @@ void ScoresUnmanaged::PlusEqual(const ScoresUnmanaged &other)
   }
 }
 
+__device__
+void ScoresUnmanaged::PlusEqual(const Scores &other)
+{
+  for (size_t i = 0; i < m_size; ++i) {
+    (*this)[i] += other[i];
+  }
+}
 
 
 
