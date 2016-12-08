@@ -1,4 +1,5 @@
 #pragma once
+#include "Bitmap.h"
 
 class Manager;
 class TargetPhrase;
@@ -9,7 +10,7 @@ class Hypothesis
 public:
 
   __device__
-  Hypothesis() {}
+  Hypothesis(const Manager &mgr);
 
   __device__
   void Init(const Manager &mgr);
@@ -20,7 +21,7 @@ public:
 protected:
   const Manager *m_mgr;
   const TargetPhrase *m_targetPhrase;
-  Bitmap *m_bitmap;
+  Bitmap m_bitmap;
   const Hypothesis *m_prevHypo;
 
 };
