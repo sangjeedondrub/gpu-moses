@@ -34,7 +34,7 @@ public:
 
 	__device__
 	Vector<const TargetPhrases*> &GetTargetPhrases()
-	{ return m_tpsArr; }
+	{ return m_tpsVec; }
 
   __device__
   const TargetPhrases *GetTargetPhrases(int start, int end) const;
@@ -46,7 +46,7 @@ protected:
 	Phrase *m_input;
 	Stacks m_stacks;
 	const PhraseTableMemory &m_pt;
-	Vector<const TargetPhrases*> m_tpsArr;
+	Vector<const TargetPhrases*> m_tpsVec;
 
 	std::string DebugTPSArr() const;
 

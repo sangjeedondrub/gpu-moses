@@ -10,7 +10,7 @@ using namespace std;
 
 Manager::Manager(const std::string &inputStr, const PhraseTableMemory &pt)
 :m_pt(pt)
-,m_tpsArr(true, 0)
+,m_tpsVec(true, 0)
 {
   m_input = Phrase::CreateFromString(inputStr);
   //cerr << "m_input=" << m_input->Debug() << endl;
@@ -36,7 +36,7 @@ const TargetPhrases *Manager::GetTargetPhrases(int start, int end) const
 {
   const Phrase &input = GetInput();
   size_t inputSize = input.size();
-  const TargetPhrases *tps = m_tpsArr[start * inputSize + end];
+  const TargetPhrases *tps = m_tpsVec[start * inputSize + end];
   return tps;
 }
 
@@ -45,7 +45,7 @@ void Manager::SetTargetPhrases(int start, int end, const TargetPhrases *tps)
 {
   const Phrase &input = GetInput();
   size_t inputSize = input.size();
-  m_tpsArr[start * inputSize + end] = tps;
+  m_tpsVec[start * inputSize + end] = tps;
 }
 
 ///////////////////////////////////////
@@ -139,7 +139,7 @@ void Manager::Process()
 
   size_t inputSize = m_input->GetSize();
   cerr << "inputSize=" << inputSize << endl;
-  m_tpsArr.Resize(inputSize * inputSize, NULL);
+  m_tpsVec.Resize(inputSize * inputSize, NULL);
 
   Lookup<<<inputSize, inputSize>>>(*this);
   cudaDeviceSynchronize();
@@ -173,8 +173,8 @@ void Manager::Process()
 std::string Manager::DebugTPSArr() const
 {
   std::stringstream strm;
-  for (size_t i = 0; i < m_tpsArr.GetSize(); ++i) {
-    const TargetPhrases *tps = m_tpsArr[i];
+  for (size_t i = 0; i < m_tpsVec.GetSize(); ++i) {
+    const TargetPhrases *tps = m_tpsVec[i];
     strm << tps;
     if (tps) {
       strm << "(" << tps->GetSize() << ")";
