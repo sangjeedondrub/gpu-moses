@@ -9,7 +9,7 @@
 #include <string>
 #include "Stacks.h"
 #include "CUDA/Managed.h"
-#include "CUDA/Array.h"
+#include "CUDA/Vector.h"
 
 class Phrase;
 class PhraseTableMemory;
@@ -33,7 +33,7 @@ public:
   { return m_pt; }
 
 	__device__
-	Array<const TargetPhrases*> &GetTargetPhrases()
+	Vector<const TargetPhrases*> &GetTargetPhrases()
 	{ return m_tpsArr; }
 
   __device__
@@ -46,7 +46,7 @@ protected:
 	Phrase *m_input;
 	Stacks m_stacks;
 	const PhraseTableMemory &m_pt;
-	Array<const TargetPhrases*> m_tpsArr;
+	Vector<const TargetPhrases*> m_tpsArr;
 
 	std::string DebugTPSArr() const;
 

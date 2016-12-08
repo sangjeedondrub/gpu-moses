@@ -8,7 +8,7 @@
 #pragma once
 #include <thrust/device_vector.h>
 #include "TypeDef.h"
-#include "CUDA/Array.h"
+#include "CUDA/Vector.h"
 #include "CUDA/Managed.h"
 
 class Scores : public Managed
@@ -32,7 +32,7 @@ public:
   __host__ std::string Debug() const;
 
 protected:
-  Array<SCORE> m_vec;
+  Vector<SCORE> m_vec;
 
 };
 

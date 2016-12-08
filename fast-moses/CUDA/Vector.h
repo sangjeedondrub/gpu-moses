@@ -1,5 +1,5 @@
 /*
- * Array.h
+ * Vector.h
  *
  *  Created on: 29 Nov 2016
  *      Author: hieu
@@ -16,11 +16,11 @@
 #include "CUDA/Managed.h"
 
 template<typename T, typename Compare = thrust::less<T> >
-class Array : public Managed
+class Vector : public Managed
 {
 public:
   __host__
-  Array(bool managed, size_t size, const T &val = T())
+  Vector(bool managed, size_t size, const T &val = T())
   {
     m_managed = managed;
     m_size = size;
@@ -40,7 +40,7 @@ public:
   }
 
   __host__
-  ~Array()
+  ~Vector()
   {
     if (m_managed) {
       cudaFree(m_arr);

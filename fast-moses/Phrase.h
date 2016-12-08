@@ -8,7 +8,7 @@
 #include <thrust/device_vector.h>
 #include <string>
 #include "TypeDef.h"
-#include "CUDA/Array.h"
+#include "CUDA/Vector.h"
 #include "CUDA/Managed.h"
 
 class Phrase : public Managed
@@ -31,7 +31,7 @@ public:
 
 	__host__ std::string Debug() const;
 protected:
-	Array<VOCABID> m_vec;
+	Vector<VOCABID> m_vec;
 };
 
 __global__ void checkPhrase(char *str, const Phrase &phrase);

@@ -7,7 +7,7 @@
 #include "CUDA/Set.h"
 #include "CUDA/Map.h"
 #include "CUDA/Managed.h"
-#include "CUDA/Array.h"
+#include "CUDA/Vector.h"
 
 using namespace std;
 
@@ -178,7 +178,7 @@ void Test1()
 //////////////////////////
 template<typename T>
 __global__
-void Resize(Array<T> &arr)
+void Resize(Vector<T> &arr)
 {
   thrust::pair<bool, size_t> found;
   found = arr.UpperBound(100);
@@ -187,7 +187,7 @@ void Resize(Array<T> &arr)
 
 void Test4()
 {
-  Array<int> arr(true, 5);
+  Vector<int> arr(true, 5);
   arr[0] = 2;
   arr[1] = 4;
   arr[2] = 5;

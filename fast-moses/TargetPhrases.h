@@ -7,7 +7,7 @@
 
 #pragma once
 #include "TargetPhrase.h"
-#include "CUDA/Array.h"
+#include "CUDA/Vector.h"
 #include "CUDA/Managed.h"
 
 class TargetPhrases : public Managed
@@ -31,7 +31,7 @@ public:
   { return m_vec[ind]; }
 
 protected:
-  Array<const TargetPhrase*> m_vec;
+  Vector<const TargetPhrase*> m_vec;
   // not right. should be a device vector but causes compile error
 
 };

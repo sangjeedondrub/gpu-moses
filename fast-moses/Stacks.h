@@ -1,6 +1,6 @@
 #pragma once
 #include "CUDA/Managed.h"
-#include "CUDA/Array.h"
+#include "CUDA/Vector.h"
 
 class Stack;
 class Manager;
@@ -24,7 +24,7 @@ public:
 
   void PrintStacks() const;
 protected:
-  typedef Array<Stack*> Vec;
+  typedef Vector<Stack*> Vec;
   Vec m_vec;
 
 };

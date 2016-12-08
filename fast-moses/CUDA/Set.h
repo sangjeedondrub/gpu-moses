@@ -10,13 +10,13 @@
 #include <cassert>
 #include <sstream>
 #include <iostream>
-#include "Array.h"
+#include "Vector.h"
 
 template<typename T, typename Compare = thrust::less<T> >
 class Set : public Managed
 {
 public:
-  typedef Array<T, Compare> Vec;
+  typedef Vector<T, Compare> Vec;
 
   __host__
   Set(bool managed)
