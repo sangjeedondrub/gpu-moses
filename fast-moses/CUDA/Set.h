@@ -20,20 +20,20 @@ public:
 
   __host__
   Set(bool managed)
-  :m_arr(managed, 0)
+  :m_vec(managed, 0)
   {}
 
   __host__ __device__
   const Vec &GetVec() const
-  { return m_arr; }
+  { return m_vec; }
 
   __device__
   size_t size() const
-  { return m_arr.size(); }
+  { return m_vec.size(); }
 
   __host__
   size_t GetSize() const
-  { return m_arr.GetSize(); }
+  { return m_vec.GetSize(); }
 
   // assumes there's nothing there. Otherwise it will be a multiset
   __device__
@@ -45,7 +45,7 @@ public:
     size_t ind = upper.second;
     //std::cerr << "ind=" << ind << std::endl;
 
-    m_arr.insert(ind, val);
+    m_vec.insert(ind, val);
   }
 
   __host__
@@ -57,14 +57,14 @@ public:
     size_t ind = upper.second;
     //std::cerr << "ind=" << ind << std::endl;
 
-    m_arr.Insert(ind, val);
+    m_vec.Insert(ind, val);
   }
 
   __host__ __device__
   thrust::pair<bool, size_t> UpperBound(const T &sought) const
   {
     thrust::pair<bool, size_t> upper;
-    upper = m_arr.UpperBound(sought);
+    upper = m_vec.UpperBound(sought);
     return upper;
   }
 
@@ -72,11 +72,11 @@ public:
   __host__
   std::string Debug() const
   {
-    return m_arr.Debug();
+    return m_vec.Debug();
   }
 
 protected:
-  Vec m_arr;
+  Vec m_vec;
 
 };
 

@@ -36,14 +36,14 @@ public:
   __device__
   const Value &GetValue(size_t ind) const
   {
-    const Pair &pair = Parent::m_arr[ind];
+    const Pair &pair = Parent::m_vec[ind];
     return pair.second;
   }
 
   __host__ __device__
   Value &GetValue(size_t ind)
   {
-    Pair &pair = Parent::m_arr[ind];
+    Pair &pair = Parent::m_vec[ind];
     return pair.second;
   }
 
@@ -69,8 +69,8 @@ public:
   {
     std::ostringstream strm;
 
-    for (size_t i = 0; i < Parent::m_arr.GetSize(); ++i) {
-      const Pair &pair = Parent::m_arr[i];
+    for (size_t i = 0; i < Parent::m_vec.GetSize(); ++i) {
+      const Pair &pair = Parent::m_vec[i];
       const Key &key = pair.first;
       const Value &value = pair.second;
       strm << key << "=" << value << " ";
