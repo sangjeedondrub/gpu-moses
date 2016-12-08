@@ -52,13 +52,25 @@ Node &Node::AddNode(const std::vector<VOCABID> &words, size_t pos)
 	VOCABID vocabId = words[pos];
 	Node *node;
 
+  cerr << "vocabId=" << vocabId << endl;
+  size_t numChildren = m_children.GetSize();
+  cerr << "node=" << this << " " << numChildren << ":";
+  for (size_t i = 0; i < numChildren; ++i) {
+    const Children::Pair &pair = m_children.GetVec()[i];
+
+    cerr << pair.first << " ";
+  }
+  cerr << endl;
+
 	thrust::pair<bool, size_t> upper = m_children.UpperBound(vocabId);
+	cerr << "upper=" << upper.first << " " << upper.second << endl;
 	if (upper.first) {
 	  size_t ind = upper.second;
 	  node = m_children.GetValue(ind);
 	}
 	else {
-	  cudaMallocManaged(&node, sizeof(Node));
+	  node = new Node();
+	  //cudaMallocManaged(&node, sizeof(Node));
     m_children.Insert(vocabId, node);
 	}
 
@@ -107,7 +119,7 @@ void PhraseTableMemory::Load(const std::string &path)
 
 	std::string line;
 	while (getline(strm, line)) {
-		//cerr << line << endl;
+		cerr << line << endl;
 		std::vector<std::string> toks;
 		TokenizeMultiCharSeparator(toks, line, "|||");
 		/*
@@ -119,6 +131,11 @@ void PhraseTableMemory::Load(const std::string &path)
 		vector<VOCABID> sourceIds = vocab.GetOrCreateIds(toks[0]);
 		Node &node = m_root.AddNode(sourceIds);
 
+		/*
+		cerr << "node=" << &node << " "
+		    << node.GetChildren().GetSize() << " "
+		    << endl;
+    */
 		TargetPhrase *tp = TargetPhrase::CreateFromString(toks[1]);
 		tp->GetScores().CreateFromString(toks[2]);
 		
@@ -131,6 +148,7 @@ void PhraseTableMemory::Load(const std::string &path)
 		cerr << "tp=" << tp->Debug() << endl;
     */
 
+		/*
     char *str;
     cudaMallocHost(&str, 10000);
 
@@ -147,6 +165,7 @@ void PhraseTableMemory::Load(const std::string &path)
     //cerr << "tps=" << str << endl;
 
     cudaFree(str);
+    */
 	}
 
 	cerr << "root=" << m_root.GetChildren().Debug() << endl;
