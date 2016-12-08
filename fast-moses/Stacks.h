@@ -22,6 +22,7 @@ public:
     return *m_vec[ind];
   }
 
+  void PrintStacks() const;
 protected:
   typedef Array<Stack*> Vec;
   Vec m_vec;

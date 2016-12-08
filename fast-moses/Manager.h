@@ -43,6 +43,7 @@ protected:
 	Array<const TargetPhrases*> m_tpsArr;
 
 	std::string DebugTPSArr() const;
+
 };
 
 

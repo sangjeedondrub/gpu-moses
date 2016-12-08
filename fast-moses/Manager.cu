@@ -74,7 +74,7 @@ __global__ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks
     Hypothesis *hypo = new Hypothesis(mgr);
     //hypo->Init(mgr, prevHypo);
     Stack &destStack = stacks[0];
-    //destStack.Add(hypo);
+    destStack.Add(hypo);
   }
 
 }
@@ -113,8 +113,10 @@ void Manager::Process()
     const Stack &stack = m_stacks[stackInd];
     size_t stackSize = stack.GetSize();
 
-    ProcessStack<<<stackSize, inputSize>>>(stackInd, *this, m_stacks);
+    ProcessStack<<<1,1>>>(stackInd, *this, m_stacks);
+    //ProcessStack<<<stackSize, inputSize>>>(stackInd, *this, m_stacks);
     cudaDeviceSynchronize();
+    m_stacks.PrintStacks();
   }
 }
 
