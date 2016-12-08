@@ -14,7 +14,7 @@ class ComparePair
 public:
   typedef thrust::pair<Key, Value> Pair;
 
-  __device__
+  __host__ __device__
   bool operator()(const Pair &a, const Pair &b)
   {
     return a.first < b.first;

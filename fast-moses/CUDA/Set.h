@@ -16,7 +16,7 @@ template<typename T, typename Compare = thrust::less<T> >
 class Set : public Managed
 {
 public:
-  typedef Array<T> Vec;
+  typedef Array<T, Compare> Vec;
 
   __host__
   const Vec &GetVec() const
