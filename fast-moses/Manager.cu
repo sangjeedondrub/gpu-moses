@@ -69,10 +69,13 @@ __global__ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks
   const Array<Hypothesis*> &vec = set.GetVec();
   const Hypothesis &prevHypo = *vec[hypoInd];
 
-  Hypothesis *hypo = new Hypothesis(mgr);
-  //hypo->Init(mgr, prevHypo);
-  Stack &destStack = stacks[0];
-  //destStack.Add(hypo);
+  for (int end = start; end <= mgr.GetInput().size(); ++end) {
+
+    Hypothesis *hypo = new Hypothesis(mgr);
+    //hypo->Init(mgr, prevHypo);
+    Stack &destStack = stacks[0];
+    //destStack.Add(hypo);
+  }
 
 }
 
