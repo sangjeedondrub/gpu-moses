@@ -3,6 +3,7 @@
 #include "Phrase.h"
 #include "Hypothesis.h"
 #include "PhraseTableMemory.h"
+#include "Stack.h"
 
 using namespace std;
 
@@ -10,7 +11,7 @@ Manager::Manager(const std::string &inputStr, const PhraseTableMemory &pt)
 :m_pt(pt)
 {
   m_input = Phrase::CreateFromString(inputStr);
-  cerr << "m_input=" << m_input->Debug() << endl;
+  //cerr << "m_input=" << m_input->Debug() << endl;
 
 }
 
@@ -49,28 +50,33 @@ __global__ void Lookup(Manager &mgr)
 
 void Manager::Process()
 {
+  cerr << endl;
+  /*
   char *str;
   cudaMallocHost(&str, 10000);
 
   checkManager<<<1,1>>>(str, *this);
   cudaDeviceSynchronize();
   cerr << "mgr=" << str << endl;
+  */
 
   size_t inputSize = m_input->GetSize();
   cerr << "inputSize=" << inputSize << endl;
   m_tpsArr.Resize(inputSize * inputSize, NULL);
 
-  cerr << "before:" << DebugTPSArr() << endl;
   Lookup<<<inputSize, inputSize>>>(*this);
   cudaDeviceSynchronize();
-  cerr << "after:" << DebugTPSArr() << endl;
+  cerr << "tps=" << DebugTPSArr() << endl;
 
-  /*
   m_stacks.Init(*this, m_input->GetSize() + 1);
 
   Hypothesis *hypo = new Hypothesis();
+  hypo->Init(*this);
   Stack &stack = m_stacks[0];
-  */
+  stack.Add(hypo);
+
+  cerr << "1st stack=" << stack.GetSize() << endl;
+
 }
 
 std::string Manager::DebugTPSArr() const

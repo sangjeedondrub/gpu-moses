@@ -1,11 +1,14 @@
 #pragma once
 
+#include "CUDA/Managed.h"
+
 class Manager;
 class TargetPhrase;
 
-class Hypothesis
+class Hypothesis : public Managed
 {
 public:
+  void Init(Manager &mgr);
   void Init(Manager &mgr, const TargetPhrase &tp);
 
 protected:

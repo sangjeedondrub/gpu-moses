@@ -121,7 +121,7 @@ void PhraseTableMemory::Load(const std::string &path)
 
 	std::string line;
 	while (getline(strm, line)) {
-		cerr << line << endl;
+		//cerr << line << endl;
 		std::vector<std::string> toks;
 		TokenizeMultiCharSeparator(toks, line, "|||");
 		/*
@@ -170,7 +170,7 @@ void PhraseTableMemory::Load(const std::string &path)
     */
 	}
 
-	cerr << "root=" << m_root.GetChildren().Debug() << endl;
+	//cerr << "root=" << m_root.GetChildren().Debug() << endl;
 	cerr << "finished loading" << endl;
 }
 
