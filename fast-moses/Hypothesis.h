@@ -10,7 +10,10 @@ public:
   __device__
   Hypothesis() {}
 
+  __device__
   void Init(const Manager &mgr);
+
+  __device__
   void Init(const Manager &mgr, const TargetPhrase &tp);
 
 protected:

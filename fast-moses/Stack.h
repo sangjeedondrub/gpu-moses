@@ -7,7 +7,8 @@ class Hypothesis;
 class Stack : public Managed
 {
 public:
-  __host__
+
+  __device__
 	void Add(Hypothesis *hypo);
 
   __host__

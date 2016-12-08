@@ -51,12 +51,10 @@ __global__ void Lookup(Manager &mgr)
 
 __global__ void Process1stStack(const Manager &mgr, Stacks &stacks)
 {
-  /*
   Hypothesis *hypo = new Hypothesis();
   hypo->Init(mgr);
   Stack &stack = stacks[0];
   stack.Add(hypo);
-  */
 }
 
 __global__ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks)

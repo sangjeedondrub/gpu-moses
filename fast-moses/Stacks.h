@@ -11,6 +11,7 @@ public:
   __host__
   void Init(const Manager &mgr, size_t numStacks);
 
+  __host__ __device__
   Stack &operator[](size_t ind)
   {
     return *m_vec[ind];
