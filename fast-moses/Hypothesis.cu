@@ -7,6 +7,7 @@ __device__
 Hypothesis::Hypothesis(const Manager &mgr)
 :m_mgr(&mgr)
 ,m_bitmap(mgr.GetInput().size())
+,m_scores(4)
 {
 }
 

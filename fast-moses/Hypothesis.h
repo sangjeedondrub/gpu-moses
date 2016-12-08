@@ -1,5 +1,6 @@
 #pragma once
 #include "Bitmap.h"
+#include "ScoresUnmanaged.h"
 
 class Manager;
 class TargetPhrase;
@@ -28,5 +29,6 @@ protected:
   const TargetPhrase *m_targetPhrase;
   Bitmap m_bitmap;
   const Hypothesis *m_prevHypo;
+  ScoresUnmanaged m_scores;
 
 };
