@@ -9,6 +9,9 @@ public:
   explicit Bitmap(size_t size);
 
   __device__
+  ~Bitmap();
+
+  __device__
   void Init();
 
   __device__

@@ -1,14 +1,20 @@
 #include "Bitmap.h"
 #include "Range.h"
 
-  __device__
+__device__
 Bitmap::Bitmap(size_t size)
 :m_size(size)
 {
   m_bitmap = (bool*) malloc(sizeof(bool) * size);
 }
 
-  __device__
+__device__
+Bitmap::~Bitmap()
+{
+  free(m_bitmap);
+}
+
+__device__
 void Bitmap::Init()
 {
   for (size_t i = 0; i < m_size; ++i) {
