@@ -22,6 +22,10 @@ public:
     return *m_vec[ind];
   }
 
+  __host__
+    const Stack &Back() const
+  { return *m_vec[m_vec.GetSize() - 1]; }
+
   void PrintStacks() const;
 protected:
   typedef Vector<Stack*> Vec;

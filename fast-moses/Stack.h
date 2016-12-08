@@ -26,6 +26,9 @@ public:
   Lock &GetLock()
   { return m_lock; }
 
+  __host__
+  std::string Debug() const;
+
 protected:
 	Set<Hypothesis*> m_coll;
 
