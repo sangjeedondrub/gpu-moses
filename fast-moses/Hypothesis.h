@@ -27,6 +27,9 @@ public:
   __host__
   SCORE GetFutureScore() const;
 
+  __host__
+  static SCORE GetTotalScore(const Hypothesis *hypo);
+
 protected:
   const Manager *m_mgr;
   const TargetPhrase *m_targetPhrase;

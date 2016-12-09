@@ -43,3 +43,8 @@ SCORE Hypothesis::GetFutureScore() const
   return 343.4;
 }
 
+SCORE Hypothesis::GetTotalScore(const Hypothesis *hypo)
+{
+  return 88.55;
+}
+
