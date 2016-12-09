@@ -93,9 +93,7 @@ __global__ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks
   }
 
   const Stack &stack = stacks[stackInd];
-
-  const Set<Hypothesis*> &set = stack.GetSet();
-  const Vector<Hypothesis*> &vec = set.GetVec();
+  const Hypothesis** vec = stack.GetArr();
   const Hypothesis &prevHypo = *vec[hypoInd];
   const Bitmap &prevBM = prevHypo.GetBitmap();
 

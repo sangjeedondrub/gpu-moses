@@ -41,8 +41,8 @@ void Hypothesis::Init(const Manager &mgr, const Hypothesis &prevHypo, const Targ
 __global__
 void getTotalScore(const Hypothesis &hypo, SCORE &output)
 {
-  //SCORE score = hypo.GetScores().GetTotal();
-  output = hypo.sss; //score;
+  SCORE score = hypo.GetScores().GetTotal();
+  //output = hypo.sss; //score;
   //output = 456.789;
 }
 

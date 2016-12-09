@@ -5,13 +5,18 @@
 using namespace std;
 
 Stack::Stack()
-:m_coll(false)
-{}
+{
+  cudaMallocManaged(&m_arr, sizeof(Hypothesis*) * 5000);
+  cudaMemset(m_arr, 0, sizeof(Hypothesis*) * 5000);
+  m_size = 0;
+  //cerr << "m_arr=" << m_arr << endl;
+}
 
-  __device__
+__device__
 void Stack::Add(Hypothesis *hypo)
 {
-	m_coll.insert(hypo);
+	m_arr[m_size] = hypo;
+	++m_size;
 }
 
 __host__
@@ -19,10 +24,10 @@ std::string Stack::Debug() const
 {
   std::stringstream strm;
   size_t size = GetSize();
-  strm << size << ":";
+  cerr << "size=" << size << ":";
   for (size_t i = 0; i < size; ++i) {
     cerr << "HH1:" << i << endl;
-    const Hypothesis *hypo = m_coll.GetVec().Get(i);
+    const Hypothesis *hypo = m_arr[i];
     cerr << "HH2:" << hypo << endl;
 
     SCORE *d_s;

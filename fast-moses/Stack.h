@@ -16,11 +16,7 @@ public:
 
   __host__
   size_t GetSize() const
-  { return m_coll.GetSize(); }
-
-  __device__
-  const Set<Hypothesis*> &GetSet() const
-  { return m_coll; }
+  { return m_size; }
 
   __device__
   Lock &GetLock()
@@ -29,8 +25,14 @@ public:
   __host__
   std::string Debug() const;
 
+   __device__
+  const Hypothesis **GetArr() const
+  { return m_arr; }
+  
 protected:
-	Set<Hypothesis*> m_coll;
-
+	//Set<Hypothesis*> m_coll;
+  Hypothesis **m_arr;
+  size_t m_size;
+  
   Lock m_lock;
 };
