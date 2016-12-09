@@ -26,7 +26,7 @@ public:
   std::string Debug() const;
 
    __device__
-  const Hypothesis **GetArr() const
+  Hypothesis **GetArr() const
   { return m_arr; }
   
   __host__

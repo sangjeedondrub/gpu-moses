@@ -41,10 +41,25 @@ void Hypothesis::Init(const Manager &mgr, const Hypothesis &prevHypo, const Targ
 __global__
 void getTotalScore(const Hypothesis &hypo, SCORE &output)
 {
-  //output = hypo.GetScores().GetTotal();
-  output = hypo.sss; //score;
+  output = hypo.GetScores().GetTotal();
+  //output = hypo.sss; //score;
   //output = 456.789;
 }
 
+__host__
+SCORE Hypothesis::GetFutureScore() const
+{
+    SCORE *d_s;
+    cudaMalloc(&d_s, sizeof(SCORE));
+    cudaDeviceSynchronize();
 
+    getTotalScore<<<1,1>>>(*this, *d_s);
+    cudaDeviceSynchronize();
+    
+    SCORE h_s;
+    cudaMemcpy(&h_s, d_s, sizeof(SCORE), cudaMemcpyDeviceToHost);
+    cudaDeviceSynchronize();
+    
+    return h_s;
+}
 

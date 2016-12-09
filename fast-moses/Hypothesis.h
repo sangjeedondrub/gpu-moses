@@ -30,6 +30,9 @@ public:
 
   SCORE sss;
 
+  __host__
+  SCORE GetFutureScore() const;
+  
 protected:
   const Manager *m_mgr;
   const TargetPhrase *m_targetPhrase;
