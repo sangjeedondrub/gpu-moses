@@ -21,7 +21,7 @@ std::string Stack::Debug() const
   size_t size = GetSize();
   strm << size << ":";
   for (size_t i = 0; i < size; ++i) {
-    cerr << "HH1" << endl;
+    cerr << "HH1:" << i << endl;
     const Hypothesis *hypo = m_coll.GetVec().Get(i);
     cerr << "HH2:" << hypo << endl;
 

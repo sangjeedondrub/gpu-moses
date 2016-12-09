@@ -51,6 +51,7 @@ SCORE Hypothesis::GetFutureScore() const
   cudaMallocManaged(&output, sizeof(SCORE));
   getTotalScore<<<1,1>>>(*this, *output);
   SCORE score = *output;
+  cudaFree(output);
 
   return score;
 }
