@@ -6,6 +6,7 @@
  */
 
 #pragma once
+#include <iostream>
 #include <thrust/pair.h>
 #include <thrust/functional.h>
 #include <iostream>
@@ -114,13 +115,23 @@ public:
     */
   }
 
-  __host__ void Set(size_t ind, const T &val)
+  __host__
+  void Set(size_t ind, const T &val)
   {
     //m_arr[ind] = val;
 
     cudaMemcpy(&m_arr[ind], &val, sizeof(T), cudaMemcpyHostToDevice);
     cudaDeviceSynchronize();
+  }
 
+  __host__
+  const T Get(size_t ind)
+  {
+    std::cerr << "m_arr=" << m_arr << std::endl;
+    T val;
+    cudaMemcpy(&val, &m_arr[ind], sizeof(T), cudaMemcpyDeviceToHost);
+    cudaDeviceSynchronize();
+    return val;
   }
 
   __device__

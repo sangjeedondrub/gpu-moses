@@ -28,7 +28,7 @@ std::string Stack::Debug() const
   strm << size << ":";
   for (size_t i = 0; i < size; ++i) {
     cerr << "HH1" << endl;
-    const Hypothesis *hypo = m_coll.GetVec()[i];
+    const Hypothesis *hypo = m_coll.GetVec().Get(i);
     cerr << "before" << endl;
     getTotalScore<<<1,1>>>(hypo);
     cerr << "after" << endl;
