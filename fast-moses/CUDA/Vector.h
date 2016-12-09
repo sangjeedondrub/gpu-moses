@@ -32,7 +32,7 @@ public:
         cudaMallocManaged(&m_arr, sizeof(T) * size);
       }
       else {
-        m_arr = (T*) malloc(sizeof(T) * size);
+        cudaMalloc(&m_arr, sizeof(T) * size);
       }
     }
     else {
@@ -43,12 +43,7 @@ public:
   __host__
   ~Vector()
   {
-    if (m_managed) {
-      cudaFree(m_arr);
-    }
-    else {
-      free(m_arr);
-    }
+    cudaFree(m_arr);
   }
 
   __device__
@@ -106,13 +101,13 @@ public:
 
   __host__ const T Get(size_t ind) const
   {
-    return m_arr[ind];
-    /*
+    //return m_arr[ind];
+
     T ret;
     cudaMemcpy(&ret, &m_arr[ind], sizeof(T), cudaMemcpyDeviceToHost);
     cudaDeviceSynchronize();
     return ret;
-    */
+
   }
 
   __host__
