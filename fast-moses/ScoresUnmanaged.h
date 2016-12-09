@@ -21,6 +21,9 @@ public:
   __device__
   void PlusEqual(const Scores &other);
 
+  __device__ SCORE GetTotal() const
+  { return m_total; }
+
 protected:
   SCORE *m_scores;
   SCORE m_total;
