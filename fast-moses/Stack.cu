@@ -6,7 +6,7 @@ using namespace std;
 
 Stack::Stack()
 {
-  cudaMallocManaged(&m_arr, sizeof(Hypothesis*) * 5000);
+  cudaMalloc(&m_arr, sizeof(Hypothesis*) * 5000);
   cudaMemset(m_arr, 0, sizeof(Hypothesis*) * 5000);
   m_size = 0;
   //cerr << "m_arr=" << m_arr << endl;
@@ -22,7 +22,13 @@ void Stack::Add(Hypothesis *hypo)
 __host__
 Hypothesis *Stack::Get(size_t ind) const
 {
-	return m_arr[ind];
+  Hypothesis *ret;
+  //cudaMalloc(&ret, sizeof(Hypothesis*));
+
+  cudaMemcpy(&ret, &m_arr[ind], sizeof(Hypothesis *), cudaMemcpyDeviceToHost);
+  return ret;
+  
+	//return m_arr[ind];
 }
 
 __host__
