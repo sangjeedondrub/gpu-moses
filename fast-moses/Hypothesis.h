@@ -24,11 +24,13 @@ public:
   const Bitmap &GetBitmap() const
   { return m_bitmap; }
 
+  __device__
+  const ScoresUnmanaged &GetScores() const
+  { return m_scores; }
+
   __host__
   SCORE GetFutureScore() const;
 
-  __host__
-  static SCORE GetTotalScore(const Hypothesis *hypo);
 
 protected:
   const Manager *m_mgr;

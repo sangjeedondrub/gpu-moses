@@ -37,14 +37,22 @@ void Hypothesis::Init(const Manager &mgr, const Hypothesis &prevHypo, const Targ
   m_scores.PlusEqual(prevHypo.m_scores);
 }
 
+__global__
+void getTotalScore(const Hypothesis &hypo, SCORE &output)
+{
+  SCORE score = hypo.GetScores().GetTotal();
+  output = score;
+}
+
 __host__
 SCORE Hypothesis::GetFutureScore() const
 {
-  return 343.4;
+  SCORE *output;
+  cudaMallocManaged(&output, sizeof(SCORE));
+  getTotalScore<<<1,1>>>(*this, *output);
+  SCORE score = *output;
+
+  return score;
 }
 
-SCORE Hypothesis::GetTotalScore(const Hypothesis *hypo)
-{
-  return 88.55;
-}
 

@@ -14,12 +14,6 @@ void Stack::Add(Hypothesis *hypo)
 	m_coll.insert(hypo);
 }
 
-__global__
-void getTotalScore(const Hypothesis *hypo)
-{
-
-}
-
 __host__
 std::string Stack::Debug() const
 {
@@ -29,10 +23,11 @@ std::string Stack::Debug() const
   for (size_t i = 0; i < size; ++i) {
     cerr << "HH1" << endl;
     const Hypothesis *hypo = m_coll.GetVec().Get(i);
-    cerr << "before" << endl;
-    getTotalScore<<<1,1>>>(hypo);
-    cerr << "after" << endl;
+    cerr << "HH2:" << hypo << endl;
 
+    //getTotalScore<<<1,1>>>(hypo);
+    strm << hypo->GetFutureScore() << " ";
+    cerr << "HH3:" << hypo->GetFutureScore() << endl;
     //strm << Hypothesis::GetTotalScore(hypo) << " ";
     //strm << (size_t) hypo << " ";
     //strm << i << " ";

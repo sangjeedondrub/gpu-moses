@@ -122,7 +122,6 @@ public:
   __host__
   const T Get(size_t ind)
   {
-    std::cerr << "m_arr=" << m_arr << std::endl;
     T val;
     cudaMemcpy(&val, &m_arr[ind], sizeof(T), cudaMemcpyDeviceToHost);
     cudaDeviceSynchronize();
