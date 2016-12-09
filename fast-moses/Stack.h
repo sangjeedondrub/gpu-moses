@@ -29,6 +29,9 @@ public:
   const Hypothesis **GetArr() const
   { return m_arr; }
   
+  __host__
+  Hypothesis *Get(size_t ind) const;
+  
 protected:
 	//Set<Hypothesis*> m_coll;
   Hypothesis **m_arr;

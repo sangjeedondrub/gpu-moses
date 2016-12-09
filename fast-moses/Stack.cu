@@ -20,6 +20,12 @@ void Stack::Add(Hypothesis *hypo)
 }
 
 __host__
+Hypothesis *Stack::Get(size_t ind) const
+{
+	return m_arr[ind];
+}
+
+__host__
 std::string Stack::Debug() const
 {
   std::stringstream strm;
@@ -27,7 +33,7 @@ std::string Stack::Debug() const
   cerr << "size=" << size << ":";
   for (size_t i = 0; i < size; ++i) {
     cerr << "HH1:" << i << endl;
-    const Hypothesis *hypo = m_arr[i];
+    const Hypothesis *hypo = Get(i);
     cerr << "HH2:" << hypo << endl;
 
     SCORE *d_s;
