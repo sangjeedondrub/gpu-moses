@@ -6,17 +6,14 @@
  */
 
 #pragma once
-#include "CUDA/Array.h"
 #include "TypeDef.h"
 #include "Scores.h"
 
-class ScoresUnmanaged : public Array<SCORE>
+class ScoresUnmanaged
 {
 public:
   __device__
-  ScoresUnmanaged(size_t size, const SCORE &val = 0)
-  :Array(size, val)
-  {}
+  ScoresUnmanaged(size_t size, const SCORE &val = 0);
 
   __device__
   void PlusEqual(const ScoresUnmanaged &other);
@@ -25,6 +22,8 @@ public:
   void PlusEqual(const Scores &other);
 
 protected:
+  SCORE *m_scores;
+  SCORE m_total;
 };
 
 

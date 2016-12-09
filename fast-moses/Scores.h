@@ -26,6 +26,9 @@ public:
   __host__ size_t GetSize() const
   { return m_vec.GetSize(); }
 
+  __device__ SCORE GetTotal() const
+  { return m_total; }
+
   __device__ const SCORE& operator[](size_t ind) const
   { return m_vec[ind]; }
 
@@ -33,6 +36,7 @@ public:
 
 protected:
   Vector<SCORE> m_vec;
+  SCORE m_total;
 
 };
 
