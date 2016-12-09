@@ -28,9 +28,7 @@ public:
   const ScoresUnmanaged &GetScores() const
   { return m_scores; }
 
-  __host__
-  SCORE GetFutureScore() const;
-
+  SCORE sss;
 
 protected:
   const Manager *m_mgr;
@@ -40,3 +38,7 @@ protected:
   ScoresUnmanaged m_scores;
 
 };
+
+__global__
+void getTotalScore(const Hypothesis &hypo, SCORE &output);
+

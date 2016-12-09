@@ -25,9 +25,24 @@ std::string Stack::Debug() const
     const Hypothesis *hypo = m_coll.GetVec().Get(i);
     cerr << "HH2:" << hypo << endl;
 
+    SCORE *d_s;
+    cudaMalloc(&d_s, sizeof(SCORE));
+    cudaDeviceSynchronize();
+
+    getTotalScore<<<1,1>>>(*hypo, *d_s);
+    cudaDeviceSynchronize();
+    
+    SCORE h_s;
+    cudaMemcpy(&h_s, d_s, sizeof(SCORE), cudaMemcpyDeviceToHost);
+    cudaDeviceSynchronize();
+
+
+    cerr << "HH3:" << h_s << endl;
+    cudaFree(d_s);
+
     //getTotalScore<<<1,1>>>(hypo);
-    strm << hypo->GetFutureScore() << " ";
-    cerr << "HH3:" << hypo->GetFutureScore() << endl;
+    //strm << hypo->GetFutureScore() << " ";
+    //cerr << "HH3:" << hypo->GetFutureScore() << endl;
     //strm << Hypothesis::GetTotalScore(hypo) << " ";
     //strm << (size_t) hypo << " ";
     //strm << i << " ";

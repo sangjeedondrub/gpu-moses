@@ -10,6 +10,7 @@ Hypothesis::Hypothesis(const Manager &mgr)
 ,m_bitmap(mgr.GetInput().size())
 ,m_scores(4)
 {
+   sss = 123.456;
 }
 
   __device__
@@ -40,20 +41,10 @@ void Hypothesis::Init(const Manager &mgr, const Hypothesis &prevHypo, const Targ
 __global__
 void getTotalScore(const Hypothesis &hypo, SCORE &output)
 {
-  SCORE score = hypo.GetScores().GetTotal();
-  output = score;
+  //SCORE score = hypo.GetScores().GetTotal();
+  output = hypo.sss; //score;
+  //output = 456.789;
 }
 
-__host__
-SCORE Hypothesis::GetFutureScore() const
-{
-  SCORE *output;
-  cudaMallocManaged(&output, sizeof(SCORE));
-  getTotalScore<<<1,1>>>(*this, *output);
-  SCORE score = *output;
-  cudaFree(output);
-
-  return score;
-}
 
 
