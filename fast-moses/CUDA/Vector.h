@@ -14,7 +14,7 @@
 #include <string>
 #include <cuda.h>
 #include <cassert>
-#include "CUDA/Managed.h"
+#include "Managed.h"
 
 template<typename T, typename Compare = thrust::less<T> >
 class Vector : public Managed

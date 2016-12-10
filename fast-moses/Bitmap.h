@@ -8,7 +8,7 @@ class Bitmap
 {
 public:
   __device__
-  explicit Bitmap(size_t size);
+  Bitmap(size_t size);
 
   __device__
   ~Bitmap();
