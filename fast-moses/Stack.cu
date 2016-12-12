@@ -43,16 +43,9 @@ std::string Stack::Debug() const
     cerr << "HH2:" << hypo << endl;
 
     SCORE h_s;
-		h_s = hypo->GetFutureScore();
+    h_s = hypo->GetFutureScore();
 
     cerr << "HH3:" << h_s << endl;
-
-    //getTotalScore<<<1,1>>>(hypo);
-    //strm << hypo->GetFutureScore() << " ";
-    //cerr << "HH3:" << hypo->GetFutureScore() << endl;
-    //strm << Hypothesis::GetTotalScore(hypo) << " ";
-    //strm << (size_t) hypo << " ";
-    //strm << i << " ";
   }
 
   return strm.str();
