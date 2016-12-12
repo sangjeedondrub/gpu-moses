@@ -19,7 +19,7 @@ int main()
   cerr << "Starting..." << endl;
   Test();
 
-  System system;
+  System *system = new System();
 
   FastMoses::MyVocab vocab;
   PhraseTableMemory *pt = new PhraseTableMemory();
@@ -28,7 +28,7 @@ int main()
   cerr << "Start Decoding:" << endl;
   string line;
   while (getline(cin, line)) {
-	  Manager *mgr = new Manager(system, line, *pt);
+	  Manager *mgr = new Manager(*system, line, *pt);
 	  mgr->Process();
   }
 

@@ -11,7 +11,7 @@ Hypothesis::Hypothesis(const Manager &mgr)
 ,m_bitmap(mgr.GetInput().size())
 ,m_scores(4)
 {
-   sss = 123.456;
+   sss = mgr.system.ffs.totalSize;
    stateData = (char*) malloc(mgr.system.ffs.totalSize);
 }
 
