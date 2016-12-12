@@ -8,8 +8,9 @@
 
 using namespace std;
 
-Manager::Manager(const std::string &inputStr, const PhraseTableMemory &pt)
-:m_pt(pt)
+Manager::Manager(const System &sys, const std::string &inputStr, const PhraseTableMemory &pt)
+:system(sys)
+,m_pt(pt)
 ,m_tpsVec(true, 0)
 {
   m_input = Phrase::CreateFromString(inputStr);

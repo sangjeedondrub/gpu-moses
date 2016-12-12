@@ -14,11 +14,14 @@
 class Phrase;
 class PhraseTableMemory;
 class TargetPhrases;
+class System;
 
 class Manager : public Managed
 {
 public:
-	Manager(const std::string &inputStr, const PhraseTableMemory &pt);
+	const System &system;
+
+	Manager(const System &sys, const std::string &inputStr, const PhraseTableMemory &pt);
 	virtual ~Manager();
 
 	__host__

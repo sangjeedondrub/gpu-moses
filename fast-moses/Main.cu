@@ -3,6 +3,7 @@
 #include "MyVocab.h"
 #include "PhraseTableMemory.h"
 
+#include "System.h"
 #include "Phrase.h"
 #include "Scores.h"
 #include "TargetPhrase.h"
@@ -18,6 +19,8 @@ int main()
   cerr << "Starting..." << endl;
   Test();
 
+  System system;
+
   FastMoses::MyVocab vocab;
   PhraseTableMemory *pt = new PhraseTableMemory();
   pt->Load("phrase-table");
@@ -25,7 +28,7 @@ int main()
   cerr << "Start Decoding:" << endl;
   string line;
   while (getline(cin, line)) {
-	  Manager *mgr = new Manager(line, *pt);
+	  Manager *mgr = new Manager(system, line, *pt);
 	  mgr->Process();
   }
 

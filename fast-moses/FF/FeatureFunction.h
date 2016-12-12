@@ -6,8 +6,9 @@
  */
 
 #pragma once
+#include "../CUDA/Managed.h"
 
-class FeatureFunction
+class FeatureFunction : public Managed
 {
 
 

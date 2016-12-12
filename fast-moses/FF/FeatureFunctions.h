@@ -7,12 +7,11 @@
 
 #pragma once
 #include "StatefulFeatureFunction.h"
+#include "../CUDA/Managed.h"
 
-class FeatureFunctions
+class FeatureFunctions : public Managed
 {
 public:
-	static FeatureFunctions s_instance;
-
 	size_t totalSize;
 	StatefulFeatureFunction *sfff;
 

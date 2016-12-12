@@ -1,8 +1,9 @@
 #include "Hypothesis.h"
 #include "Bitmap.h"
 #include "Phrase.h"
-#include "Manager.h"
 #include "TargetPhrase.h"
+#include "Manager.h"
+#include "System.h"
 
 __device__
 Hypothesis::Hypothesis(const Manager &mgr)
@@ -11,6 +12,7 @@ Hypothesis::Hypothesis(const Manager &mgr)
 ,m_scores(4)
 {
    sss = 123.456;
+   stateData = (char*) malloc(mgr.system.ffs.totalSize);
 }
 
   __device__
