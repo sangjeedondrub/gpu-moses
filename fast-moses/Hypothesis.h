@@ -10,6 +10,7 @@ class Range;
 class Hypothesis
 {
 public:
+  char *stateData;
 
   __device__
   Hypothesis(const Manager &mgr);

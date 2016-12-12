@@ -12,8 +12,8 @@ class StatefulFeatureFunction : public FeatureFunction
 {
 
 public:
-
-	virtual size_t GetStateSize() = 0;
+	size_t stateSize;
+	size_t startOffset;
 
 };
 

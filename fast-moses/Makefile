@@ -31,7 +31,8 @@ OBJECTS = InputFileStream.o MyVocab.o TypeDef.o \
 		Main.o Manager.o Phrase.o PhraseTableMemory.o Range.o \
 		Scores.o ScoresUnmanaged.o Stack.o Stacks.o \
 		TargetPhrase.o TargetPhrases.o Test.o \
-		CUDA/Managed.o CUDA/Util.o
+		CUDA/Managed.o CUDA/Util.o \
+		FF/Distortion.o FF/FeatureFunctions.o
 
 
 OBJECTS_fast_moses = $(OBJECTS)
