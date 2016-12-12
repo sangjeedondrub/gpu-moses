@@ -9,6 +9,8 @@
 #include "StatefulFeatureFunction.h"
 #include "../CUDA/Managed.h"
 
+class Hypothesis;
+
 class FeatureFunctions : public Managed
 {
 public:
@@ -16,6 +18,9 @@ public:
 	StatefulFeatureFunction *sfff;
 
 	FeatureFunctions();
+
+	__device__
+	void EvaluateWhenApplied(Hypothesis &hypo) const;
 
 protected:
 

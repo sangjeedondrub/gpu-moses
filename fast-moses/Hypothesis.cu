@@ -9,10 +9,10 @@ __device__
 Hypothesis::Hypothesis(const Manager &mgr)
 :m_mgr(&mgr)
 ,m_bitmap(mgr.GetInput().size())
-,m_scores(4)
+,scores(4)
 {
-   sss = mgr.system.ffs.totalSize;
-   stateData = (char*) malloc(mgr.system.ffs.totalSize);
+  sss = 453.54;
+  stateData = (char*) malloc(mgr.system.ffs.totalSize);
 }
 
   __device__
@@ -29,21 +29,23 @@ void Hypothesis::Init(const Manager &mgr)
 __device__
 void Hypothesis::Init(const Manager &mgr, const Hypothesis &prevHypo, const TargetPhrase &tp, const Range &range)
 {
-	m_mgr = &mgr;
-	m_prevHypo = &prevHypo;
-	m_targetPhrase = &tp;
+  m_mgr = &mgr;
+  m_prevHypo = &prevHypo;
+  m_targetPhrase = &tp;
 
-	const Bitmap &prevBM = prevHypo.GetBitmap();
+  const Bitmap &prevBM = prevHypo.GetBitmap();
   m_bitmap.Init(prevBM, range);
 
-  m_scores.PlusEqual(tp.GetScores());
-  m_scores.PlusEqual(prevHypo.m_scores);
+  scores.PlusEqual(tp.GetScores());
+  scores.PlusEqual(prevHypo.scores);
+
+  mgr.system.ffs.EvaluateWhenApplied(*this);
 }
 
 __global__
 void getTotalScore(const Hypothesis &hypo, SCORE &output)
 {
-  output = hypo.GetScores().GetTotal();
+  output = hypo.scores.GetTotal();
   //output = hypo.sss; //score;
   //output = 456.789;
 }

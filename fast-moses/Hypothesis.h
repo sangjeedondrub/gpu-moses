@@ -10,7 +10,10 @@ class Range;
 class Hypothesis
 {
 public:
+  ScoresUnmanaged scores;
   char *stateData;
+
+  SCORE sss;
 
   __device__
   Hypothesis(const Manager &mgr);
@@ -25,11 +28,6 @@ public:
   const Bitmap &GetBitmap() const
   { return m_bitmap; }
 
-  __device__
-  const ScoresUnmanaged &GetScores() const
-  { return m_scores; }
-
-  SCORE sss;
 
   __host__
   SCORE GetFutureScore() const;
@@ -39,7 +37,6 @@ protected:
   const TargetPhrase *m_targetPhrase;
   Bitmap m_bitmap;
   const Hypothesis *m_prevHypo;
-  ScoresUnmanaged m_scores;
 
 };
 

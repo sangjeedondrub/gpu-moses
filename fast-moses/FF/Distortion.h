@@ -14,6 +14,8 @@ class Distortion : public StatefulFeatureFunction
 public:
 	Distortion();
 
+  __device__
+	void EvaluateWhenApplied(Hypothesis &hypo);
 };
 
 

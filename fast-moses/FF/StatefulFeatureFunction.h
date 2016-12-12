@@ -8,6 +8,8 @@
 #pragma once
 #include "FeatureFunction.h"
 
+class Hypothesis;
+
 class StatefulFeatureFunction : public FeatureFunction
 {
 

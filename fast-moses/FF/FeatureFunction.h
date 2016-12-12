@@ -10,6 +10,8 @@
 
 class FeatureFunction : public Managed
 {
-
+public:
+  virtual ~FeatureFunction()
+  {}
 
 };

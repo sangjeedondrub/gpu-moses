@@ -16,5 +16,12 @@ FeatureFunctions::FeatureFunctions()
   totalSize += sfff->stateSize;
   sfff->startOffset = 0;
 
+}
+
+__device__
+void FeatureFunctions::EvaluateWhenApplied(Hypothesis &hypo) const
+{
+  Distortion *castFF = static_cast<Distortion*>(sfff);
+  castFF->EvaluateWhenApplied(hypo);
 
 }
