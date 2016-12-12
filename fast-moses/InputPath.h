@@ -1,4 +1,5 @@
 #pragma once
+#include "TargetPhrases.h"
 
 class InputPath
 {
