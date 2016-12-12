@@ -19,9 +19,9 @@ FeatureFunctions::FeatureFunctions()
 }
 
 __device__
-void FeatureFunctions::EvaluateWhenApplied(Hypothesis &hypo) const
+void FeatureFunctions::EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo) const
 {
   Distortion *castFF = static_cast<Distortion*>(sfff);
-  castFF->EvaluateWhenApplied(hypo);
+  castFF->EvaluateWhenApplied(mgr, hypo);
 
 }

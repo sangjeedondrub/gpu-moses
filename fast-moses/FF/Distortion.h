@@ -15,7 +15,7 @@ public:
 	Distortion();
 
   __device__
-	void EvaluateWhenApplied(Hypothesis &hypo);
+	void EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo);
 };
 
 

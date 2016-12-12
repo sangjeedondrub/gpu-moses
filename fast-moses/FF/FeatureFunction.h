@@ -8,6 +8,8 @@
 #pragma once
 #include "../CUDA/Managed.h"
 
+class Manager;
+
 class FeatureFunction : public Managed
 {
 public:

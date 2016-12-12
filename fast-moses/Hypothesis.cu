@@ -39,7 +39,7 @@ void Hypothesis::Init(const Manager &mgr, const Hypothesis &prevHypo, const Targ
   scores.PlusEqual(tp.GetScores());
   scores.PlusEqual(prevHypo.scores);
 
-  mgr.system.ffs.EvaluateWhenApplied(*this);
+  mgr.system.ffs.EvaluateWhenApplied(mgr, *this);
 }
 
 __global__

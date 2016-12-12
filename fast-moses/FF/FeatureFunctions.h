@@ -10,6 +10,7 @@
 #include "../CUDA/Managed.h"
 
 class Hypothesis;
+class Manager;
 
 class FeatureFunctions : public Managed
 {
@@ -20,7 +21,7 @@ public:
 	FeatureFunctions();
 
 	__device__
-	void EvaluateWhenApplied(Hypothesis &hypo) const;
+	void EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo) const;
 
 protected:
 

@@ -7,7 +7,7 @@ Distortion::Distortion()
 }
 
 __device__
-void Distortion::EvaluateWhenApplied(Hypothesis &hypo)
+void Distortion::EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo)
 {
   ScoresUnmanaged &scores = hypo.scores;
 
