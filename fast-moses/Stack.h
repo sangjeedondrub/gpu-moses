@@ -9,6 +9,8 @@ class Hypothesis;
 class Stack : public Managed
 {
 public:
+  Array<Hypothesis*> *m_arr;
+
   __host__
   Stack();
 
@@ -35,7 +37,6 @@ public:
   
 protected:
 	//Set<Hypothesis*> m_coll;
-  Array<Hypothesis*> *m_arr;
   size_t m_size;
   
   Lock m_lock;

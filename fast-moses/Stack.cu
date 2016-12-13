@@ -15,9 +15,6 @@ Stack::Stack()
 __device__
 void Stack::Add(Hypothesis *hypo)
 {
-  if (m_arr == NULL) {
-    m_arr = new Array<Hypothesis*>(5000);
-  }
 	(*m_arr)[m_size] = hypo;
 	++m_size;
 }
