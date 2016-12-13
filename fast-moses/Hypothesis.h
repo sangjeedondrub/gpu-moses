@@ -11,7 +11,11 @@ class InputPath;
 class Hypothesis
 {
 public:
+  const Manager *mgr;
   const InputPath *path;
+  const TargetPhrase *targetPhrase;
+  Bitmap bitmap;
+  const Hypothesis *prevHypo;
 
   ScoresUnmanaged scores;
   char *stateData;
@@ -27,19 +31,10 @@ public:
   __device__
   void Init(const Manager &mgr, const Hypothesis &prevHypo, const TargetPhrase &tp, const InputPath &path);
 
-  __device__
-  const Bitmap &GetBitmap() const
-  { return m_bitmap; }
-
-
   __host__
   SCORE GetFutureScore() const;
   
 protected:
-  const Manager *m_mgr;
-  const TargetPhrase *m_targetPhrase;
-  Bitmap m_bitmap;
-  const Hypothesis *m_prevHypo;
 
 };
 

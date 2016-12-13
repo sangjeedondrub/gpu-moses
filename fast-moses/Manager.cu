@@ -80,7 +80,7 @@ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks)
   const Stack &stack = stacks[stackInd];
   Hypothesis** vec = stack.GetArr();
   const Hypothesis &prevHypo = *vec[hypoInd];
-  const Bitmap &prevBM = prevHypo.GetBitmap();
+  const Bitmap &prevBM = prevHypo.bitmap;
 
   if (prevBM.Overlap(path.range)) {
     return;
@@ -92,7 +92,7 @@ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks)
 
     Hypothesis *hypo = new Hypothesis(mgr);
     hypo->Init(mgr, prevHypo, *tp, path);
-    const Bitmap &newBM = hypo->GetBitmap();
+    const Bitmap &newBM = hypo->bitmap;
     size_t wordsCovered = newBM.GetNumWordsCovered();
 
     Stack &destStack = stacks[wordsCovered];

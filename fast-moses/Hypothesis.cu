@@ -7,8 +7,8 @@
 
 __device__
 Hypothesis::Hypothesis(const Manager &mgr)
-:m_mgr(&mgr)
-,m_bitmap(mgr.GetInput().size())
+:mgr(&mgr)
+,bitmap(mgr.GetInput().size())
 ,scores(4)
 {
   sss = 453.54;
@@ -18,27 +18,27 @@ Hypothesis::Hypothesis(const Manager &mgr)
   __device__
 void Hypothesis::Init(const Manager &mgr)
 {
-  m_mgr = &mgr;
-  m_prevHypo = NULL;
+  this->mgr = &mgr;
+  prevHypo = NULL;
 
   path = NULL;
-  m_targetPhrase = NULL;
+  targetPhrase = NULL;
 
-  m_bitmap.Init();
+  bitmap.Init();
 }
 
 
 __device__
 void Hypothesis::Init(const Manager &mgr, const Hypothesis &prevHypo, const TargetPhrase &tp, const InputPath &path)
 {
-  m_mgr = &mgr;
-  m_prevHypo = &prevHypo;
+  this->mgr = &mgr;
+  this->prevHypo = &prevHypo;
 
   this->path = &path;
-  m_targetPhrase = &tp;
+  targetPhrase = &tp;
 
-  const Bitmap &prevBM = prevHypo.GetBitmap();
-  m_bitmap.Init(prevBM, path.range);
+  const Bitmap &prevBM = prevHypo.bitmap;
+  bitmap.Init(prevBM, path.range);
 
   scores.PlusEqual(tp.GetScores());
   scores.PlusEqual(prevHypo.scores);
