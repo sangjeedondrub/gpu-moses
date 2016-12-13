@@ -42,8 +42,6 @@ public:
   __device__
   const InputPath &GetInputPath(int start, int end) const;
 
-  __device__
-  void SetTargetPhrases(int start, int end, const TargetPhrases *tps);
 
 protected:
 	Phrase *m_input;

@@ -206,10 +206,3 @@ const InputPath &Manager::GetInputPath(int start, int end) const
   const InputPath &path = m_tpsVec[RangeToInd(start, end)];
   return path;
 }
-
-__device__
-void Manager::SetTargetPhrases(int start, int end, const TargetPhrases *tps)
-{
-  InputPath &path = GetInputPath(start, end);
-  path.targetPhrases = tps;
-}
