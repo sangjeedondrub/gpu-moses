@@ -174,7 +174,7 @@ __global__
 void InitPathRange(Manager &mgr)
 {
   int start = blockIdx.x;
-  int end = threadIdx.y;
+  int end = threadIdx.x;
 
   if (start > end) {
     return;
