@@ -4,40 +4,21 @@
 class Range
 {
 public:
+  size_t startPos, endPos;
+
   explicit Range(); // don't implement
 
   __device__
-  inline Range(size_t startPos, size_t endPos) :
-      m_startPos(startPos), m_endPos(endPos)
+  inline Range(size_t s, size_t e) :
+      startPos(s), endPos(e)
   {
-  }
-
-  __device__
-  inline size_t GetStartPos() const
-  {
-    return m_startPos;
-  }
-
-  __device__
-  inline size_t GetEndPos() const
-  {
-    return m_endPos;
-  }
-
-  inline void SetStartPos(size_t val)
-  {
-    m_startPos = val;
-  }
-  inline void SetEndPos(size_t val)
-  {
-    m_endPos = val;
   }
 
   //! count of words translated
   __device__
   inline size_t GetNumWordsCovered() const
   {
-    return m_endPos - m_startPos + 1;
+    return endPos - startPos + 1;
   }
 
   __host__
@@ -46,6 +27,5 @@ public:
 
 protected:
   // m_endPos is inclusive
-  size_t m_startPos, m_endPos;
 
 };

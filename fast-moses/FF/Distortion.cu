@@ -21,10 +21,10 @@ int Distortion::ComputeDistortionDistance(const Range& prev,
 {
   int dist = 0;
   if (prev.GetNumWordsCovered() == 0) {
-    dist = current.GetStartPos();
+    dist = current.startPos;
   }
   else {
-    dist = (int) prev.GetEndPos() - (int) current.GetStartPos() + 1;
+    dist = (int) prev.endPos - (int) current.startPos + 1;
   }
   return abs(dist);
 }

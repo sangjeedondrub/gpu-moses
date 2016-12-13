@@ -28,7 +28,7 @@ public:
   //! whether the wordrange overlaps with any translated word in this bitmap
   __device__
   bool Overlap(const Range &compare) const {
-    for (size_t pos = compare.GetStartPos(); pos <= compare.GetEndPos(); pos++) {
+    for (size_t pos = compare.startPos; pos <= compare.endPos; pos++) {
       if (m_bitmap[pos])
         return true;
     }

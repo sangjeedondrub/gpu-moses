@@ -37,8 +37,8 @@ void Bitmap::Init(const Bitmap &copy, const Range &range)
 
   __device__
 void Bitmap::SetValueNonOverlap(Range const& range) {
-  size_t startPos = range.GetStartPos();
-  size_t endPos = range.GetEndPos();
+  size_t startPos = range.startPos;
+  size_t endPos = range.endPos;
 
   for(size_t pos = startPos; pos <= endPos; pos++) {
     m_bitmap[pos] = true;
