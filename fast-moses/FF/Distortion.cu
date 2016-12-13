@@ -1,6 +1,7 @@
 #include "Distortion.h"
 #include "../Hypothesis.h"
 #include "../Range.h"
+#include "../InputPath.h"
 
 Distortion::Distortion()
 {
@@ -10,9 +11,17 @@ Distortion::Distortion()
 __device__
 void Distortion::EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo) const
 {
-  ScoresUnmanaged &scores = hypo.scores;
 
-  //const Range &currRange = hypo.
+  if (hypo.prevHypo) {
+    const Range &prevRange = hypo.prevHypo->path->range;
+    const Range &currRange = hypo.path->range;
+
+    int dist = ComputeDistortionDistance(prevRange, currRange);
+
+    ScoresUnmanaged &scores = hypo.scores;
+    //scores.PlusEqual()
+  }
+
 }
 
 __device__
