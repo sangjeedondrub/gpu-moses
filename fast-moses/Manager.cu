@@ -35,9 +35,7 @@ __global__ void checkManager(char *str, const Manager &mgr)
 __device__
 const TargetPhrases *Manager::GetTargetPhrases(int start, int end) const
 {
-  const Phrase &input = GetInput();
-  size_t inputSize = input.size();
-  const InputPath &path = m_tpsVec[start * inputSize + end];
+  const InputPath &path = m_tpsVec[RangeToInd(start, end)];
   const TargetPhrases *tps = path.targetPhrases;
   return tps;
 }
@@ -45,9 +43,7 @@ const TargetPhrases *Manager::GetTargetPhrases(int start, int end) const
 __device__
 void Manager::SetTargetPhrases(int start, int end, const TargetPhrases *tps)
 {
-  const Phrase &input = GetInput();
-  size_t inputSize = input.size();
-  InputPath &path = m_tpsVec[start * inputSize + end];
+  InputPath &path = m_tpsVec[RangeToInd(start, end)];
   path.targetPhrases = tps;
 }
 
@@ -140,6 +136,7 @@ void Manager::Process()
 
   size_t inputSize = m_input->GetSize();
   cerr << "inputSize=" << inputSize << endl;
+  InitInputPaths();
   m_tpsVec.Resize(inputSize * inputSize);
 
   Lookup<<<inputSize, inputSize>>>(*this);
@@ -189,3 +186,34 @@ std::string Manager::DebugTPSArr() const
   }
   return strm.str();
 }
+
+__host__
+void Manager::InitInputPaths()
+{
+  size_t inputSize = m_input->GetSize();
+  m_tpsVec.Resize(inputSize * inputSize);
+
+  for (size_t i = 0; i < m_tpsVec.GetSize(); ++i) {
+    const InputPath &path = m_tpsVec[i];
+
+	}
+}
+
+__device__
+size_t Manager::RangeToInd(int start, int end) const
+{
+  const Phrase &input = GetInput();
+  size_t inputSize = input.size();
+
+  size_t ret = start * inputSize + end;
+  return ret;
+}
+
+__host__
+InputPath &Manager::GetInputPath(int start, int end)
+{
+  size_t inputSize = m_input->GetSize();
+  InputPath &path = m_tpsVec[start * inputSize + end];
+  return path;
+}
+

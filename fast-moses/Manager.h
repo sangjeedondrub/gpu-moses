@@ -50,6 +50,15 @@ protected:
 
 	std::string DebugTPSArr() const;
 
+	__device__
+	size_t RangeToInd(int start, int end) const;
+
+	__host__
+	void InitInputPaths();
+
+  __host__
+  InputPath &GetInputPath(int start, int end);
+
 };
 
 
