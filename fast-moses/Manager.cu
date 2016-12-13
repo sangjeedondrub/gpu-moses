@@ -170,16 +170,28 @@ std::string Manager::DebugTPSArr() const
   return strm.str();
 }
 
+__global__
+void InitPathRange(Manager &mgr)
+{
+  int start = blockIdx.x;
+  int end = threadIdx.y;
+
+  if (start > end) {
+    return;
+  }
+
+  InputPath &path = mgr.GetInputPath(start, end);
+  path.range = Range(start, end);
+}
+
 __host__
 void Manager::InitInputPaths()
 {
   size_t inputSize = m_input->GetSize();
   m_tpsVec.Resize(inputSize * inputSize);
 
-  for (size_t i = 0; i < m_tpsVec.GetSize(); ++i) {
-    const InputPath &path = m_tpsVec[i];
+  InitPathRange<<<inputSize, inputSize>>>(*this);
 
-	}
 }
 
 __device__
