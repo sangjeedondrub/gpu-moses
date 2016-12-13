@@ -32,7 +32,8 @@ __global__ void checkManager(char *str, const Manager &mgr)
 
 
 ///////////////////////////////////////
-__global__ void Lookup(Manager &mgr)
+__global__
+void Lookup(Manager &mgr)
 {
   int start = blockIdx.x;
   int end = threadIdx.x;
