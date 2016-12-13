@@ -30,22 +30,6 @@ __global__ void checkManager(char *str, const Manager &mgr)
 
 }
 
-///////////////////////////////////////
-
-__device__
-const TargetPhrases *Manager::GetTargetPhrases(int start, int end) const
-{
-  const InputPath &path = m_tpsVec[RangeToInd(start, end)];
-  const TargetPhrases *tps = path.targetPhrases;
-  return tps;
-}
-
-__device__
-void Manager::SetTargetPhrases(int start, int end, const TargetPhrases *tps)
-{
-  InputPath &path = m_tpsVec[RangeToInd(start, end)];
-  path.targetPhrases = tps;
-}
 
 ///////////////////////////////////////
 __global__ void Lookup(Manager &mgr)
@@ -63,7 +47,7 @@ __global__ void Lookup(Manager &mgr)
   const PhraseTableMemory &pt = mgr.GetPhraseTable();
   const TargetPhrases *tps = pt.Lookup(input, start, end);
 
-  mgr.SetTargetPhrases(start, end, tps);
+  mgr.GetInputPath(start, end).targetPhrases =  tps;
 }
 
 __global__ void Process1stStack(const Manager &mgr, Stacks &stacks)
@@ -86,7 +70,7 @@ __global__ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks
 
   const Range range(start, end);
 
-  const TargetPhrases *tps = mgr.GetTargetPhrases(start, end);
+  const TargetPhrases *tps = mgr.GetInputPath(start, end).targetPhrases;
   if (tps == NULL || tps->size() == 0) {
     return;
   }
@@ -209,11 +193,23 @@ size_t Manager::RangeToInd(int start, int end) const
   return ret;
 }
 
-__host__
+__device__
 InputPath &Manager::GetInputPath(int start, int end)
 {
-  size_t inputSize = m_input->GetSize();
-  InputPath &path = m_tpsVec[start * inputSize + end];
+  InputPath &path = m_tpsVec[RangeToInd(start, end)];
   return path;
 }
 
+__device__
+const InputPath &Manager::GetInputPath(int start, int end) const
+{
+  const InputPath &path = m_tpsVec[RangeToInd(start, end)];
+  return path;
+}
+
+__device__
+void Manager::SetTargetPhrases(int start, int end, const TargetPhrases *tps)
+{
+  InputPath &path = GetInputPath(start, end);
+  path.targetPhrases = tps;
+}

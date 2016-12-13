@@ -36,8 +36,11 @@ public:
 	const PhraseTableMemory &GetPhraseTable() const
   { return m_pt; }
 
+	__device__
+  InputPath &GetInputPath(int start, int end);
+
   __device__
-  const TargetPhrases *GetTargetPhrases(int start, int end) const;
+  const InputPath &GetInputPath(int start, int end) const;
 
   __device__
   void SetTargetPhrases(int start, int end, const TargetPhrases *tps);
@@ -55,9 +58,6 @@ protected:
 
 	__host__
 	void InitInputPaths();
-
-  __host__
-  InputPath &GetInputPath(int start, int end);
 
 };
 
