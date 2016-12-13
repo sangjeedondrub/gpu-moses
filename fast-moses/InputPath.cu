@@ -3,6 +3,7 @@
 
 InputPath::InputPath()
 :targetPhrases(NULL)
+,range(123, 456)
 {
 
 }
