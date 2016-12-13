@@ -161,11 +161,12 @@ std::string Manager::DebugTPSArr() const
   for (size_t i = 0; i < m_tpsVec.GetSize(); ++i) {
     const InputPath &path = m_tpsVec[i];
     const TargetPhrases *tps = path.targetPhrases;
+    strm << path.range.Debug() << " ";
     strm << tps;
     if (tps) {
       strm << "(" << tps->GetSize() << ")";
     }
-    strm << " ";
+    strm << " " << endl;
   }
   return strm.str();
 }

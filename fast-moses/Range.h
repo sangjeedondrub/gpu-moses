@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 class Range
 {
@@ -38,6 +39,10 @@ public:
   {
     return m_endPos - m_startPos + 1;
   }
+
+  __host__
+  std::string Debug() const;
+
 
 protected:
   // m_endPos is inclusive
