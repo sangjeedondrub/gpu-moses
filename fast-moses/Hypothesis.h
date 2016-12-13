@@ -6,10 +6,13 @@ class Manager;
 class TargetPhrase;
 class Bitmap;
 class Range;
+class InputPath;
 
 class Hypothesis
 {
 public:
+  const InputPath *path;
+
   ScoresUnmanaged scores;
   char *stateData;
 
@@ -22,7 +25,7 @@ public:
   void Init(const Manager &mgr);
 
   __device__
-  void Init(const Manager &mgr, const Hypothesis &prevHypo, const TargetPhrase &tp, const Range &range);
+  void Init(const Manager &mgr, const Hypothesis &prevHypo, const TargetPhrase &tp, const InputPath &path);
 
   __device__
   const Bitmap &GetBitmap() const

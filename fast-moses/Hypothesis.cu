@@ -20,6 +20,8 @@ void Hypothesis::Init(const Manager &mgr)
 {
   m_mgr = &mgr;
   m_prevHypo = NULL;
+
+  path = NULL;
   m_targetPhrase = NULL;
 
   m_bitmap.Init();
@@ -27,14 +29,16 @@ void Hypothesis::Init(const Manager &mgr)
 
 
 __device__
-void Hypothesis::Init(const Manager &mgr, const Hypothesis &prevHypo, const TargetPhrase &tp, const Range &range)
+void Hypothesis::Init(const Manager &mgr, const Hypothesis &prevHypo, const TargetPhrase &tp, const InputPath &path)
 {
   m_mgr = &mgr;
   m_prevHypo = &prevHypo;
+
+  this->path = &path;
   m_targetPhrase = &tp;
 
   const Bitmap &prevBM = prevHypo.GetBitmap();
-  m_bitmap.Init(prevBM, range);
+  m_bitmap.Init(prevBM, path.range);
 
   scores.PlusEqual(tp.GetScores());
   scores.PlusEqual(prevHypo.scores);

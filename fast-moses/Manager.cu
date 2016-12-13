@@ -51,7 +51,8 @@ void Lookup(Manager &mgr)
   mgr.GetInputPath(start, end).targetPhrases =  tps;
 }
 
-__global__ void Process1stStack(const Manager &mgr, Stacks &stacks)
+__global__
+void Process1stStack(const Manager &mgr, Stacks &stacks)
 {
   Hypothesis *hypo = new Hypothesis(mgr);
   hypo->Init(mgr);
@@ -59,7 +60,8 @@ __global__ void Process1stStack(const Manager &mgr, Stacks &stacks)
   stack.Add(hypo);
 }
 
-__global__ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks)
+__global__
+void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks)
 {
   int hypoInd = blockIdx.x;
   int start = blockIdx.y;
@@ -69,9 +71,8 @@ __global__ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks
     return;
   }
 
-  const Range range(start, end);
-
-  const TargetPhrases *tps = mgr.GetInputPath(start, end).targetPhrases;
+  const InputPath &path = mgr.GetInputPath(start, end);
+  const TargetPhrases *tps = path.targetPhrases;
   if (tps == NULL || tps->size() == 0) {
     return;
   }
@@ -81,7 +82,7 @@ __global__ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks
   const Hypothesis &prevHypo = *vec[hypoInd];
   const Bitmap &prevBM = prevHypo.GetBitmap();
 
-  if (prevBM.Overlap(range)) {
+  if (prevBM.Overlap(path.range)) {
     return;
   }
 
@@ -90,7 +91,7 @@ __global__ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks
     assert(tp);
 
     Hypothesis *hypo = new Hypothesis(mgr);
-    hypo->Init(mgr, prevHypo, *tp, range);
+    hypo->Init(mgr, prevHypo, *tp, path);
     const Bitmap &newBM = hypo->GetBitmap();
     size_t wordsCovered = newBM.GetNumWordsCovered();
 
