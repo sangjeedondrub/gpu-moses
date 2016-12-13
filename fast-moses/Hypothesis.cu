@@ -21,8 +21,8 @@ void Hypothesis::Init(const Manager &mgr)
   this->mgr = &mgr;
   prevHypo = NULL;
 
-  path = NULL;
-  targetPhrase = NULL;
+  path = &mgr.initPath;
+  targetPhrase = &mgr.initPhrase;
 
   bitmap.Init();
 }

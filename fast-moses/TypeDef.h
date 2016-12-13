@@ -12,6 +12,7 @@ typedef float SCORE;
 typedef int VOCABID;
 
 #define NOT_FOUND                       std::numeric_limits<size_t>::max()
+#define NOT_FOUND_DEVICE                12345
 
 const SCORE LOWEST_SCORE = -100.0;
 

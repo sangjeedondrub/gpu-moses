@@ -12,6 +12,7 @@ Manager::Manager(const System &sys, const std::string &inputStr, const PhraseTab
 :system(sys)
 ,m_pt(pt)
 ,m_tpsVec(true, 0)
+,initPhrase(0)
 {
   m_input = Phrase::CreateFromString(inputStr);
   //cerr << "m_input=" << m_input->Debug() << endl;

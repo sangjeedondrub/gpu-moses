@@ -14,6 +14,13 @@ Phrase *Phrase::CreateFromString(const std::string &str)
 	return tp;
 }
 
+__host__
+Phrase::Phrase(size_t size)
+:m_vec(true, size)
+{
+
+}
+
 __host__ Phrase::Phrase(const std::vector<VOCABID> &ids)
 :m_vec(true, ids.size())
 {

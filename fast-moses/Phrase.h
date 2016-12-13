@@ -16,7 +16,11 @@ class Phrase : public Managed
 public:
 	static Phrase *CreateFromString(const std::string &str);
 
-	__host__ Phrase(const std::vector<VOCABID> &ids);
+	__host__
+	Phrase(const std::vector<VOCABID> &ids);
+
+	__host__
+  Phrase(size_t size);
 
   __device__ const VOCABID& operator[](size_t ind) const
 	{

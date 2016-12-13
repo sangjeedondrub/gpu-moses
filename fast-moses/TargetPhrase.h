@@ -16,15 +16,22 @@ class TargetPhrase : public Phrase
 public:
 	static TargetPhrase *CreateFromString(const std::string &str);
 
-	__host__ TargetPhrase(const std::vector<VOCABID> &targetIds);
+  __host__
+  TargetPhrase(size_t size);
 
-	__host__ Scores &GetScores()
+	__host__
+	TargetPhrase(const std::vector<VOCABID> &targetIds);
+
+	__host__
+	Scores &GetScores()
 	{ return m_scores; }
 
-  __device__ const Scores &GetScores() const
+  __device__
+  const Scores &GetScores() const
   { return m_scores; }
 
-  __host__ std::string Debug() const;
+  __host__
+  std::string Debug() const;
 
 protected:
 	Scores m_scores;

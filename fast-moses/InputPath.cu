@@ -3,7 +3,7 @@
 
 InputPath::InputPath()
 :targetPhrases(NULL)
-,range(123, 456)
+,range(NOT_FOUND_DEVICE, NOT_FOUND_DEVICE)
 {
 
 }

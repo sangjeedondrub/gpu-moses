@@ -9,6 +9,7 @@
 #include <string>
 #include "Stacks.h"
 #include "InputPath.h"
+#include "TargetPhrase.h"
 #include "CUDA/Managed.h"
 #include "CUDA/Vector.h"
 
@@ -21,6 +22,8 @@ class Manager : public Managed
 {
 public:
 	const System &system;
+  InputPath initPath;
+  TargetPhrase initPhrase;
 
 	Manager(const System &sys, const std::string &inputStr, const PhraseTableMemory &pt);
 	virtual ~Manager();

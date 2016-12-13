@@ -22,8 +22,8 @@ void Distortion::EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo) const
 
     ScoresUnmanaged &scores = hypo.scores;
 
-    scores.PlusEqual(*this, currRange.startPos + currRange.endPos);
-    //scores.PlusEqual(*this, dist);
+    //scores.PlusEqual(*this, currRange.startPos + currRange.endPos);
+    scores.PlusEqual(*this, dist);
   }
 
 }

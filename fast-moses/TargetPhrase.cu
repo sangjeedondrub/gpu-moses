@@ -17,6 +17,14 @@ TargetPhrase *TargetPhrase::CreateFromString(const std::string &str)
 	return tp;
 }
 
+__host__
+TargetPhrase::TargetPhrase(size_t size)
+:Phrase(size)
+,m_scores(NUM_SCORES)
+{
+
+}
+
 TargetPhrase::TargetPhrase(const std::vector<VOCABID> &ids)
 :Phrase(ids)
 ,m_scores(NUM_SCORES)
