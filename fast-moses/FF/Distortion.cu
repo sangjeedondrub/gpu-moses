@@ -29,7 +29,8 @@ void Distortion::EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo) const
   //scores.PlusEqual(*this, currRange.startPos + currRange.endPos);
   scores.PlusEqual(*this, dist);
 
-
+  const size_t &endPos = currRange.endPos;
+  SetState(hypo, (const char*) &endPos);
 }
 
 __device__

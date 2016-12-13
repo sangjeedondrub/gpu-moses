@@ -32,7 +32,7 @@ OBJECTS = InputFileStream.o MyVocab.o TypeDef.o \
 		Scores.o ScoresUnmanaged.o Stack.o Stacks.o \
 		TargetPhrase.o TargetPhrases.o Test.o \
 		CUDA/Managed.o CUDA/Util.o \
-		FF/Distortion.o FF/FeatureFunctions.o
+		FF/Distortion.o FF/FeatureFunctions.o FF/StatefulFeatureFunction.o
 
 
 OBJECTS_fast_moses = $(OBJECTS)

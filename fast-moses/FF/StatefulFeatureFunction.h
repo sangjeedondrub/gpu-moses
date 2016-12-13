@@ -17,6 +17,10 @@ public:
 	size_t stateSize;
 	size_t stateOffset;
 
+
+  __device__
+	void SetState(Hypothesis &hypo, const char *src) const;
+
 };
 
 
