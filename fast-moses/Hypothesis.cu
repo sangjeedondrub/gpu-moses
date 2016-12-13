@@ -9,7 +9,7 @@ __device__
 Hypothesis::Hypothesis(const Manager &mgr)
 :mgr(&mgr)
 ,bitmap(mgr.GetInput().size())
-,scores(4)
+,scores(NUM_SCORES)
 {
   sss = 453.54;
   stateData = (char*) malloc(mgr.system.ffs.totalSize);

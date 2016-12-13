@@ -9,6 +9,8 @@
 #include "TypeDef.h"
 #include "Scores.h"
 
+class FeatureFunction;
+
 class ScoresUnmanaged
 {
 public:
@@ -20,6 +22,9 @@ public:
 
   __device__
   void PlusEqual(const Scores &other);
+
+  __device__
+  void PlusEqual(const FeatureFunction &ff, SCORE score);
 
   __device__ SCORE GetTotal() const
   { return m_total; }

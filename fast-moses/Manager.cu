@@ -153,7 +153,7 @@ void Manager::Process()
     //cerr << "stack=" << stack.Debug() << endl;
   }
 
-  //cerr << "back=" << m_stacks.Back().Debug() << endl;
+  cerr << "back=" << m_stacks.Back().Debug() << endl;
 
 }
 

@@ -5,8 +5,9 @@
  *      Author: hieu
  */
 #include "ScoresUnmanaged.h"
+#include "FF/FeatureFunction.h"
 
-#define NUM_SCORES 4
+#include "TypeDef.h"
 
 __device__
 ScoresUnmanaged::ScoresUnmanaged(size_t size, const SCORE &val)
@@ -33,5 +34,12 @@ void ScoresUnmanaged::PlusEqual(const Scores &other)
   m_total += other.GetTotal();
 }
 
+__device__
+void ScoresUnmanaged::PlusEqual(const FeatureFunction &ff, SCORE score)
+{
+  assert(ff.numScores == 1);
+  m_scores[ff.startInd] += score;
+  m_total += score;
+}
 
 

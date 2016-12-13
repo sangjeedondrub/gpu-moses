@@ -30,3 +30,4 @@ typedef uint32_t UINT32;
 typedef uint64_t UINT64;
 #endif
 
+#define NUM_SCORES 5

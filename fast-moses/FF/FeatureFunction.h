@@ -13,6 +13,9 @@ class Manager;
 class FeatureFunction : public Managed
 {
 public:
+  size_t startInd;
+  size_t numScores;
+
   virtual ~FeatureFunction()
   {}
 

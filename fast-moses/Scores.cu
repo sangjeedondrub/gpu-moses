@@ -4,7 +4,8 @@
 
 using namespace std;
 
-__host__ void Scores::CreateFromString(const std::string &str)
+__host__
+void Scores::CreateFromString(const std::string &str)
 {
 	vector<SCORE> scores;
 	Tokenize(scores, str);
@@ -16,7 +17,8 @@ __host__ void Scores::CreateFromString(const std::string &str)
 	}
 }
 
-__host__ std::string Scores::Debug() const
+__host__
+std::string Scores::Debug() const
 {
   return m_vec.Debug();
 }

@@ -6,6 +6,8 @@
 Distortion::Distortion()
 {
 	stateSize = sizeof(size_t);
+	startInd = 4;
+	numScores = 1;
 }
 
 __device__
@@ -19,7 +21,9 @@ void Distortion::EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo) const
     int dist = ComputeDistortionDistance(prevRange, currRange);
 
     ScoresUnmanaged &scores = hypo.scores;
-    //scores.PlusEqual()
+
+    scores.PlusEqual(*this, currRange.startPos + currRange.endPos);
+    //scores.PlusEqual(*this, dist);
   }
 
 }

@@ -3,6 +3,8 @@
 #include "MyVocab.h"
 #include "CUDA/Util.h"
 
+#include "TypeDef.h"
+
 using namespace std;
 
 TargetPhrase *TargetPhrase::CreateFromString(const std::string &str)
@@ -17,7 +19,7 @@ TargetPhrase *TargetPhrase::CreateFromString(const std::string &str)
 
 TargetPhrase::TargetPhrase(const std::vector<VOCABID> &ids)
 :Phrase(ids)
-,m_scores(4)
+,m_scores(NUM_SCORES)
 {
 }
 
