@@ -37,7 +37,8 @@ const TargetPhrases *Manager::GetTargetPhrases(int start, int end) const
 {
   const Phrase &input = GetInput();
   size_t inputSize = input.size();
-  const TargetPhrases *tps = m_tpsVec[start * inputSize + end];
+  const InputPath &path = m_tpsVec[start * inputSize + end];
+  const TargetPhrases *tps = path.targetPhrases;
   return tps;
 }
 
@@ -46,7 +47,8 @@ void Manager::SetTargetPhrases(int start, int end, const TargetPhrases *tps)
 {
   const Phrase &input = GetInput();
   size_t inputSize = input.size();
-  m_tpsVec[start * inputSize + end] = tps;
+  InputPath &path = m_tpsVec[start * inputSize + end];
+  path.targetPhrases = tps;
 }
 
 ///////////////////////////////////////
@@ -138,7 +140,7 @@ void Manager::Process()
 
   size_t inputSize = m_input->GetSize();
   cerr << "inputSize=" << inputSize << endl;
-  m_tpsVec.Resize(inputSize * inputSize, NULL);
+  m_tpsVec.Resize(inputSize * inputSize);
 
   Lookup<<<inputSize, inputSize>>>(*this);
   cudaDeviceSynchronize();
@@ -177,7 +179,8 @@ std::string Manager::DebugTPSArr() const
 {
   std::stringstream strm;
   for (size_t i = 0; i < m_tpsVec.GetSize(); ++i) {
-    const TargetPhrases *tps = m_tpsVec[i];
+    const InputPath &path = m_tpsVec[i];
+    const TargetPhrases *tps = path.targetPhrases;
     strm << tps;
     if (tps) {
       strm << "(" << tps->GetSize() << ")";

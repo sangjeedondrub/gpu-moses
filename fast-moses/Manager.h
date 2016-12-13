@@ -8,6 +8,7 @@
 #pragma once
 #include <string>
 #include "Stacks.h"
+#include "InputPath.h"
 #include "CUDA/Managed.h"
 #include "CUDA/Vector.h"
 
@@ -45,7 +46,7 @@ protected:
 	Phrase *m_input;
 	Stacks m_stacks;
 	const PhraseTableMemory &m_pt;
-	Vector<const TargetPhrases*> m_tpsVec;
+	Vector<InputPath> m_tpsVec;
 
 	std::string DebugTPSArr() const;
 

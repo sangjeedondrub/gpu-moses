@@ -5,9 +5,12 @@ class TargetPhrases;
 class InputPath
 {
 public:
+  const TargetPhrases *targetPhrases;
+
+  InputPath();
 
 protected:
-  TargetPhrases *targetPhrases;
 
 
 };
+
