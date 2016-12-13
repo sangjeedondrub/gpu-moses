@@ -105,7 +105,7 @@ __global__ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks
 }
 
 ///////////////////////////////////////
-
+__host__
 void Manager::Process()
 {
   cerr << endl;
@@ -121,7 +121,6 @@ void Manager::Process()
   size_t inputSize = m_input->GetSize();
   cerr << "inputSize=" << inputSize << endl;
   InitInputPaths();
-  m_tpsVec.Resize(inputSize * inputSize);
 
   Lookup<<<inputSize, inputSize>>>(*this);
   cudaDeviceSynchronize();
