@@ -62,7 +62,8 @@ public:
     */
   }
 
-  __host__ void SetSize(size_t val)
+  __host__
+  void SetSize(size_t val)
   {
     m_size = val;
     /*
@@ -71,7 +72,8 @@ public:
     */
   }
 
-  __host__ size_t GetMaxSize() const
+  __host__
+  size_t GetMaxSize() const
   {
     return m_maxSize;
     /*
@@ -82,7 +84,8 @@ public:
     */
   }
 
-  __host__ void SetMaxSize(size_t val)
+  __host__
+  void SetMaxSize(size_t val)
   {
     m_maxSize = val;
     /*
@@ -99,7 +102,8 @@ public:
   T& operator[](size_t ind)
   { return m_arr[ind]; }
 
-  __host__ const T Get(size_t ind) const
+  __host__
+  const T Get(size_t ind) const
   {
     //return m_arr[ind];
 
@@ -175,7 +179,8 @@ public:
      SetSize(newSize);
   }
 
-  __host__ void push_back(const T &v)
+  __host__
+  void push_back(const T &v)
   {
     size_t currSize = GetSize();
     size_t maxSize = GetMaxSize();

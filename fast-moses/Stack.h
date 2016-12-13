@@ -2,6 +2,7 @@
 #include "CUDA/Set.h"
 #include "CUDA/Managed.h"
 #include "CUDA/Lock.h"
+#include "CUDA/Array.h"
 
 class Hypothesis;
 
@@ -26,15 +27,15 @@ public:
   std::string Debug() const;
 
    __device__
-  Hypothesis **GetArr() const
-  { return m_arr; }
+   const Array<Hypothesis*> &GetArr() const
+  { return *m_arr; }
   
   __host__
   Hypothesis *Get(size_t ind) const;
   
 protected:
 	//Set<Hypothesis*> m_coll;
-  Hypothesis **m_arr;
+  Array<Hypothesis*> *m_arr;
   size_t m_size;
   
   Lock m_lock;

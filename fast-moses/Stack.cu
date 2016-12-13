@@ -4,10 +4,10 @@
 
 using namespace std;
 
+
 Stack::Stack()
+:m_arr(NULL)
 {
-  cudaMalloc(&m_arr, sizeof(Hypothesis*) * 5000);
-  cudaMemset(m_arr, 0, sizeof(Hypothesis*) * 5000);
   m_size = 0;
   //cerr << "m_arr=" << m_arr << endl;
 }
@@ -15,17 +15,17 @@ Stack::Stack()
 __device__
 void Stack::Add(Hypothesis *hypo)
 {
-	m_arr[m_size] = hypo;
+  if (m_arr == NULL) {
+    m_arr = new Array<Hypothesis*>(5000);
+  }
+	(*m_arr)[m_size] = hypo;
 	++m_size;
 }
 
 __host__
 Hypothesis *Stack::Get(size_t ind) const
 {
-  Hypothesis *ret;
-  //cudaMalloc(&ret, sizeof(Hypothesis*));
-
-  cudaMemcpy(&ret, &m_arr[ind], sizeof(Hypothesis *), cudaMemcpyDeviceToHost);
+  Hypothesis *ret = m_arr->Get(ind);
   return ret;
   
 	//return m_arr[ind];

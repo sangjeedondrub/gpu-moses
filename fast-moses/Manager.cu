@@ -79,7 +79,7 @@ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks)
   }
 
   const Stack &stack = stacks[stackInd];
-  Hypothesis** vec = stack.GetArr();
+  const Array<Hypothesis*> &vec = stack.GetArr();
   const Hypothesis &prevHypo = *vec[hypoInd];
   const Bitmap &prevBM = prevHypo.bitmap;
 
