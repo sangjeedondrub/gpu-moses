@@ -15,22 +15,24 @@ public:
   Stack();
 
   __device__
-	void Add(Hypothesis *hypo);
+	void add(Hypothesis *hypo);
+
+  __device__
+  const Array<Hypothesis*> &getArr() const
+  { return *m_arr; }
+
+  __device__
+  Lock &getLock()
+  { return m_lock; }
 
   __host__
   size_t GetSize() const
   { return m_size; }
 
-  __device__
-  Lock &GetLock()
-  { return m_lock; }
 
   __host__
   std::string Debug() const;
 
-   __device__
-   const Array<Hypothesis*> &GetArr() const
-  { return *m_arr; }
   
   __host__
   Hypothesis *Get(size_t ind) const;

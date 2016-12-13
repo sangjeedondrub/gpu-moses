@@ -58,7 +58,7 @@ void Process1stStack(const Manager &mgr, Stacks &stacks)
   Hypothesis *hypo = new Hypothesis(mgr);
   hypo->Init(mgr);
   Stack &stack = stacks[0];
-  stack.Add(hypo);
+  stack.add(hypo);
 }
 
 __global__
@@ -79,7 +79,7 @@ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks)
   }
 
   const Stack &stack = stacks[stackInd];
-  const Array<Hypothesis*> &vec = stack.GetArr();
+  const Array<Hypothesis*> &vec = stack.getArr();
   const Hypothesis &prevHypo = *vec[hypoInd];
   const Bitmap &prevBM = prevHypo.bitmap;
 
@@ -98,10 +98,10 @@ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks)
 
     Stack &destStack = stacks[wordsCovered];
 
-    Lock &lock = destStack.GetLock();
+    Lock &lock = destStack.getLock();
     lock.lock();
 
-    destStack.Add(hypo);
+    destStack.add(hypo);
 
     lock.unlock();
   }

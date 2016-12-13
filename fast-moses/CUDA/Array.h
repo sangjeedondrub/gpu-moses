@@ -65,7 +65,6 @@ public:
     cudaMemcpy(&ret, &m_arr[ind], sizeof(T), cudaMemcpyDeviceToHost);
     cudaDeviceSynchronize();
     return ret;
-
   }
 
 protected:

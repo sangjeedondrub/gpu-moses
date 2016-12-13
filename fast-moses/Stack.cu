@@ -22,7 +22,7 @@ Stack::Stack()
 }
 
 __device__
-void Stack::Add(Hypothesis *hypo)
+void Stack::add(Hypothesis *hypo)
 {
 	(*m_arr)[m_size] = hypo;
 	++m_size;
