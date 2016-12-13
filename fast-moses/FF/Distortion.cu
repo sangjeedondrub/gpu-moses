@@ -14,17 +14,21 @@ __device__
 void Distortion::EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo) const
 {
 
-  if (hypo.prevHypo) {
-    const Range &prevRange = hypo.prevHypo->path->range;
-    const Range &currRange = hypo.path->range;
-
-    int dist = ComputeDistortionDistance(prevRange, currRange);
-
-    ScoresUnmanaged &scores = hypo.scores;
-
-    //scores.PlusEqual(*this, currRange.startPos + currRange.endPos);
-    scores.PlusEqual(*this, dist);
+  if (hypo.prevHypo == NULL) {
+    return;
   }
+
+  // score
+  const Range &prevRange = hypo.prevHypo->path->range;
+  const Range &currRange = hypo.path->range;
+
+  int dist = ComputeDistortionDistance(prevRange, currRange);
+
+  ScoresUnmanaged &scores = hypo.scores;
+
+  //scores.PlusEqual(*this, currRange.startPos + currRange.endPos);
+  scores.PlusEqual(*this, dist);
+
 
 }
 

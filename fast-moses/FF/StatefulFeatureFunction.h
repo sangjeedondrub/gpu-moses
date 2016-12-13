@@ -15,7 +15,7 @@ class StatefulFeatureFunction : public FeatureFunction
 
 public:
 	size_t stateSize;
-	size_t startOffset;
+	size_t stateOffset;
 
 };
 

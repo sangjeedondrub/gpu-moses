@@ -14,7 +14,7 @@ FeatureFunctions::FeatureFunctions()
 
   sfff = new Distortion();
   totalSize += sfff->stateSize;
-  sfff->startOffset = 0;
+  sfff->stateOffset = 0;
 
 }
 
