@@ -7,7 +7,7 @@ using namespace std;
 __global__
 void InitStack(Stack &stack)
 {
-  Array<Hypothesis*> *arr = new Array<Hypothesis*>(5000);
+  Array<Hypothesis*> *arr = new Array<Hypothesis*>(0);
   stack.m_arr = arr;
 }
 
@@ -24,7 +24,7 @@ Stack::Stack()
 __device__
 void Stack::add(Hypothesis *hypo)
 {
-	(*m_arr)[m_size] = hypo;
+	m_arr->push_back(hypo);
 	++m_size;
 }
 

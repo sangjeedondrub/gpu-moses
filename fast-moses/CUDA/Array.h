@@ -58,6 +58,16 @@ public:
     m_size = newSize;
   }
 
+  __device__
+  void push_back(const T &v)
+  {
+    if (m_size >= m_maxSize) {
+      resize(m_size + 1);
+    }
+
+    m_arr[m_size- 1] = v;
+  }
+
   __host__
   const T Get(size_t ind) const
   {
