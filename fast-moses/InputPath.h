@@ -1,12 +1,13 @@
 #pragma once
-#include "TargetPhrases.h"
+
+class TargetPhrases;
 
 class InputPath
 {
 public:
 
 protected:
-  TargetPhrases targetPhrases;
+  TargetPhrases *targetPhrases;
 
 
 };

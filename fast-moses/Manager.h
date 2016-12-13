@@ -35,10 +35,6 @@ public:
 	const PhraseTableMemory &GetPhraseTable() const
   { return m_pt; }
 
-	__device__
-	Vector<const TargetPhrases*> &GetTargetPhrases()
-	{ return m_tpsVec; }
-
   __device__
   const TargetPhrases *GetTargetPhrases(int start, int end) const;
 
