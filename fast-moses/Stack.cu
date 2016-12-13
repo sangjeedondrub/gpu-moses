@@ -4,11 +4,20 @@
 
 using namespace std;
 
+__global__
+void InitStack(Stack &stack)
+{
+  Array<Hypothesis*> *arr = new Array<Hypothesis*>(5000);
+  stack.m_arr = arr;
+}
+
 
 Stack::Stack()
 :m_arr(NULL)
 {
   m_size = 0;
+  InitStack<<<1,1>>>(*this);
+  cudaDeviceSynchronize();
   //cerr << "m_arr=" << m_arr << endl;
 }
 

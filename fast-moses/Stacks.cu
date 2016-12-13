@@ -4,15 +4,6 @@
 
 using namespace std;
 
-__global__
-void InitStacks(Stacks &stacks)
-{
-  int stackInd = blockIdx.x;
-  Stack &stack = stacks[stackInd];
-
-  Array<Hypothesis*> *arr = new Array<Hypothesis*>(5000);
-  stack.m_arr = arr;
-}
 
 void Stacks::Init(const Manager &mgr, size_t numStacks)
 {
@@ -20,7 +11,6 @@ void Stacks::Init(const Manager &mgr, size_t numStacks)
 	for (size_t i = 0; i < numStacks; ++i) {
 		m_vec[i] = new Stack();
 	}
-	InitStacks<<<numStacks, 1>>>(*this);
 }
 
 void Stacks::PrintStacks() const
