@@ -84,7 +84,7 @@ const TargetPhrases *Node::Lookup(const Phrase &phrase, size_t start, size_t end
   }
 
   VOCABID vocabId = phrase[pos];
-  thrust::pair<bool, size_t> upper = m_children.UpperBound(vocabId);
+  thrust::pair<bool, size_t> upper = m_children.upperBound(vocabId);
   //return (const TargetPhrases *) m_children.size();
 
   if (upper.first) {

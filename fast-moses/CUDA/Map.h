@@ -22,12 +22,12 @@ public:
 
 };
 
-template<typename Key, typename Value, typename Compare = CompareMap<Key, Value> >
-class Map : public Set<thrust::pair<Key, Value>, Compare>
+template<typename Key, typename Value, typename CompareDevice = CompareMap<Key, Value>, typename CompareHost = CompareMap<Key, Value> >
+class Map : public Set<thrust::pair<Key, Value>, CompareDevice, CompareHost>
 {
 public:
   typedef thrust::pair<Key, Value> Pair;
-  typedef Set<Pair, Compare> Parent;
+  typedef Set<Pair, CompareDevice, CompareHost> Parent;
 
   Map()
   :Parent()
@@ -54,7 +54,17 @@ public:
     Parent::Insert(element);
   }
 
-  __host__ __device__
+  __device__
+  thrust::pair<bool, size_t> upperBound(const Key &sought) const
+  {
+    Pair pair(sought, Value());
+
+    thrust::pair<bool, size_t> upper;
+    upper = Parent::upperBound(pair);
+    return upper;
+  }
+
+  __host__
   thrust::pair<bool, size_t> UpperBound(const Key &sought) const
   {
     Pair pair(sought, Value());
