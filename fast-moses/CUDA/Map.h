@@ -54,6 +54,7 @@ public:
     Parent::Insert(element);
   }
 
+  template<typename CC = Compare >
   __host__ __device__
   thrust::pair<bool, size_t> UpperBound(const Key &sought) const
   {
