@@ -11,9 +11,9 @@ void InitStack(Stack &stack)
 
 
 Stack::Stack()
-:m_arr(0)
+:m_coll()
 {
-  m_arr.Reserve(5000);
+  m_coll.GetVec().Reserve(5000);
 
   cudaDeviceSynchronize();
   //cerr << "m_arr=" << m_arr << endl;
@@ -22,8 +22,8 @@ Stack::Stack()
 __host__
 Stack::~Stack()
 {
-  for (size_t i = 0; i < m_arr.size(); ++i) {
-    Hypothesis *hypo = m_arr[i];
+  for (size_t i = 0; i < m_coll.size(); ++i) {
+    Hypothesis *hypo = m_coll.GetVec()[i];
     cudaFree(hypo);
   }
 }
@@ -31,17 +31,8 @@ Stack::~Stack()
 __device__
 void Stack::add(Hypothesis *hypo)
 {
-	m_arr.push_back(hypo);
+	m_coll.insert(hypo);
   //(*m_arr)[m_size] = hypo;
-}
-
-__host__
-Hypothesis *Stack::Get(size_t ind) const
-{
-  Hypothesis *ret = m_arr[ind];
-  return ret;
-  
-	//return m_arr[ind];
 }
 
 __host__
@@ -52,7 +43,7 @@ std::string Stack::Debug() const
   cerr << "size=" << size << ":";
   for (size_t i = 0; i < size; ++i) {
     cerr << "HH1:" << i << endl;
-    const Hypothesis *hypo = Get(i);
+    const Hypothesis *hypo = m_coll.GetVec()[i];
     cerr << "HH2:" << hypo << endl;
 
     SCORE h_s;

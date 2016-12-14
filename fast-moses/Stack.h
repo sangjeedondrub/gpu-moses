@@ -10,8 +10,6 @@ class Hypothesis;
 class Stack : public Managed
 {
 public:
-  Vector<Hypothesis*> m_arr;
-
   __host__
   Stack();
 
@@ -23,7 +21,7 @@ public:
 
   __device__
   const Vector<Hypothesis*> &getArr() const
-  { return m_arr; }
+  { return m_coll.GetVec(); }
 
   __device__
   Lock &getLock()
@@ -31,18 +29,16 @@ public:
 
   __host__
   size_t GetSize() const
-  { return m_arr.size(); }
+  { return m_coll.size(); }
 
 
   __host__
   std::string Debug() const;
 
-  
-  __host__
-  Hypothesis *Get(size_t ind) const;
-  
+
 protected:
-	//Set<Hypothesis*> m_coll;
+  //Vector<Hypothesis*> m_arr;
+	Set<Hypothesis*> m_coll;
   
   Lock m_lock;
 };

@@ -28,6 +28,10 @@ public:
   { return m_vec; }
 
   __device__ __host__
+  Vec &GetVec()
+  { return m_vec; }
+
+  __device__ __host__
   size_t size() const
   { return m_vec.size(); }
 
