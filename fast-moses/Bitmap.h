@@ -41,11 +41,11 @@ public:
   }
 
   __device__
-  int Compare (const Bitmap &compare) const;
+  int Compare (const Bitmap &other) const;
 
   __device__
-  bool operator< (const Bitmap &compare) const {
-    return Compare(compare) < 0;
+  bool operator< (const Bitmap &other) const {
+    return Compare(other) < 0;
   }
 
 protected:

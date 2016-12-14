@@ -39,6 +39,7 @@ public:
   T& operator[](size_t ind)
   { return m_arr[ind]; }
 
+  __device__
   const T* getArray() const
   { return m_arr; }
 
@@ -78,6 +79,36 @@ public:
     cudaMemcpy(&ret, &m_arr[ind], sizeof(T), cudaMemcpyDeviceToHost);
     cudaDeviceSynchronize();
     return ret;
+  }
+
+  __device__
+  int Compare (const Array<T> &other) const
+  {
+    // -1 = less than
+    // +1 = more than
+    // 0  = same
+
+    size_t thisSize = size()
+       ,otherSize = other.size();
+
+    if (thisSize != otherSize) {
+      return (thisSize < otherSize) ? -1 : 1;
+    }
+
+    for (size_t i = 0; i < thisSize; ++i) {
+      bool thisVal = m_arr[i];
+      bool otherVal = other[i];
+      if (thisVal != otherVal) {
+        return thisVal ? 1 : -1;
+      }
+    }
+
+    return 0;
+  }
+
+  __device__
+  bool operator< (const Array<T> &compare) const {
+    return Compare(compare) < 0;
   }
 
 protected:
