@@ -29,7 +29,7 @@ public:
 
   __host__
   size_t GetSize() const
-  { return m_vec.GetSize(); }
+  { return m_vec.size(); }
 
   __device__
   SCORE GetTotal() const

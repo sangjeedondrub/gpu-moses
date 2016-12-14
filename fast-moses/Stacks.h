@@ -30,7 +30,7 @@ public:
   
   __host__
   const Stack &Back() const
-  { return *m_vec.Get(m_vec.GetSize() - 1); }
+  { return *m_vec.Get(m_vec.size() - 1); }
 
   void PrintStacks() const;
 protected:

@@ -16,7 +16,7 @@ void Stacks::Init(const Manager &mgr, size_t numStacks)
 void Stacks::PrintStacks() const
 {
   cerr << "stacks=";
-  for (size_t i = 0; i < m_vec.GetSize(); ++i) {
+  for (size_t i = 0; i < m_vec.size(); ++i) {
     Stack *stack = m_vec.Get(i);
     cerr << stack->GetSize() << " ";
   }

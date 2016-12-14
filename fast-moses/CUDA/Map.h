@@ -69,7 +69,7 @@ public:
   {
     std::ostringstream strm;
 
-    for (size_t i = 0; i < Parent::m_vec.GetSize(); ++i) {
+    for (size_t i = 0; i < Parent::m_vec.size(); ++i) {
       const Pair &pair = Parent::m_vec[i];
       const Key &key = pair.first;
       const Value &value = pair.second;

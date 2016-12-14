@@ -31,7 +31,7 @@ public:
         { return m_vec.size(); }
 
 	__host__ size_t GetSize() const
-	{ return m_vec.GetSize(); }
+	{ return m_vec.size(); }
 
 	__host__ std::string Debug() const;
 protected:

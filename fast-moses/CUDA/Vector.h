@@ -40,21 +40,9 @@ public:
     cudaFree(m_arr);
   }
 
-  __device__
+  __device__ __host__
   size_t size() const
   { return m_size; }
-
-  __host__
-  size_t GetSize() const
-  {
-    return m_size;
-    /*
-    size_t ret;
-    cudaMemcpy(&ret, &m_size, sizeof(size_t), cudaMemcpyDeviceToHost);
-    cudaDeviceSynchronize();
-    return ret;
-    */
-  }
 
   __host__
   void SetSize(size_t val)
@@ -148,7 +136,7 @@ public:
       cudaMallocManaged(&temp, sizeof(T) * newSize);
       cudaDeviceSynchronize();
 
-      size_t currSize = GetSize();
+      size_t currSize = size();
       cudaMemcpy(temp, m_arr, sizeof(T) * currSize, cudaMemcpyDeviceToDevice);
       cudaDeviceSynchronize();
 
@@ -171,7 +159,7 @@ public:
       cudaMallocManaged(&temp, sizeof(T) * newSize);
       cudaDeviceSynchronize();
 
-      size_t currSize = GetSize();
+      size_t currSize = size();
       cudaMemcpy(temp, m_arr, sizeof(T) * currSize, cudaMemcpyDeviceToDevice);
       cudaDeviceSynchronize();
 
@@ -189,7 +177,7 @@ public:
   __host__
   void PushBack(const T &v)
   {
-    size_t currSize = GetSize();
+    size_t currSize = size();
     size_t maxSize = GetMaxSize();
 
     if (currSize >= maxSize) {
@@ -215,9 +203,8 @@ public:
   std::string Debug() const
   {
     std::stringstream strm;
-    size_t size = GetSize();
-    strm << size << ":";
-    for (size_t i = 0; i < size; ++i) {
+    strm << size() << ":";
+    for (size_t i = 0; i < size(); ++i) {
       strm << Get(i) << " ";
     }
 
@@ -275,7 +262,7 @@ public:
   __host__
   void Insert(size_t ind, const T &val)
   {
-    Resize(GetSize() + 1);
+    Resize(size() + 1);
     //std::cerr << "HH5" << GetSize() << std::endl;
     Shift(ind, 1);
     //std::cerr << "HH6" << std::endl;

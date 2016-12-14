@@ -151,7 +151,7 @@ void Manager::Process()
 
     cudaDeviceSynchronize();
     m_stacks.PrintStacks();
-    cerr << "stack=" << stack.Debug() << endl;
+    //cerr << "stack=" << stack.Debug() << endl;
   }
 
   //cerr << "back=" << m_stacks.Back().Debug() << endl;
@@ -161,7 +161,7 @@ void Manager::Process()
 std::string Manager::DebugTPSArr() const
 {
   std::stringstream strm;
-  for (size_t i = 0; i < m_tpsVec.GetSize(); ++i) {
+  for (size_t i = 0; i < m_tpsVec.size(); ++i) {
     const InputPath &path = m_tpsVec[i];
     const TargetPhrases *tps = path.targetPhrases;
     strm << path.range.Debug() << " ";

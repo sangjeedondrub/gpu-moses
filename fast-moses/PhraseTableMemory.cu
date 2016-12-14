@@ -21,7 +21,7 @@ Node::Node()
 Node::~Node()
 {
   const Children::Vec &vec = m_children.GetVec();
-  for (size_t i = 0; i < vec.GetSize(); ++i) {
+  for (size_t i = 0; i < vec.size(); ++i) {
     const Children::Pair &pair = vec[i];
     const Node *node = pair.second;
     delete node;
