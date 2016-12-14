@@ -19,6 +19,11 @@ public:
   __device__
   void Init(const Bitmap &copy, const Range &range);
 
+  __device__
+  size_t GetSize() const {
+    return m_bitmap.size();
+  }
+
   //! Count of words translated.
   __device__
   size_t GetNumWordsCovered() const {
@@ -35,9 +40,15 @@ public:
     return false;
   }
 
+  __device__
+  int Compare (const Bitmap &compare) const;
+
+  __device__
+  bool operator< (const Bitmap &compare) const {
+    return Compare(compare) < 0;
+  }
 
 protected:
-  size_t m_size;
   size_t m_numWordsCovered;
 
   Array<bool> m_bitmap;

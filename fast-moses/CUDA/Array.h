@@ -39,6 +39,9 @@ public:
   T& operator[](size_t ind)
   { return m_arr[ind]; }
 
+  const T* getArray() const
+  { return m_arr; }
+
   __device__
   void resize(size_t newSize)
   {
