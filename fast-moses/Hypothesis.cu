@@ -68,6 +68,8 @@ SCORE Hypothesis::GetFutureScore() const
     cudaMemcpy(&h_s, d_s, sizeof(SCORE), cudaMemcpyDeviceToHost);
     cudaDeviceSynchronize();
     
+    cudaFree(d_s);
+
     return h_s;
 }
 
