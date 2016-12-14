@@ -4,8 +4,8 @@
 #include "CUDA/Lock.h"
 #include "CUDA/Array.h"
 #include "CUDA/Vector.h"
+#include "Hypothesis.h"
 
-class Hypothesis;
 
 class Stack : public Managed
 {
@@ -39,6 +39,7 @@ public:
 protected:
   //Vector<Hypothesis*> m_arr;
 	Set<Hypothesis*> m_coll;
+  //Set<Hypothesis*, HypothesisRecombinationOrderer> m_coll;
   
   Lock m_lock;
 };
