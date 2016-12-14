@@ -45,28 +45,6 @@ public:
   { return m_size; }
 
   __host__
-  void SetSize(size_t val)
-  {
-    m_size = val;
-    /*
-    cudaMemcpy(&m_size, &val, sizeof(size_t), cudaMemcpyHostToDevice);
-    cudaDeviceSynchronize();
-    */
-  }
-
-  __host__
-  size_t GetMaxSize() const
-  {
-    return m_maxSize;
-    /*
-    size_t ret;
-    cudaMemcpy(&ret, &m_maxSize, sizeof(size_t), cudaMemcpyDeviceToHost);
-    cudaDeviceSynchronize();
-    return ret;
-    */
-  }
-
-  __host__
   void SetMaxSize(size_t val)
   {
     m_maxSize = val;
@@ -131,7 +109,7 @@ public:
   void Resize(size_t newSize, const T &val = T())
   {
     //std::cerr << "newSize=" << newSize << std::endl;
-    if (newSize > GetMaxSize()) {
+    if (newSize > m_maxSize) {
       T *temp;
       cudaMallocManaged(&temp, sizeof(T) * newSize);
       cudaDeviceSynchronize();
@@ -148,13 +126,13 @@ public:
       SetMaxSize(newSize);
     }
 
-     SetSize(newSize);
+    m_size = newSize;
   }
 
   __host__
   void Reserve(size_t newSize)
   {
-    if (newSize > GetMaxSize()) {
+    if (newSize > m_maxSize) {
       T *temp;
       cudaMallocManaged(&temp, sizeof(T) * newSize);
       cudaDeviceSynchronize();
@@ -178,14 +156,14 @@ public:
   void PushBack(const T &v)
   {
     size_t currSize = size();
-    size_t maxSize = GetMaxSize();
+    size_t maxSize = m_maxSize;
 
     if (currSize >= maxSize) {
       Resize(1 + maxSize * 2);
     }
 
     Set(currSize, v);
-    SetSize(currSize + 1);
+    m_size = currSize + 1;
   }
 
   __device__
