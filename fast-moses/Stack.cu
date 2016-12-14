@@ -4,11 +4,6 @@
 
 using namespace std;
 
-__global__
-void InitStack(Stack &stack)
-{
-}
-
 
 Stack::Stack()
 :m_coll()
