@@ -23,17 +23,11 @@ public:
   __host__
   Vector(bool managed, size_t size, const T &val = T())
   {
-    m_managed = managed;
     m_size = size;
     m_maxSize = size;
 
     if (size) {
-      if (m_managed) {
-        cudaMallocManaged(&m_arr, sizeof(T) * size);
-      }
-      else {
-        cudaMalloc(&m_arr, sizeof(T) * size);
-      }
+      cudaMallocManaged(&m_arr, sizeof(T) * size);
     }
     else {
       m_arr = NULL;
@@ -148,8 +142,6 @@ public:
   __host__
   void Resize(size_t newSize, const T &val = T())
   {
-    assert(m_managed);
-
     //std::cerr << "newSize=" << newSize << std::endl;
     if (newSize > GetMaxSize()) {
       T *temp;
@@ -293,7 +285,6 @@ public:
   }
 
 protected:
-  bool m_managed;
   size_t m_size, m_maxSize;
   T *m_arr;
 
