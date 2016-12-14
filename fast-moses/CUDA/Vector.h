@@ -135,19 +135,11 @@ public:
   __device__
   void resize(size_t newSize, const T &val = T())
   {
-    assert(!m_managed);
-
     //std::cerr << "newSize=" << newSize << std::endl;
     if (newSize > m_maxSize) {
-      T *temp = (T*) malloc(sizeof(T) * newSize);
-
-      size_t currSize = m_size;
-      memcpy(temp, m_arr, sizeof(T) * currSize);
-
-      free(m_arr);
-      m_arr = temp;
-
-      m_maxSize = newSize;
+      //*status = 45;
+      __threadfence();         // ensure store issued before trap
+      asm("trap;");
     }
 
     m_size = newSize;
@@ -223,7 +215,8 @@ public:
       resize(m_size + 1);
     }
 
-    m_arr[m_size- 1] = v;
+    m_arr[m_size] = v;
+    ++m_size;
   }
 
   __host__
