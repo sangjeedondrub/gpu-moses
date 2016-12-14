@@ -139,7 +139,9 @@ void Manager::Process()
 
   for (size_t stackInd = 0; stackInd < inputSize; ++stackInd) {
     const Stack &stack = m_stacks.Get(stackInd);
+    //cerr << "HH1" << endl;
     size_t stackSize = stack.GetSize();
+    //cerr << "HH2" << endl;
 
     //ProcessStack<<<1,1>>>(stackInd, *this, m_stacks);
     //ProcessStack<<<stackSize, 1>>>(stackInd, *this, m_stacks);
@@ -148,11 +150,14 @@ void Manager::Process()
 
     dim3 blocks(stackSize, inputSize, inputSize);
     ProcessStack<<<blocks, 1>>>(stackInd, *this, m_stacks);
+    //cerr << "HH3" << endl;
 
     cudaDeviceSynchronize();
+    //cerr << "HH4" << endl;
     m_stacks.PrintStacks();
-    cerr << "stack=" << stack.Debug() << endl;
-  }
+    //cerr << "stack=" << stack.Debug() << endl;
+    //cerr << "HH6" << endl;
+ }
 
   //cerr << "back=" << m_stacks.Back().Debug() << endl;
 

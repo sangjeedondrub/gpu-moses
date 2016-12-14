@@ -154,7 +154,7 @@ public:
         return ret;
       }
       else {
-        // =
+        // found it
         //std::cerr << "HH3" << std::endl;
         ret.first = true;
         ret.second = i;

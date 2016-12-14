@@ -26,8 +26,14 @@ Stack::~Stack()
 __device__
 void Stack::add(Hypothesis *hypo)
 {
-	m_coll.insert(hypo);
-  //(*m_arr)[m_size] = hypo;
+  thrust::pair<bool, size_t> upper = m_coll.upperBound(hypo);
+  if (upper.first) {
+    delete hypo;
+  }
+  else {
+    m_coll.insert(hypo);
+    //(*m_arr)[m_size] = hypo;
+  }
 }
 
 __host__

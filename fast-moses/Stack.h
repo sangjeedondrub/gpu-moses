@@ -38,8 +38,8 @@ public:
 
 protected:
   //Vector<Hypothesis*> m_arr;
-	Set<Hypothesis*> m_coll;
-  //Set<Hypothesis*, HypothesisRecombinationOrderer> m_coll;
+	//Set<Hypothesis*> m_coll;
+  Set<Hypothesis*, HypothesisRecombinationOrderer> m_coll;
   
   Lock m_lock;
 };
