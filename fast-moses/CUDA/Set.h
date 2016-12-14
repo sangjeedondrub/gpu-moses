@@ -23,17 +23,13 @@ public:
   :m_vec(0)
   {}
 
-  __host__ __device__
+  __device__ __host__
   const Vec &GetVec() const
   { return m_vec; }
 
-  __device__
+  __device__ __host__
   size_t size() const
   { return m_vec.size(); }
-
-  __host__
-  size_t GetSize() const
-  { return m_vec.GetSize(); }
 
   // assumes there's nothing there. Otherwise it will be a multiset
   __device__

@@ -68,24 +68,7 @@ public:
   __host__
   void Resize(size_t newSize, const T &val = T())
   {
-    //std::cerr << "newSize=" << newSize << std::endl;
-    if (newSize > m_maxSize) {
-      T *temp;
-      cudaMallocManaged(&temp, sizeof(T) * newSize);
-      cudaDeviceSynchronize();
-
-      size_t currSize = size();
-      cudaMemcpy(temp, m_arr, sizeof(T) * currSize, cudaMemcpyDeviceToDevice);
-      cudaDeviceSynchronize();
-
-      cudaFree(m_arr);
-      cudaDeviceSynchronize();
-
-      m_arr = temp;
-
-      m_maxSize = newSize;
-    }
-
+    Reserve(newSize);
     m_size = newSize;
   }
 
