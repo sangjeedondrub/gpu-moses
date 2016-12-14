@@ -4,6 +4,14 @@
 
 using namespace std;
 
+__host__
+Stacks::~Stacks()
+{
+  for (size_t i = 0; i < m_vec.size(); ++i) {
+    cudaFree(m_vec[i]);
+  }
+
+}
 
 void Stacks::Init(const Manager &mgr, size_t numStacks)
 {

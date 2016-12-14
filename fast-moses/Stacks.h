@@ -14,6 +14,9 @@ public:
   {}
 
   __host__
+  virtual ~Stacks();
+
+  __host__
   void Init(const Manager &mgr, size_t numStacks);
 
   __device__

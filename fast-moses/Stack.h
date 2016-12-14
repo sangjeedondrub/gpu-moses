@@ -15,6 +15,9 @@ public:
   __host__
   Stack();
 
+  __host__
+  ~Stack();
+
   __device__
 	void add(Hypothesis *hypo);
 

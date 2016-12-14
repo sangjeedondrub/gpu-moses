@@ -21,6 +21,15 @@ Stack::Stack()
   //cerr << "m_arr=" << m_arr << endl;
 }
 
+__host__
+Stack::~Stack()
+{
+  for (size_t i = 0; i < m_arr.size(); ++i) {
+    Hypothesis *hypo = m_arr[i];
+    cudaFree(hypo);
+  }
+}
+
 __device__
 void Stack::add(Hypothesis *hypo)
 {
