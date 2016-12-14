@@ -26,8 +26,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 #include <fstream>
 #include <string>
 
-namespace FastMoses
-{
 
 /** Used in place of std::istream, can read zipped files if it ends in .gz
 */
@@ -43,6 +41,5 @@ public:
   void Close();
 };
 
-}
 
 #endif

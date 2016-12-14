@@ -7,6 +7,7 @@
 #pragma once
 
 #include <limits>
+#include <cstddef>
 
 typedef float SCORE;
 typedef int VOCABID;
@@ -30,5 +31,7 @@ const SCORE LOWEST_SCORE = -100.0;
 typedef uint32_t UINT32;
 typedef uint64_t UINT64;
 #endif
+
+typedef size_t FactorType;
 
 #define NUM_SCORES 5
