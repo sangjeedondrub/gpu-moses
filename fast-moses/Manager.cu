@@ -151,7 +151,7 @@ void Manager::Process()
 
     cudaDeviceSynchronize();
     m_stacks.PrintStacks();
-    //cerr << "stack=" << stack.Debug() << endl;
+    cerr << "stack=" << stack.Debug() << endl;
   }
 
   //cerr << "back=" << m_stacks.Back().Debug() << endl;

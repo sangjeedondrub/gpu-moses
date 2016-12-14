@@ -10,7 +10,7 @@ class Hypothesis;
 class Stack : public Managed
 {
 public:
-  Vector<Hypothesis*> *m_arr;
+  Vector<Hypothesis*> m_arr;
 
   __host__
   Stack();
@@ -20,7 +20,7 @@ public:
 
   __device__
   const Vector<Hypothesis*> &getArr() const
-  { return *m_arr; }
+  { return m_arr; }
 
   __device__
   Lock &getLock()

@@ -11,13 +11,11 @@ void InitStack(Stack &stack)
 
 
 Stack::Stack()
-:m_arr(NULL)
+:m_arr(0)
 {
   m_size = 0;
 
-  Vector<Hypothesis*> *arr = new Vector<Hypothesis*>(0);
-  arr->Reserve(5000);
-  m_arr = arr;
+  m_arr.Reserve(5000);
 
   cudaDeviceSynchronize();
   //cerr << "m_arr=" << m_arr << endl;
@@ -26,7 +24,7 @@ Stack::Stack()
 __device__
 void Stack::add(Hypothesis *hypo)
 {
-	m_arr->push_back(hypo);
+	m_arr.push_back(hypo);
   //(*m_arr)[m_size] = hypo;
 	++m_size;
 }
@@ -34,7 +32,7 @@ void Stack::add(Hypothesis *hypo)
 __host__
 Hypothesis *Stack::Get(size_t ind) const
 {
-  Hypothesis *ret = m_arr->Get(ind);
+  Hypothesis *ret = m_arr.Get(ind);
   return ret;
   
 	//return m_arr[ind];
