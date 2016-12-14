@@ -3,13 +3,14 @@
 #include "CUDA/Managed.h"
 #include "CUDA/Lock.h"
 #include "CUDA/Array.h"
+#include "CUDA/Vector.h"
 
 class Hypothesis;
 
 class Stack : public Managed
 {
 public:
-  Array<Hypothesis*> *m_arr;
+  Vector<Hypothesis*> *m_arr;
 
   __host__
   Stack();
@@ -18,7 +19,7 @@ public:
 	void add(Hypothesis *hypo);
 
   __device__
-  const Array<Hypothesis*> &getArr() const
+  const Vector<Hypothesis*> &getArr() const
   { return *m_arr; }
 
   __device__

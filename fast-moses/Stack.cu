@@ -7,8 +7,6 @@ using namespace std;
 __global__
 void InitStack(Stack &stack)
 {
-  Array<Hypothesis*> *arr = new Array<Hypothesis*>(0);
-  stack.m_arr = arr;
 }
 
 
@@ -16,7 +14,11 @@ Stack::Stack()
 :m_arr(NULL)
 {
   m_size = 0;
-  InitStack<<<1,1>>>(*this);
+
+  Vector<Hypothesis*> *arr = new Vector<Hypothesis*>(true, 0);
+  arr->Reserve(5000);
+  m_arr = arr;
+
   cudaDeviceSynchronize();
   //cerr << "m_arr=" << m_arr << endl;
 }
@@ -24,7 +26,8 @@ Stack::Stack()
 __device__
 void Stack::add(Hypothesis *hypo)
 {
-	m_arr->push_back(hypo);
+	//m_arr->push_back(hypo);
+  (*m_arr)[m_size] = hypo;
 	++m_size;
 }
 

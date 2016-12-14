@@ -19,7 +19,7 @@ TargetPhrases::~TargetPhrases()
 
 void TargetPhrases::Add(const TargetPhrase *tp)
 {
-	m_vec.push_back(tp);
+	m_vec.PushBack(tp);
 }
 
 __host__ std::string TargetPhrases::Debug() const

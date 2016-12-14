@@ -79,7 +79,7 @@ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks)
   }
 
   const Stack &stack = stacks[stackInd];
-  const Array<Hypothesis*> &vec = stack.getArr();
+  const Vector<Hypothesis*> &vec = stack.getArr();
   const Hypothesis &prevHypo = *vec[hypoInd];
   const Bitmap &prevBM = prevHypo.bitmap;
 
@@ -151,7 +151,7 @@ void Manager::Process()
 
     cudaDeviceSynchronize();
     m_stacks.PrintStacks();
-    //cerr << "stack=" << stack.Debug() << endl;
+    cerr << "stack=" << stack.Debug() << endl;
   }
 
   //cerr << "back=" << m_stacks.Back().Debug() << endl;

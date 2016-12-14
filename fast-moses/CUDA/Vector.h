@@ -180,7 +180,30 @@ public:
   }
 
   __host__
-  void push_back(const T &v)
+  void Reserve(size_t newSize)
+  {
+    if (newSize > GetMaxSize()) {
+      T *temp;
+      cudaMallocManaged(&temp, sizeof(T) * newSize);
+      cudaDeviceSynchronize();
+
+      size_t currSize = GetSize();
+      cudaMemcpy(temp, m_arr, sizeof(T) * currSize, cudaMemcpyDeviceToDevice);
+      cudaDeviceSynchronize();
+
+      cudaFree(m_arr);
+      cudaDeviceSynchronize();
+
+      m_arr = temp;
+
+      SetMaxSize(newSize);
+
+    }
+
+  }
+
+  __host__
+  void PushBack(const T &v)
   {
     size_t currSize = GetSize();
     size_t maxSize = GetMaxSize();
@@ -191,6 +214,16 @@ public:
 
     Set(currSize, v);
     SetSize(currSize + 1);
+  }
+
+  __device__
+  void push_back(const T &v)
+  {
+    if (m_size >= m_maxSize) {
+      resize(m_size + 1);
+    }
+
+    m_arr[m_size- 1] = v;
   }
 
   __host__
