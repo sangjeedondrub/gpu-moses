@@ -1,3 +1,4 @@
+#include <fstream>
 #include <iostream>
 #include "Test.h"
 #include "MyVocab.h"
@@ -13,6 +14,15 @@
 
 using namespace std;
 
+istream &GetInput()
+{
+  //return cin;
+
+  ifstream *inStrm = new ifstream();
+  inStrm->open("in");
+  return *inStrm;
+
+}
 
 int main()
 {
@@ -26,8 +36,10 @@ int main()
   pt->Load("phrase-table");
 
   cerr << "Start Decoding:" << endl;
+
+  istream &inStrm = GetInput();
   string line;
-  while (getline(cin, line)) {
+  while (getline(inStrm, line)) {
 	  Manager *mgr = new Manager(*system, line, *pt);
 	  mgr->Process();
   }
