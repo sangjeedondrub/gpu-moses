@@ -22,7 +22,7 @@ public:
 
 };
 
-template<typename Key, typename Value, typename CompareDevice = CompareMap<Key, Value>, typename CompareHost = CompareMap<Key, Value> >
+template<typename Key, typename Value, typename CompareDevice = CompareMap<Key, Value>, typename CompareHost = CompareDevice >
 class Map : public Set<thrust::pair<Key, Value>, CompareDevice, CompareHost>
 {
 public:

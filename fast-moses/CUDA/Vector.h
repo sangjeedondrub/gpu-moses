@@ -132,7 +132,44 @@ public:
   }
 
   template<typename CC>
-  __host__ __device__
+  __device__
+  thrust::pair<bool, size_t> upperBound(const T &sought) const
+  {
+    thrust::pair<bool, size_t> ret;
+    //std::cerr << "sought=" << sought << std::endl;
+    //std::cerr << "m_size=" << m_size << std::endl;
+    for (size_t i = 0; i < m_size; ++i) {
+      const T &currEle = m_arr[i];
+      //std::cerr << i << "=" << currEle << std::endl;
+
+      if (CC()(currEle, sought)) {
+        // carry on, do nothing
+        //std::cerr << "HH1" << std::endl;
+      }
+      else if (CC()(sought, currEle)) {
+        // overshot without finding sought
+        //std::cerr << "HH2" << std::endl;
+        ret.first = false;
+        ret.second = i;
+        return ret;
+      }
+      else {
+        // =
+        //std::cerr << "HH3" << std::endl;
+        ret.first = true;
+        ret.second = i;
+        return ret;
+      }
+    }
+
+    // sought is not in array
+    ret.first = false;
+    ret.second = m_size;
+    return ret;
+  }
+
+  template<typename CC>
+  __host__
   thrust::pair<bool, size_t> UpperBound(const T &sought) const
   {
     thrust::pair<bool, size_t> ret;

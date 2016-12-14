@@ -12,7 +12,7 @@
 #include <iostream>
 #include "Vector.h"
 
-template<typename T, typename CompareDevice = thrust::less<T>, typename CompareHost = thrust::less<T> >
+template<typename T, typename CompareDevice = thrust::less<T>, typename CompareHost = CompareDevice >
 class Set : public Managed
 {
 public:
@@ -65,7 +65,7 @@ public:
   thrust::pair<bool, size_t> upperBound(const T &sought) const
   {
     thrust::pair<bool, size_t> upper;
-    upper = m_vec.UpperBound<CC>(sought);
+    upper = m_vec.upperBound<CC>(sought);
     return upper;
   }
 
