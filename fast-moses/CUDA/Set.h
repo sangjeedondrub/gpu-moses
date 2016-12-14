@@ -60,11 +60,12 @@ public:
     m_vec.Insert(ind, val);
   }
 
+  template<typename CC = Compare >
   __host__ __device__
   thrust::pair<bool, size_t> UpperBound(const T &sought) const
   {
     thrust::pair<bool, size_t> upper;
-    upper = m_vec.UpperBound(sought);
+    upper = m_vec.UpperBound<Compare>(sought);
     return upper;
   }
 

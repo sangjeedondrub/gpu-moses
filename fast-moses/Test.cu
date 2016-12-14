@@ -185,28 +185,6 @@ void Resize(Vector<T> &arr)
 
 }
 
-void Test4()
-{
-  Vector<int> arr(5);
-  arr[0] = 2;
-  arr[1] = 4;
-  arr[2] = 5;
-  arr[3] = 8;
-  arr[4] = 20;
-
-  thrust::pair<bool, size_t> found;
-  found  = arr.UpperBound(3);   cerr << 3 << " found=" << found.first << " " << found.second << endl;
-  found = arr.UpperBound(4);   cerr << 4 << " found=" << found.first << " " << found.second << endl;
-  found = arr.UpperBound(1);  cerr << 1 << " found=" << found.first << " " << found.second << endl;
-  found = arr.UpperBound(20);   cerr << 20 << " found=" << found.first << " " << found.second << endl;
-  found = arr.UpperBound(30);  cerr << 30 << " found=" << found.first << " " << found.second << endl;
-
-  cerr << "BEFORE=" << arr.Debug() << endl;
-  //arr.Insert(3);
-  cerr << "AFTER=" << arr.Debug() << endl;
-
-  Resize<int><<<1,1>>>(arr);
-}
 
 void Test5()
 {

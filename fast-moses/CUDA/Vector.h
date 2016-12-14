@@ -131,6 +131,7 @@ public:
     return strm.str();
   }
 
+  template<typename CC>
   __host__ __device__
   thrust::pair<bool, size_t> UpperBound(const T &sought) const
   {
@@ -141,11 +142,11 @@ public:
       const T &currEle = m_arr[i];
       //std::cerr << i << "=" << currEle << std::endl;
 
-      if (Compare()(currEle, sought)) {
+      if (CC()(currEle, sought)) {
         // carry on, do nothing
         //std::cerr << "HH1" << std::endl;
       }
-      else if (Compare()(sought, currEle)) {
+      else if (CC()(sought, currEle)) {
         // overshot without finding sought
         //std::cerr << "HH2" << std::endl;
         ret.first = false;
