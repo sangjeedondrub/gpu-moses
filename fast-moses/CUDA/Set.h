@@ -12,7 +12,7 @@
 #include <iostream>
 #include "Vector.h"
 
-template<typename T, typename Compare = thrust::less<T> >
+template<typename T, typename CompareDevice = thrust::less<T>, typename CompareHost = thrust::less<T> >
 class Set : public Managed
 {
 public:
@@ -40,7 +40,7 @@ public:
   void insert(const T &val)
   {
     thrust::pair<bool, size_t> upper;
-    upper = UpperBound(val);
+    upper = upperBound(val);
     assert(!upper.first);
     size_t ind = upper.second;
     //std::cerr << "ind=" << ind << std::endl;
@@ -60,15 +60,24 @@ public:
     m_vec.Insert(ind, val);
   }
 
-  template<typename CC = Compare >
-  __host__ __device__
-  thrust::pair<bool, size_t> UpperBound(const T &sought) const
+  template<typename CC = CompareDevice >
+  __device__
+  thrust::pair<bool, size_t> upperBound(const T &sought) const
   {
     thrust::pair<bool, size_t> upper;
     upper = m_vec.UpperBound<CC>(sought);
     return upper;
   }
 
+
+  template<typename CC = CompareHost >
+  __host__
+  thrust::pair<bool, size_t> UpperBound(const T &sought) const
+  {
+    thrust::pair<bool, size_t> upper;
+    upper = m_vec.UpperBound<CC>(sought);
+    return upper;
+  }
 
   __host__
   std::string Debug() const
