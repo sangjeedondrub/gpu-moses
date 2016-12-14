@@ -28,11 +28,12 @@ LIBS = -L$(DALM_DIR)/lib -L$(KENLM_DIR)/lib  \
 OBJECTS = InputFileStream.o MyVocab.o TypeDef.o \
 		Util.o \
 		Bitmap.o Hypothesis.o  InputPath.o \
-		Main.o Manager.o Phrase.o PhraseTableMemory.o Range.o \
+		Main.o Manager.o Phrase.o Range.o \
 		Scores.o ScoresUnmanaged.o Stack.o Stacks.o \
 		TargetPhrase.o TargetPhrases.o Test.o \
 		CUDA/Managed.o CUDA/Util.o \
-		FF/Distortion.o FF/FeatureFunctions.o FF/StatefulFeatureFunction.o
+		FF/Distortion.o FF/FeatureFunctions.o FF/StatefulFeatureFunction.o \
+		TranslationModel/PhraseTableMemory.o
 
 
 OBJECTS_fast_moses = $(OBJECTS)

@@ -2,9 +2,9 @@
 #include "Manager.h"
 #include "Phrase.h"
 #include "Hypothesis.h"
-#include "PhraseTableMemory.h"
 #include "Stack.h"
 #include "Range.h"
+#include "TranslationModel/PhraseTableMemory.h"
 
 using namespace std;
 

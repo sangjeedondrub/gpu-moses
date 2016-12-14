@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Test.h"
 #include "MyVocab.h"
-#include "PhraseTableMemory.h"
+#include "TranslationModel/PhraseTableMemory.h"
 
 #include "System.h"
 #include "Phrase.h"
