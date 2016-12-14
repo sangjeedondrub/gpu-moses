@@ -1,6 +1,7 @@
 #pragma once
 #include "Bitmap.h"
 #include "ScoresUnmanaged.h"
+#include "CUDA/Array.h"
 
 class Manager;
 class TargetPhrase;
@@ -18,7 +19,7 @@ public:
   const Hypothesis *prevHypo;
 
   ScoresUnmanaged scores;
-  char *stateData;
+  Array<char> stateData;
 
   SCORE sss;
 
@@ -31,9 +32,20 @@ public:
   __device__
   void Init(const Manager &mgr, const Hypothesis &prevHypo, const TargetPhrase &tp, const InputPath &path);
 
+  /** check, if two hypothesis can be recombined.
+      this is actually a sorting function that allows us to
+      keep an ordered list of hypotheses. This makes recombination
+      much quicker.
+  */
+  __device__
+  int RecombineCompare(const Hypothesis &other) const;
+
+
+
   __host__
   SCORE GetFutureScore() const;
-  
+
+
 protected:
 
 };

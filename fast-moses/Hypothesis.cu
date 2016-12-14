@@ -10,9 +10,9 @@ Hypothesis::Hypothesis(const Manager &mgr)
 :mgr(&mgr)
 ,bitmap(mgr.GetInput().size())
 ,scores(NUM_SCORES)
+,stateData(mgr.system.ffs.totalSize)
 {
   sss = 453.54;
-  stateData = (char*) malloc(mgr.system.ffs.totalSize);
 }
 
   __device__
@@ -69,5 +69,18 @@ SCORE Hypothesis::GetFutureScore() const
     cudaDeviceSynchronize();
     
     return h_s;
+}
+
+__device__
+int Hypothesis::RecombineCompare(const Hypothesis &other) const
+{
+  // -1 = this < compare
+  // +1 = this > compare
+  // 0  = this ==compare
+  int comp = bitmap.Compare(other.bitmap);
+  if (comp != 0)
+    return comp;
+
+  return stateData.Compare(other.stateData);
 }
 
