@@ -16,7 +16,7 @@
 #include <cassert>
 #include "Managed.h"
 
-template<typename T, typename Compare = thrust::less<T> >
+template<typename T>
 class Vector : public Managed
 {
 public:

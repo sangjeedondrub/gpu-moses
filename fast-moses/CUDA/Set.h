@@ -16,7 +16,7 @@ template<typename T, typename Compare = thrust::less<T> >
 class Set : public Managed
 {
 public:
-  typedef Vector<T, Compare> Vec;
+  typedef Vector<T> Vec;
 
   __host__
   Set()
