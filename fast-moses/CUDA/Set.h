@@ -65,7 +65,7 @@ public:
   thrust::pair<bool, size_t> UpperBound(const T &sought) const
   {
     thrust::pair<bool, size_t> upper;
-    upper = m_vec.UpperBound<Compare>(sought);
+    upper = m_vec.UpperBound<CC>(sought);
     return upper;
   }
 
