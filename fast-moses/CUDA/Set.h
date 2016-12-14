@@ -19,8 +19,8 @@ public:
   typedef Vector<T, Compare> Vec;
 
   __host__
-  Set(bool managed)
-  :m_vec(managed, 0)
+  Set()
+  :m_vec(true, 0)
   {}
 
   __host__ __device__

@@ -29,8 +29,8 @@ public:
   typedef thrust::pair<Key, Value> Pair;
   typedef Set<Pair, Compare> Parent;
 
-  Map(bool managed)
-  :Parent(managed)
+  Map()
+  :Parent()
   {}
 
   __device__

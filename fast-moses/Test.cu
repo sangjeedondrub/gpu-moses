@@ -210,7 +210,7 @@ void Test4()
 
 void Test5()
 {
-  Set<int> s(true);
+  Set<int> s;
 
   s.Insert(4);
   s.Insert(3);
@@ -222,7 +222,7 @@ void Test5()
 
 void Test6()
 {
-  Map<int, float> m(true);
+  Map<int, float> m;
   m.Insert(4, 5.45);
   m.Insert(6, 5654.34);
   m.Insert(3, 1.99);
