@@ -28,7 +28,21 @@ void Stack::add(Hypothesis *hypo)
 {
   thrust::pair<bool, size_t> upper = m_coll.upperBound(hypo);
   if (upper.first) {
-    delete hypo;
+    // same hypo exist
+    const Hypothesis *otherHypo = m_coll.GetVec()[upper.second];
+
+    SCORE newScore = hypo->getFutureScore();
+    SCORE otherScore = otherHypo->getFutureScore();
+
+    if (newScore > otherScore) {
+      // new hypo is better
+      delete otherHypo;
+      m_coll.GetVec()[upper.second] = hypo;
+    }
+    else {
+      // existing hypo is better
+      delete hypo;
+    }
   }
   else {
     m_coll.insert(hypo);

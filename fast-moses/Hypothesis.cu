@@ -46,10 +46,16 @@ void Hypothesis::Init(const Manager &mgr, const Hypothesis &prevHypo, const Targ
   mgr.system.ffs.EvaluateWhenApplied(mgr, *this);
 }
 
+__device__
+SCORE Hypothesis::getFutureScore() const
+{
+  return scores.GetTotal();
+}
+
 __global__
 void getTotalScore(const Hypothesis &hypo, SCORE &output)
 {
-  output = hypo.scores.GetTotal();
+  output = hypo.getFutureScore();
   //output = hypo.sss; //score;
   //output = 456.789;
 }

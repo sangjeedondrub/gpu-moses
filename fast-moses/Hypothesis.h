@@ -41,6 +41,8 @@ public:
   int RecombineCompare(const Hypothesis &other) const;
 
 
+  __device__
+  SCORE getFutureScore() const;
 
   __host__
   SCORE GetFutureScore() const;
