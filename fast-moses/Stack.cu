@@ -32,7 +32,7 @@ void Stack::add(Hypothesis *hypo)
 __host__
 Hypothesis *Stack::Get(size_t ind) const
 {
-  Hypothesis *ret = m_arr.Get(ind);
+  Hypothesis *ret = m_arr[ind];
   return ret;
   
 	//return m_arr[ind];

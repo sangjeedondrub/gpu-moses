@@ -52,27 +52,6 @@ public:
   T& operator[](size_t ind)
   { return m_arr[ind]; }
 
-  __host__
-  const T Get(size_t ind) const
-  {
-    //return m_arr[ind];
-
-    T ret;
-    cudaMemcpy(&ret, &m_arr[ind], sizeof(T), cudaMemcpyDeviceToHost);
-    cudaDeviceSynchronize();
-    return ret;
-
-  }
-
-  __host__
-  const T Get(size_t ind)
-  {
-    T val;
-    cudaMemcpy(&val, &m_arr[ind], sizeof(T), cudaMemcpyDeviceToHost);
-    cudaDeviceSynchronize();
-    return val;
-  }
-
   __device__
   void resize(size_t newSize, const T &val = T())
   {
@@ -163,7 +142,7 @@ public:
     std::stringstream strm;
     strm << size() << ":";
     for (size_t i = 0; i < size(); ++i) {
-      strm << Get(i) << " ";
+      strm << m_arr[i] << " ";
     }
 
     return strm.str();

@@ -22,15 +22,15 @@ public:
 
   __host__
   const Stack &Get(size_t ind) const
-  { return *m_vec.Get(ind); }
+  { return *m_vec[ind]; }
 
   __host__
   Stack &Get(size_t ind)
-  { return *m_vec.Get(ind); }
+  { return *m_vec[ind]; }
   
   __host__
   const Stack &Back() const
-  { return *m_vec.Get(m_vec.size() - 1); }
+  { return *m_vec[m_vec.size() - 1]; }
 
   void PrintStacks() const;
 protected:

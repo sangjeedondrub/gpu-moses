@@ -17,7 +17,7 @@ void Stacks::PrintStacks() const
 {
   cerr << "stacks=";
   for (size_t i = 0; i < m_vec.size(); ++i) {
-    Stack *stack = m_vec.Get(i);
+    Stack *stack = m_vec[i];
     cerr << stack->GetSize() << " ";
   }
   cerr << endl;
