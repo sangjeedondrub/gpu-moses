@@ -13,8 +13,6 @@ void InitStack(Stack &stack)
 Stack::Stack()
 :m_arr(0)
 {
-  m_size = 0;
-
   m_arr.Reserve(5000);
 
   cudaDeviceSynchronize();
@@ -35,7 +33,6 @@ void Stack::add(Hypothesis *hypo)
 {
 	m_arr.push_back(hypo);
   //(*m_arr)[m_size] = hypo;
-	++m_size;
 }
 
 __host__

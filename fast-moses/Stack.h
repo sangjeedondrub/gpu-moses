@@ -31,7 +31,7 @@ public:
 
   __host__
   size_t GetSize() const
-  { return m_size; }
+  { return m_arr.size(); }
 
 
   __host__
@@ -43,7 +43,6 @@ public:
   
 protected:
 	//Set<Hypothesis*> m_coll;
-  size_t m_size;
   
   Lock m_lock;
 };
