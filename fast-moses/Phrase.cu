@@ -16,13 +16,13 @@ Phrase *Phrase::CreateFromString(const std::string &str)
 
 __host__
 Phrase::Phrase(size_t size)
-:m_vec(true, size)
+:m_vec(size)
 {
 
 }
 
 __host__ Phrase::Phrase(const std::vector<VOCABID> &ids)
-:m_vec(true, ids.size())
+:m_vec(ids.size())
 {
 	//cudaDeviceSynchronize();
 	//cerr << "GetSize()=" << m_vec->GetSize() << endl;

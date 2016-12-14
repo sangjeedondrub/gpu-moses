@@ -5,7 +5,7 @@
 using namespace std;
 
 TargetPhrases::TargetPhrases()
-:m_vec(true, 0)
+:m_vec(0)
 {
 }
 

@@ -20,7 +20,7 @@ public:
 
   __host__
   Set()
-  :m_vec(true, 0)
+  :m_vec(0)
   {}
 
   __host__ __device__

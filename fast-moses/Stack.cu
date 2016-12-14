@@ -15,7 +15,7 @@ Stack::Stack()
 {
   m_size = 0;
 
-  Vector<Hypothesis*> *arr = new Vector<Hypothesis*>(true, 0);
+  Vector<Hypothesis*> *arr = new Vector<Hypothesis*>(0);
   arr->Reserve(5000);
   m_arr = arr;
 

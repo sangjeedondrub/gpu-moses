@@ -10,7 +10,7 @@ class Stacks : public Managed
 public:
   __host__
   Stacks()
-  :m_vec(true, 0)
+  :m_vec(0)
   {}
 
   __host__

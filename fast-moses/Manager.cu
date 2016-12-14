@@ -11,7 +11,7 @@ using namespace std;
 Manager::Manager(const System &sys, const std::string &inputStr, const PhraseTableMemory &pt)
 :system(sys)
 ,m_pt(pt)
-,m_tpsVec(true, 0)
+,m_tpsVec(0)
 ,initPhrase(0)
 {
   m_input = Phrase::CreateFromString(inputStr);
@@ -151,7 +151,7 @@ void Manager::Process()
 
     cudaDeviceSynchronize();
     m_stacks.PrintStacks();
-    cerr << "stack=" << stack.Debug() << endl;
+    //cerr << "stack=" << stack.Debug() << endl;
   }
 
   //cerr << "back=" << m_stacks.Back().Debug() << endl;

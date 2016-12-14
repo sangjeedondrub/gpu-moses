@@ -21,7 +21,7 @@ class Vector : public Managed
 {
 public:
   __host__
-  Vector(bool managed, size_t size, const T &val = T())
+  Vector(size_t size, const T &val = T())
   {
     m_size = size;
     m_maxSize = size;

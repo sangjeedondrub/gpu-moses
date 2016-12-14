@@ -187,7 +187,7 @@ void Resize(Vector<T> &arr)
 
 void Test4()
 {
-  Vector<int> arr(true, 5);
+  Vector<int> arr(5);
   arr[0] = 2;
   arr[1] = 4;
   arr[2] = 5;
