@@ -44,16 +44,6 @@ public:
   size_t size() const
   { return m_size; }
 
-  __host__
-  void SetMaxSize(size_t val)
-  {
-    m_maxSize = val;
-    /*
-    cudaMemcpy(&m_maxSize, &val, sizeof(size_t), cudaMemcpyHostToDevice);
-    cudaDeviceSynchronize();
-    */
-  }
-
   __host__ __device__
   const T& operator[](size_t ind) const
   { return m_arr[ind]; }
@@ -72,15 +62,6 @@ public:
     cudaDeviceSynchronize();
     return ret;
 
-  }
-
-  __host__
-  void Set(size_t ind, const T &val)
-  {
-    //m_arr[ind] = val;
-
-    cudaMemcpy(&m_arr[ind], &val, sizeof(T), cudaMemcpyHostToDevice);
-    cudaDeviceSynchronize();
   }
 
   __host__
@@ -123,7 +104,7 @@ public:
 
       m_arr = temp;
 
-      SetMaxSize(newSize);
+      m_maxSize = newSize;
     }
 
     m_size = newSize;
@@ -146,8 +127,7 @@ public:
 
       m_arr = temp;
 
-      SetMaxSize(newSize);
-
+      m_maxSize = newSize;
     }
 
   }
@@ -162,7 +142,7 @@ public:
       Resize(1 + maxSize * 2);
     }
 
-    Set(currSize, v);
+    m_arr[currSize] = v;
     m_size = currSize + 1;
   }
 
