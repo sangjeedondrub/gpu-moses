@@ -11,6 +11,9 @@
 #include "CUDA/Vector.h"
 #include "CUDA/Managed.h"
 
+class System;
+class FeatureFunction;
+
 class Scores : public Managed
 {
 public:
@@ -21,7 +24,7 @@ public:
   }
 
   __host__
-  void CreateFromString(const std::string &str);
+  void CreateFromString(const std::string &str, const FeatureFunction &featureFunction, const System &system);
 
   __device__
   size_t size() const

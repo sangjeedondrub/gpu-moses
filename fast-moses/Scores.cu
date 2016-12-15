@@ -5,7 +5,7 @@
 using namespace std;
 
 __host__
-void Scores::CreateFromString(const std::string &str)
+void Scores::CreateFromString(const std::string &str, const FeatureFunction &featureFunction, const System &system)
 {
 	vector<SCORE> scores;
 	Tokenize(scores, str);
