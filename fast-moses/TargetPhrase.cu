@@ -1,33 +1,34 @@
 #include <sstream>
 #include "TargetPhrase.h"
 #include "MyVocab.h"
+#include "System.h"
 #include "CUDA/Util.h"
 
 #include "TypeDef.h"
 
 using namespace std;
 
-TargetPhrase *TargetPhrase::CreateFromString(const std::string &str)
+TargetPhrase *TargetPhrase::CreateFromString(const System &sys, const std::string &str)
 {
 	FastMoses::MyVocab &vocab = FastMoses::MyVocab::Instance();
 	vector<VOCABID> ids = vocab.GetOrCreateIds(str);
   //cerr << "ids=" << ids.size() << endl;
 
-	TargetPhrase *tp = new TargetPhrase(ids);
+	TargetPhrase *tp = new TargetPhrase(sys, ids);
 	return tp;
 }
 
 __host__
-TargetPhrase::TargetPhrase(size_t size)
+TargetPhrase::TargetPhrase(const System &sys, size_t size)
 :Phrase(size)
-,m_scores(NUM_SCORES)
+,m_scores(sys.featureFunctions.totalNumScores)
 {
 
 }
 
-TargetPhrase::TargetPhrase(const std::vector<VOCABID> &ids)
+TargetPhrase::TargetPhrase(const System &sys, const std::vector<VOCABID> &ids)
 :Phrase(ids)
-,m_scores(NUM_SCORES)
+,m_scores(sys.featureFunctions.totalNumScores)
 {
 }
 

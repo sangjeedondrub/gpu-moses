@@ -2,12 +2,12 @@
 #include "../Hypothesis.h"
 #include "../Range.h"
 #include "../InputPath.h"
+#include "../Manager.h"
 
 Distortion::Distortion()
 {
   classId = FeatureFunction::ClassId::Distortion;
 	stateSize = sizeof(size_t);
-	startInd = 4;
 	numScores = 1;
 }
 
@@ -28,7 +28,7 @@ void Distortion::EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo) const
   ScoresUnmanaged &scores = hypo.scores;
 
   //scores.PlusEqual(*this, currRange.startPos + currRange.endPos);
-  scores.PlusEqual(*this, dist);
+  scores.PlusEqual(mgr.system, *this, dist);
 
   const size_t &endPos = currRange.endPos;
   SetState(hypo, (const char*) &endPos);

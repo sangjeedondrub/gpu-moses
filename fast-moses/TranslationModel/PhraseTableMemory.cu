@@ -137,7 +137,7 @@ void PhraseTableMemory::Load(System &system)
 		    << node.GetChildren().GetSize() << " "
 		    << endl;
     */
-		TargetPhrase *tp = TargetPhrase::CreateFromString(toks[1]);
+		TargetPhrase *tp = TargetPhrase::CreateFromString(system, toks[1]);
 		tp->GetScores().CreateFromString(toks[2]);
 		
     TargetPhrases &tps = node.GetTargetPhrases();

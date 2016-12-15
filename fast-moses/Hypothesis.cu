@@ -9,7 +9,7 @@ __device__
 Hypothesis::Hypothesis(const Manager &mgr)
 :mgr(&mgr)
 ,bitmap(mgr.GetInput().size())
-,scores(NUM_SCORES)
+,scores(mgr.system, mgr.system.featureFunctions.totalNumScores)
 ,stateData(mgr.system.featureFunctions.totalStateSize)
 {
   sss = 453.54;
@@ -40,8 +40,8 @@ void Hypothesis::Init(const Manager &mgr, const Hypothesis &prevHypo, const Targ
   const Bitmap &prevBM = prevHypo.bitmap;
   bitmap.Init(prevBM, path.range);
 
-  scores.PlusEqual(tp.GetScores());
-  scores.PlusEqual(prevHypo.scores);
+  scores.PlusEqual(mgr.system, tp.GetScores());
+  scores.PlusEqual(mgr.system, prevHypo.scores);
 
   mgr.system.featureFunctions.EvaluateWhenApplied(mgr, *this);
 }

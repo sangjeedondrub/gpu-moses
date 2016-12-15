@@ -13,7 +13,7 @@ using namespace std;
 Manager::Manager(const System &sys, const std::string &inputStr)
 :system(sys)
 ,m_tpsVec(0)
-,initPhrase(0)
+,initPhrase(sys, 0)
 {
   m_input = Phrase::CreateFromString(inputStr);
   //cerr << "m_input=" << m_input->Debug() << endl;

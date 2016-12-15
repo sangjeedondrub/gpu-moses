@@ -34,4 +34,3 @@ typedef uint64_t UINT64;
 
 typedef size_t FactorType;
 
-#define NUM_SCORES 5

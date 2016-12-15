@@ -10,21 +10,25 @@
 #include "Scores.h"
 
 class FeatureFunction;
+class System;
 
 class ScoresUnmanaged
 {
 public:
   __device__
-  ScoresUnmanaged(size_t size, const SCORE &val = 0);
+  ScoresUnmanaged(const System &sys, size_t size, const SCORE &val = 0);
 
   __device__
-  void PlusEqual(const ScoresUnmanaged &other);
+  ~ScoresUnmanaged();
 
   __device__
-  void PlusEqual(const Scores &other);
+  void PlusEqual(const System &sys, const ScoresUnmanaged &other);
 
   __device__
-  void PlusEqual(const FeatureFunction &ff, SCORE score);
+  void PlusEqual(const System &sys, const Scores &other);
+
+  __device__
+  void PlusEqual(const System &sys, const FeatureFunction &ff, SCORE score);
 
   __device__ SCORE GetTotal() const
   { return m_total; }

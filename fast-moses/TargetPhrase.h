@@ -11,16 +11,18 @@
 #include "Phrase.h"
 #include "Scores.h"
 
+class System;
+
 class TargetPhrase : public Phrase
 {
 public:
-	static TargetPhrase *CreateFromString(const std::string &str);
+	static TargetPhrase *CreateFromString(const System &sys, const std::string &str);
 
   __host__
-  TargetPhrase(size_t size);
+  TargetPhrase(const System &sys, size_t size);
 
 	__host__
-	TargetPhrase(const std::vector<VOCABID> &targetIds);
+	TargetPhrase(const System &sys, const std::vector<VOCABID> &targetIds);
 
 	__host__
 	Scores &GetScores()
