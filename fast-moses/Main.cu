@@ -5,6 +5,7 @@
 #include "TranslationModel/PhraseTableMemory.h"
 
 #include "System.h"
+#include "Parameter.h"
 #include "Phrase.h"
 #include "Scores.h"
 #include "TargetPhrase.h"
@@ -24,12 +25,15 @@ istream &GetInput()
 
 }
 
-int main()
+int main(int argc, char* argv[])
 {
   cerr << "Starting..." << endl;
   Test();
 
-  System *system = new System();
+  Parameter params;
+  params.LoadParam(argc, argv);
+
+  System *system = new System(params);
 
   FastMoses::MyVocab vocab;
   PhraseTableMemory *pt = new PhraseTableMemory();
