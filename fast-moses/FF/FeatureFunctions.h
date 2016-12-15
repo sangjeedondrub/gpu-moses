@@ -19,7 +19,6 @@ class FeatureFunctions : public Managed
 {
 public:
 	size_t totalSize;
-	StatefulFeatureFunction *sfff;
 
   Vector<const StatefulFeatureFunction*> statefulFeatureFunctions;
 

@@ -18,11 +18,6 @@ FeatureFunctions::FeatureFunctions(System &system)
 :m_system(system)
 ,statefulFeatureFunctions(0)
 {
-  totalSize = 0;
-
-  sfff = new Distortion();
-  totalSize += sfff->stateSize;
-  sfff->stateOffset = 0;
 
 }
 
@@ -33,6 +28,8 @@ void FeatureFunctions::Create()
 
   const PARAM_VEC *ffParams = params.GetParam("feature");
   UTIL_THROW_IF2(ffParams == NULL, "Must have [feature] section");
+
+  totalSize = 0;
 
   BOOST_FOREACH(const std::string &line, *ffParams){
     cerr << "line=" << line << endl;
@@ -46,6 +43,9 @@ void FeatureFunctions::Create()
 
     if (ff) {
       StatefulFeatureFunction *sfff = dynamic_cast<StatefulFeatureFunction*>(ff);
+      sfff->stateOffset = totalSize;
+      totalSize += sfff->stateSize;
+
       if (sfff) {
         statefulFeatureFunctions.PushBack(sfff);
       }
