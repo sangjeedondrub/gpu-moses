@@ -5,6 +5,7 @@
 #include "TargetPhrase.h"
 #include "Manager.h"
 #include "System.h"
+#include "CUDA/Util.h"
 
 using namespace std;
 
@@ -99,7 +100,7 @@ SCORE Hypothesis::GetFutureScore() const
 __global__
 void debugObj(const Hypothesis &hypo, char *d_str)
 {
-
+  hypo.Debug(d_str);
 }
 
 __host__
@@ -123,8 +124,10 @@ std::string Hypothesis::Debug() const
 }
 
 __device__
-void Hypothesis::Debug(char *) const
+void Hypothesis::Debug(char *out) const
 {
-
+  SCORE s = getFutureScore();
+  char *str = ftoaDevice(s);
+  StrCpy(out, str);
 }
 

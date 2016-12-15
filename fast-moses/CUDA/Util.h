@@ -4,6 +4,8 @@
 __device__ char *itoaDevice(int i);
 __device__ size_t strlenDevice(const char *str);
 
+__device__ char *ftoaDevice(double value);
+
 __device__
 size_t strlenDevice(const char *str);
 

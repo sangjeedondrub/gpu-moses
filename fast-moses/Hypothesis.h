@@ -51,7 +51,7 @@ public:
   std::string Debug() const;
 
   __device__
-  void Debug(char *) const;
+  void Debug(char *out) const;
 
 protected:
 
