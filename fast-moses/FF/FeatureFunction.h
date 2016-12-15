@@ -21,5 +21,12 @@ public:
   {}
 
 
+  enum ClassId
+  {
+    Distortion = 123,
+    WordPenalty = 567
+  };
+
+protected:
 
 };

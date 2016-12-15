@@ -76,7 +76,7 @@ void FeatureFunctions::EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo)
     const StatefulFeatureFunction *sfff = statefulFFs[i];
 
     switch (sfff->classId) {
-    case 123:
+    case FeatureFunction::ClassId::Distortion:
       const Distortion *castFF = static_cast<const Distortion*>(sfff);
       castFF->EvaluateWhenApplied(mgr, hypo);
       break;

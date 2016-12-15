@@ -5,7 +5,7 @@
 
 Distortion::Distortion()
 {
-  classId = 123;
+  classId = FeatureFunction::ClassId::Distortion;
 	stateSize = sizeof(size_t);
 	startInd = 4;
 	numScores = 1;

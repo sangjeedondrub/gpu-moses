@@ -2,7 +2,7 @@
 
 WordPenalty::WordPenalty()
 {
-  classId = 567;
+  classId = FeatureFunction::ClassId::WordPenalty;
 }
 
 WordPenalty::~WordPenalty()
