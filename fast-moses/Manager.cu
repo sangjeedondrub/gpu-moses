@@ -156,7 +156,7 @@ void Manager::Process()
     cudaDeviceSynchronize();
     //cerr << "HH4" << endl;
     m_stacks.PrintStacks();
-    //cerr << "stack=" << stack.Debug() << endl;
+    cerr << "stack=" << stack.Debug() << endl;
     //cerr << "HH6" << endl;
  }
 
