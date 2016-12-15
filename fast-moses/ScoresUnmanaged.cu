@@ -9,10 +9,10 @@
 #include "FF/FeatureFunction.h"
 
 __device__
-ScoresUnmanaged::ScoresUnmanaged(const System &sys, size_t size, const SCORE &val)
+ScoresUnmanaged::ScoresUnmanaged(size_t size, const SCORE &val)
 :m_total(0)
 {
-  m_scores = new SCORE[sys.featureFunctions.totalNumScores];
+  m_scores = new SCORE[size];
 }
 
 __device__

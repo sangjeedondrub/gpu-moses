@@ -16,7 +16,7 @@ class ScoresUnmanaged
 {
 public:
   __device__
-  ScoresUnmanaged(const System &sys, size_t size, const SCORE &val = 0);
+  ScoresUnmanaged(size_t size, const SCORE &val = 0);
 
   __device__
   ~ScoresUnmanaged();

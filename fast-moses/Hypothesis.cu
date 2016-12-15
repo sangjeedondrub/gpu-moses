@@ -9,7 +9,7 @@ __device__
 Hypothesis::Hypothesis(const Manager &mgr)
 :mgr(&mgr)
 ,bitmap(mgr.GetInput().size())
-,scores(mgr.system, mgr.system.featureFunctions.totalNumScores)
+,scores(mgr.system.featureFunctions.totalNumScores)
 ,stateData(mgr.system.featureFunctions.totalStateSize)
 {
   sss = 453.54;
