@@ -10,7 +10,7 @@ Hypothesis::Hypothesis(const Manager &mgr)
 :mgr(&mgr)
 ,bitmap(mgr.GetInput().size())
 ,scores(NUM_SCORES)
-,stateData(mgr.system.featureFunctions.totalSize)
+,stateData(mgr.system.featureFunctions.totalStateSize)
 {
   sss = 453.54;
 }

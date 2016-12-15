@@ -18,9 +18,10 @@ class StatefulFeatureFunction;
 class FeatureFunctions : public Managed
 {
 public:
-	size_t totalSize;
+	size_t totalStateSize;
 
-  Vector<const StatefulFeatureFunction*> statefulFeatureFunctions;
+  Vector<const FeatureFunction*> statelessFFs;
+  Vector<const StatefulFeatureFunction*> statefulFFs;
 
 	FeatureFunctions(System &system);
 

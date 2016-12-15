@@ -8,6 +8,7 @@
 #include <boost/foreach.hpp>
 #include "FeatureFunctions.h"
 #include "Distortion.h"
+#include "WordPenalty.h"
 #include "../Parameter.h"
 #include "../System.h"
 
@@ -16,7 +17,8 @@ using namespace std;
 
 FeatureFunctions::FeatureFunctions(System &system)
 :m_system(system)
-,statefulFeatureFunctions(0)
+,statelessFFs(0)
+,statefulFFs(0)
 {
 
 }
@@ -29,7 +31,7 @@ void FeatureFunctions::Create()
   const PARAM_VEC *ffParams = params.GetParam("feature");
   UTIL_THROW_IF2(ffParams == NULL, "Must have [feature] section");
 
-  totalSize = 0;
+  totalStateSize = 0;
 
   BOOST_FOREACH(const std::string &line, *ffParams){
     cerr << "line=" << line << endl;
@@ -40,28 +42,38 @@ void FeatureFunctions::Create()
     if (toks[0] == "Distortion") {
       ff = new Distortion();
     }
+    else if (toks[0] == "WordPenalty") {
+      ff = new WordPenalty();
+    }
 
+
+    // put into correct vector
     if (ff) {
       StatefulFeatureFunction *sfff = dynamic_cast<StatefulFeatureFunction*>(ff);
-      sfff->stateOffset = totalSize;
-      totalSize += sfff->stateSize;
-
       if (sfff) {
-        statefulFeatureFunctions.PushBack(sfff);
+        sfff->stateOffset = totalStateSize;
+        totalStateSize += sfff->stateSize;
+
+        statefulFFs.PushBack(sfff);
       }
+      else {
+        statelessFFs.PushBack(ff);
+      }
+
     }
 
   }
 
-  cerr << "statefulFeatureFunctions=" << statefulFeatureFunctions.size() << endl;
+  cerr << "statelessFFs=" << statelessFFs.size() << endl;
+  cerr << "statefulFFs=" << statefulFFs.size() << endl;
 
 }
 
 __device__
 void FeatureFunctions::EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo) const
 {
-  for (size_t i = 0; i < statefulFeatureFunctions.size(); ++i) {
-    const StatefulFeatureFunction *sfff = statefulFeatureFunctions[i];
+  for (size_t i = 0; i < statefulFFs.size(); ++i) {
+    const StatefulFeatureFunction *sfff = statefulFFs[i];
 
     switch (sfff->classId) {
     case 123:
