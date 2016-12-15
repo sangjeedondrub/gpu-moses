@@ -50,6 +50,9 @@ public:
   __host__
   std::string Debug() const;
 
+  __device__
+  void Debug(char *) const;
+
 protected:
 
 };

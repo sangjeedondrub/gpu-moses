@@ -95,12 +95,36 @@ SCORE Hypothesis::GetFutureScore() const
     return h_s;
 }
 
+///////////////////////////////////////////////////////////////
+__global__
+void debugObj(const Hypothesis &hypo, char *d_str)
+{
+
+}
+
 __host__
 std::string Hypothesis::Debug() const
 {
   stringstream strm;
   strm << this << " ";
+
+  char *d_str;
+  cudaMallocManaged(&d_str, 1000);
+  cudaDeviceSynchronize();
+
+  debugObj<<<1,1>>>(*this, d_str);
+  cudaDeviceSynchronize();
+
+  strm << d_str;
+
+  cudaFree(d_str);
+
   return strm.str();;
 }
 
+__device__
+void Hypothesis::Debug(char *) const
+{
+
+}
 
