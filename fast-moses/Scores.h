@@ -18,7 +18,7 @@ class Scores : public Managed
 {
 public:
   Scores(size_t length)
-  :m_vec(length)
+  :m_scores(length)
   ,m_total(0)
   {
   }
@@ -28,7 +28,7 @@ public:
 
   __device__
   size_t size() const
-        { return m_vec.size(); }
+        { return m_scores.size(); }
 
 
   __device__
@@ -37,7 +37,7 @@ public:
 
   __device__
   const SCORE& operator[](size_t ind) const
-  { return m_vec[ind]; }
+  { return m_scores[ind]; }
 
   __host__
   void PlusEqual(const System &sys, const FeatureFunction &ff, const std::vector<SCORE> &scores);
@@ -46,7 +46,7 @@ public:
   std::string Debug() const;
 
 protected:
-  Vector<SCORE> m_vec;
+  Vector<SCORE> m_scores;
   SCORE m_total;
 
 };

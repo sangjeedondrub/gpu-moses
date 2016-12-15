@@ -26,8 +26,8 @@ void Scores::PlusEqual(const System &sys, const FeatureFunction &ff, const std::
 {
   UTIL_THROW_IF2(scores.size() != ff.numScores, "Wrong number of scores");
   for (size_t i = 0; i < scores.size(); ++i) {
-    //m_vec.Set(i, scores[i]);
-    m_vec[i + ff.startInd] = scores[i];
+    //m_scores.Set(i, scores[i]);
+    m_scores[i + ff.startInd] = scores[i];
     m_total += scores[i];
   }
 
@@ -36,5 +36,5 @@ void Scores::PlusEqual(const System &sys, const FeatureFunction &ff, const std::
 __host__
 std::string Scores::Debug() const
 {
-  return m_vec.Debug();
+  return m_scores.Debug();
 }

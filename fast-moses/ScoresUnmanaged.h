@@ -7,10 +7,11 @@
 
 #pragma once
 #include "TypeDef.h"
-#include "Scores.h"
+#include "CUDA/Array.h"
 
 class FeatureFunction;
 class System;
+class Scores;
 
 class ScoresUnmanaged
 {
@@ -34,7 +35,7 @@ public:
   { return m_total; }
 
 protected:
-  SCORE *m_scores;
+  Array<SCORE> m_scores;
   SCORE m_total;
 };
 

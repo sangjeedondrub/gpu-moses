@@ -6,19 +6,19 @@
  */
 #include "ScoresUnmanaged.h"
 #include "System.h"
+#include "Scores.h"
 #include "FF/FeatureFunction.h"
 
 __device__
 ScoresUnmanaged::ScoresUnmanaged(size_t size, const SCORE &val)
 :m_total(0)
+,m_scores(size)
 {
-  m_scores = new SCORE[size];
 }
 
 __device__
 ScoresUnmanaged::~ScoresUnmanaged()
 {
-  free(m_scores);
 }
 
 __device__
