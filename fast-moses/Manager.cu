@@ -4,13 +4,14 @@
 #include "Hypothesis.h"
 #include "Stack.h"
 #include "Range.h"
+#include "System.h"
+#include "FF/FeatureFunctions.h"
 #include "TranslationModel/PhraseTableMemory.h"
 
 using namespace std;
 
-Manager::Manager(const System &sys, const std::string &inputStr, const PhraseTableMemory &pt)
+Manager::Manager(const System &sys, const std::string &inputStr)
 :system(sys)
-,m_pt(pt)
 ,m_tpsVec(0)
 ,initPhrase(0)
 {
@@ -46,7 +47,7 @@ void Lookup(Manager &mgr)
   const Phrase &input = mgr.GetInput();
   size_t inputSize = input.size();
 
-  const PhraseTableMemory &pt = mgr.GetPhraseTable();
+  const PhraseTableMemory &pt = *mgr.system.featureFunctions.pt;
   const TargetPhrases *tps = pt.Lookup(input, start, end);
 
   mgr.GetInputPath(start, end).targetPhrases =  tps;

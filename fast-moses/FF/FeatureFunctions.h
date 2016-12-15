@@ -23,15 +23,19 @@ public:
 	size_t totalStateSize;
 
 	PhraseTableMemory *pt;
-  Vector<const FeatureFunction*> statelessFFs;
-  Vector<const StatefulFeatureFunction*> statefulFFs;
+  Vector<FeatureFunction*> statelessFFs;
+  Vector<StatefulFeatureFunction*> statefulFFs;
 
 	FeatureFunctions(System &system);
+	~FeatureFunctions();
 
 	__host__
   void Create();
 
-	__device__
+  __host__
+  void Load();
+
+  __device__
 	void EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo) const;
 
 protected:

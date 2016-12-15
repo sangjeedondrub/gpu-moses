@@ -24,6 +24,17 @@ FeatureFunctions::FeatureFunctions(System &system)
 
 }
 
+FeatureFunctions::~FeatureFunctions()
+{
+  cudaFree(pt);
+  for (size_t i = 0; i < statelessFFs.size(); ++i) {
+    cudaFree(statelessFFs[i]);
+  }
+  for (size_t i = 0; i < statefulFFs.size(); ++i) {
+    cudaFree(statefulFFs[i]);
+  }
+}
+
 __host__
 void FeatureFunctions::Create()
 {
@@ -82,6 +93,18 @@ void FeatureFunctions::Create()
   cerr << "totalNumScores=" << totalNumScores << endl;
   cerr << "totalStateSize=" << totalStateSize << endl;
 
+}
+
+__host__
+void FeatureFunctions::Load()
+{
+  for (size_t i = 0; i < statelessFFs.size(); ++i) {
+    statelessFFs[i]->Load();
+  }
+  for (size_t i = 0; i < statefulFFs.size(); ++i) {
+    statefulFFs[i]->Load();
+  }
+  pt->Load();
 }
 
 __device__

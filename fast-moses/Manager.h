@@ -25,7 +25,7 @@ public:
   InputPath initPath;
   TargetPhrase initPhrase;
 
-	Manager(const System &sys, const std::string &inputStr, const PhraseTableMemory &pt);
+	Manager(const System &sys, const std::string &inputStr);
 	virtual ~Manager();
 
 	__host__
@@ -34,10 +34,6 @@ public:
 	__device__
 	const Phrase &GetInput() const
 	{ return *m_input; }
-
-	__device__
-	const PhraseTableMemory &GetPhraseTable() const
-  { return m_pt; }
 
 	__device__
   InputPath &GetInputPath(int start, int end);
@@ -49,7 +45,6 @@ public:
 protected:
 	Phrase *m_input;
 	Stacks m_stacks;
-	const PhraseTableMemory &m_pt;
 	Vector<InputPath> m_tpsVec;
 
 	std::string DebugTPSArr() const;

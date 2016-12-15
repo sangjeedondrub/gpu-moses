@@ -8,5 +8,6 @@ System::System(const Parameter &paramsArg)
 ,featureFunctions(*this)
 {
   featureFunctions.Create();
+  featureFunctions.Load();
 }
 

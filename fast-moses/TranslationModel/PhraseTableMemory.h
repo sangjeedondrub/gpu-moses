@@ -49,12 +49,13 @@ public:
 	PhraseTableMemory();
 	virtual ~PhraseTableMemory();
 
-	void Load(const std::string &path);
+	virtual void Load();
 
 	__device__
 	const TargetPhrases *Lookup(const Phrase &phrase, size_t start, size_t end) const;
 
 protected:
 	Node m_root;
+	std::string m_path;
 };
 

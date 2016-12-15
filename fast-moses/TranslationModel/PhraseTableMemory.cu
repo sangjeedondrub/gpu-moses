@@ -103,16 +103,18 @@ PhraseTableMemory::PhraseTableMemory()
 {
   classId = FeatureFunction::ClassId::PhraseDictionaryMemory;
   numScores = 1;
+
+  m_path = "phrase-table";
 }
 
 PhraseTableMemory::~PhraseTableMemory() {
 	//delete m_root;
 }
 
-void PhraseTableMemory::Load(const std::string &path)
+void PhraseTableMemory::Load()
 {
 	cerr << "begin loading" << endl;
-	InputFileStream strm(path);
+	InputFileStream strm(m_path);
 
 	FastMoses::MyVocab &vocab = FastMoses::MyVocab::Instance();
 

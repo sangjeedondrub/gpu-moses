@@ -36,15 +36,13 @@ int main(int argc, char* argv[])
   System *system = new System(params);
 
   FastMoses::MyVocab vocab;
-  PhraseTableMemory *pt = new PhraseTableMemory();
-  pt->Load("phrase-table");
 
   cerr << "Start Decoding:" << endl;
 
   istream &inStrm = GetInput();
   string line;
   while (getline(inStrm, line)) {
-	  Manager *mgr = new Manager(*system, line, *pt);
+	  Manager *mgr = new Manager(*system, line);
 	  mgr->Process();
   }
 

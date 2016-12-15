@@ -20,6 +20,8 @@ public:
   virtual ~FeatureFunction()
   {}
 
+  virtual void Load()
+  {}
 
   enum ClassId
   {
