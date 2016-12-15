@@ -132,6 +132,7 @@ void PhraseTableMemory::Load(System &system)
 		*/
 
 		vector<VOCABID> sourceIds = vocab.GetOrCreateIds(toks[0]);
+		Phrase sourcePhrase(sourceIds);
 		Node &node = m_root.AddNode(sourceIds);
 
 		/*
@@ -141,7 +142,7 @@ void PhraseTableMemory::Load(System &system)
     */
 		TargetPhrase *tp = TargetPhrase::CreateFromString(system, toks[1]);
 		tp->GetScores().CreateFromString(system, *this, toks[2], true);
-		system.featureFunctions.EvaluateInIsolation(*tp, *tp);
+		system.featureFunctions.EvaluateInIsolation(sourcePhrase, *tp);
 		
     TargetPhrases &tps = node.GetTargetPhrases();
 		tps.Add(tp);
