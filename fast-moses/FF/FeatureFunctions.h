@@ -14,12 +14,15 @@ class Hypothesis;
 class Manager;
 class System;
 class StatefulFeatureFunction;
+class PhraseTableMemory;
 
 class FeatureFunctions : public Managed
 {
 public:
+  size_t totalNumScores;
 	size_t totalStateSize;
 
+	PhraseTableMemory *pt;
   Vector<const FeatureFunction*> statelessFFs;
   Vector<const StatefulFeatureFunction*> statefulFFs;
 

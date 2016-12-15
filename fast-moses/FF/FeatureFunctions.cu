@@ -11,6 +11,7 @@
 #include "WordPenalty.h"
 #include "../Parameter.h"
 #include "../System.h"
+#include "../TranslationModel/PhraseTableMemory.h"
 
 using namespace std;
 
@@ -31,6 +32,7 @@ void FeatureFunctions::Create()
   const PARAM_VEC *ffParams = params.GetParam("feature");
   UTIL_THROW_IF2(ffParams == NULL, "Must have [feature] section");
 
+  totalNumScores = 0;
   totalStateSize = 0;
 
   BOOST_FOREACH(const std::string &line, *ffParams){
@@ -45,16 +47,27 @@ void FeatureFunctions::Create()
     else if (toks[0] == "WordPenalty") {
       ff = new WordPenalty();
     }
+    else if (toks[0] == "PhraseDictionaryMemory") {
+      ff = new PhraseTableMemory();
+    }
 
 
     // put into correct vector
     if (ff) {
+      ff->startInd = totalNumScores;
+      totalNumScores += ff->numScores;
+
       StatefulFeatureFunction *sfff = dynamic_cast<StatefulFeatureFunction*>(ff);
+      PhraseTableMemory *pt = dynamic_cast<PhraseTableMemory*>(ff);
+
       if (sfff) {
         sfff->stateOffset = totalStateSize;
         totalStateSize += sfff->stateSize;
 
         statefulFFs.PushBack(sfff);
+      }
+      else if (pt) {
+        this->pt = pt;
       }
       else {
         statelessFFs.PushBack(ff);
@@ -66,6 +79,8 @@ void FeatureFunctions::Create()
 
   cerr << "statelessFFs=" << statelessFFs.size() << endl;
   cerr << "statefulFFs=" << statefulFFs.size() << endl;
+  cerr << "totalNumScores=" << totalNumScores << endl;
+  cerr << "totalStateSize=" << totalStateSize << endl;
 
 }
 

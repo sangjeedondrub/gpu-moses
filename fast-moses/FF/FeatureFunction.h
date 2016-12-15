@@ -24,7 +24,8 @@ public:
   enum ClassId
   {
     Distortion = 123,
-    WordPenalty = 567
+    WordPenalty = 567,
+    PhraseDictionaryMemory = 6,
   };
 
 protected:

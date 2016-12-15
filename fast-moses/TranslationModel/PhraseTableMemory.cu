@@ -101,7 +101,8 @@ const TargetPhrases *Node::Lookup(const Phrase &phrase, size_t start, size_t end
 /////////////////////////////////////////////////////////////////////////////////
 PhraseTableMemory::PhraseTableMemory()
 {
-  //m_root = new Node();
+  classId = FeatureFunction::ClassId::PhraseDictionaryMemory;
+  numScores = 1;
 }
 
 PhraseTableMemory::~PhraseTableMemory() {

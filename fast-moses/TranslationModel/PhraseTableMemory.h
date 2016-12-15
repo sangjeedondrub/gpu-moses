@@ -11,6 +11,7 @@
 #include "TargetPhrases.h"
 #include "CUDA/Managed.h"
 #include "CUDA/Map.h"
+#include "../FF/FeatureFunction.h"
 
 class Node : public Managed
 {
@@ -42,7 +43,7 @@ protected:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-class PhraseTableMemory : public Managed
+class PhraseTableMemory : public FeatureFunction, public Managed
 {
 public:
 	PhraseTableMemory();
