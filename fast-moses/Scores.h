@@ -43,6 +43,9 @@ public:
   void PlusEqual(const System &sys, const FeatureFunction &ff, const std::vector<SCORE> &scores);
 
   __host__
+  void PlusEqual(const System &sys, const FeatureFunction &ff, SCORE score);
+
+  __host__
   std::string Debug() const;
 
 protected:

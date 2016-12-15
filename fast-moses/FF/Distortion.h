@@ -16,6 +16,15 @@ class Distortion : public StatefulFeatureFunction
 public:
 	Distortion();
 
+  __host__
+  virtual void EvaluateInIsolation(
+      const System &system,
+      const Phrase &source,
+      const TargetPhrase &targetPhrase,
+      Scores &scores,
+      SCORE &estimatedScore) const
+  {}
+
   __device__
 	void EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo) const;
 

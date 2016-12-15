@@ -34,6 +34,14 @@ void Scores::PlusEqual(const System &sys, const FeatureFunction &ff, const std::
 }
 
 __host__
+void Scores::PlusEqual(const System &sys, const FeatureFunction &ff, SCORE score)
+{
+  UTIL_THROW_IF2(1 != ff.numScores, "Wrong number of scores");
+  m_scores[ff.startInd] = score;
+  m_total += score;
+}
+
+__host__
 std::string Scores::Debug() const
 {
   return m_scores.Debug();

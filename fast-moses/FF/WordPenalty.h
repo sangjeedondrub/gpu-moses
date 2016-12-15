@@ -13,5 +13,14 @@ class WordPenalty : public FeatureFunction
 public:
   WordPenalty();
   virtual ~WordPenalty();
+
+  __host__
+  virtual void EvaluateInIsolation(
+      const System &system,
+      const Phrase &source,
+      const TargetPhrase &targetPhrase,
+      Scores &scores,
+      SCORE &estimatedScore) const;
+
 };
 

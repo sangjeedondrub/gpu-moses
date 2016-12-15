@@ -7,9 +7,13 @@
 
 #pragma once
 #include "../CUDA/Managed.h"
+#include "../TypeDef.h"
 
 class Manager;
 class System;
+class Scores;
+class Phrase;
+class TargetPhrase;
 
 
 class FeatureFunction : public Managed
@@ -24,6 +28,15 @@ public:
 
   virtual void Load(System &system)
   {}
+
+  __host__
+  virtual void EvaluateInIsolation(
+      const System &system,
+      const Phrase &source,
+      const TargetPhrase &targetPhrase,
+      Scores &scores,
+      SCORE &estimatedScore) const = 0;
+
 
   enum ClassId
   {
