@@ -9,6 +9,8 @@
 #include "../CUDA/Managed.h"
 
 class Manager;
+class System;
+
 
 class FeatureFunction : public Managed
 {
@@ -20,7 +22,7 @@ public:
   virtual ~FeatureFunction()
   {}
 
-  virtual void Load()
+  virtual void Load(System &system)
   {}
 
   enum ClassId

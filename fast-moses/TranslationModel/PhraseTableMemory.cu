@@ -111,7 +111,7 @@ PhraseTableMemory::~PhraseTableMemory() {
 	//delete m_root;
 }
 
-void PhraseTableMemory::Load()
+void PhraseTableMemory::Load(System &system)
 {
 	cerr << "begin loading" << endl;
 	InputFileStream strm(m_path);

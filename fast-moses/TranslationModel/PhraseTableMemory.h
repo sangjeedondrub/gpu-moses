@@ -49,7 +49,7 @@ public:
 	PhraseTableMemory();
 	virtual ~PhraseTableMemory();
 
-	virtual void Load();
+	virtual void Load(System &system);
 
 	__device__
 	const TargetPhrases *Lookup(const Phrase &phrase, size_t start, size_t end) const;

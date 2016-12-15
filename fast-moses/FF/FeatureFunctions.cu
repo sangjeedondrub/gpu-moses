@@ -104,12 +104,12 @@ __host__
 void FeatureFunctions::Load()
 {
   for (size_t i = 0; i < statelessFFs.size(); ++i) {
-    statelessFFs[i]->Load();
+    statelessFFs[i]->Load(m_system);
   }
   for (size_t i = 0; i < statefulFFs.size(); ++i) {
-    statefulFFs[i]->Load();
+    statefulFFs[i]->Load(m_system);
   }
-  pt->Load();
+  pt->Load(m_system);
 }
 
 __device__
