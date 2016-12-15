@@ -24,15 +24,12 @@ public:
   }
 
   __host__
-  void CreateFromString(const std::string &str, const FeatureFunction &featureFunction, const System &system);
+  void CreateFromString(const System &system, const FeatureFunction &ff, const std::string &str, bool transformScores);
 
   __device__
   size_t size() const
         { return m_vec.size(); }
 
-  __host__
-  size_t GetSize() const
-  { return m_vec.size(); }
 
   __device__
   SCORE GetTotal() const
@@ -41,6 +38,9 @@ public:
   __device__
   const SCORE& operator[](size_t ind) const
   { return m_vec[ind]; }
+
+  __host__
+  void PlusEqual(const System &sys, const FeatureFunction &ff, const std::vector<SCORE> &scores);
 
   __host__
   std::string Debug() const;

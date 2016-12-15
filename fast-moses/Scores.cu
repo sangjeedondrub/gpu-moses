@@ -1,20 +1,36 @@
 #include <vector>
 #include "Scores.h"
 #include "Util.h"
+#include "FF/FeatureFunction.h"
+#include "util/exception.hh"
 
 using namespace std;
 
 __host__
-void Scores::CreateFromString(const std::string &str, const FeatureFunction &featureFunction, const System &system)
+void Scores::CreateFromString(const System &system, const FeatureFunction &ff, const std::string &str, bool transformScores)
 {
 	vector<SCORE> scores;
 	Tokenize(scores, str);
 
-	for (size_t i = 0; i < scores.size(); ++i) {
-		//m_vec.Set(i, scores[i]);
-		m_vec[i] = scores[i];
-		m_total += scores[i];
-	}
+  if (transformScores) {
+    std::transform(scores.begin(), scores.end(), scores.begin(),
+        TransformScore);
+    std::transform(scores.begin(), scores.end(), scores.begin(), FloorScore);
+  }
+
+	PlusEqual(system, ff, scores);
+}
+
+__host__
+void Scores::PlusEqual(const System &sys, const FeatureFunction &ff, const std::vector<SCORE> &scores)
+{
+  UTIL_THROW_IF2(scores.size() != ff.numScores, "Wrong number of scores");
+  for (size_t i = 0; i < scores.size(); ++i) {
+    //m_vec.Set(i, scores[i]);
+    m_vec[i + ff.startInd] = scores[i];
+    m_total += scores[i];
+  }
+
 }
 
 __host__
