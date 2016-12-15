@@ -9,6 +9,7 @@
 #include "FeatureFunctions.h"
 #include "Distortion.h"
 #include "WordPenalty.h"
+#include "UnknownWordPenalty.h"
 #include "../Parameter.h"
 #include "../System.h"
 #include "../TranslationModel/PhraseTableMemory.h"
@@ -51,7 +52,7 @@ void FeatureFunctions::Create()
     vector<string> toks = Tokenize(line);
     assert(toks.size());
 
-    FeatureFunction *ff = NULL;
+    FeatureFunction *ff;
     if (toks[0] == "Distortion") {
       ff = new Distortion();
     }
@@ -61,30 +62,34 @@ void FeatureFunctions::Create()
     else if (toks[0] == "PhraseDictionaryMemory") {
       ff = new PhraseTableMemory();
     }
-
+    else if (toks[0] == "UnknownWordPenalty") {
+      ff = new UnknownWordPenalty();
+    }
+    else {
+      UTIL_THROW2("Unknown FF:" << line);
+    }
 
     // put into correct vector
-    if (ff) {
-      ff->startInd = totalNumScores;
-      totalNumScores += ff->numScores;
+    assert(ff);
+    ff->startInd = totalNumScores;
+    totalNumScores += ff->numScores;
 
-      StatefulFeatureFunction *sfff = dynamic_cast<StatefulFeatureFunction*>(ff);
-      PhraseTableMemory *pt = dynamic_cast<PhraseTableMemory*>(ff);
+    StatefulFeatureFunction *sfff = dynamic_cast<StatefulFeatureFunction*>(ff);
+    PhraseTableMemory *pt = dynamic_cast<PhraseTableMemory*>(ff);
 
-      if (sfff) {
-        sfff->stateOffset = totalStateSize;
-        totalStateSize += sfff->stateSize;
+    if (sfff) {
+      sfff->stateOffset = totalStateSize;
+      totalStateSize += sfff->stateSize;
 
-        statefulFFs.PushBack(sfff);
-      }
-      else if (pt) {
-        this->pt = pt;
-      }
-      else {
-        statelessFFs.PushBack(ff);
-      }
-
+      statefulFFs.PushBack(sfff);
     }
+    else if (pt) {
+      this->pt = pt;
+    }
+    else {
+      statelessFFs.PushBack(ff);
+    }
+
 
   }
 

@@ -43,7 +43,7 @@ protected:
 };
 
 /////////////////////////////////////////////////////////////////////////////////
-class PhraseTableMemory : public FeatureFunction, public Managed
+class PhraseTableMemory : public FeatureFunction
 {
 public:
 	PhraseTableMemory();

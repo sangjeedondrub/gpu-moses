@@ -37,6 +37,7 @@ OBJECTS = InputFileStream.o MyVocab.o TypeDef.o \
 		TargetPhrase.o TargetPhrases.o Test.o \
 		CUDA/Managed.o CUDA/Util.o \
 		FF/Distortion.o FF/FeatureFunctions.o FF/StatefulFeatureFunction.o FF/WordPenalty.o \
+		FF/UnknownWordPenalty.o \
 		TranslationModel/PhraseTableMemory.o \
 		util/bit_packing.cc                                 util/read_compressed.cc \
 		util/mmap.cc                                \

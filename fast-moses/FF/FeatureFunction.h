@@ -28,6 +28,7 @@ public:
     Distortion = 123,
     WordPenalty = 567,
     PhraseDictionaryMemory = 6,
+    UnknownWordPenalty = 543,
   };
 
 protected:
