@@ -65,6 +65,7 @@ std::string Stack::Debug() const
     h_s = hypo->GetFutureScore();
 
     cerr << "HH3:" << h_s << endl;
+    cerr << "HH4:" << hypo->Debug() << endl;
   }
 
   return strm.str();

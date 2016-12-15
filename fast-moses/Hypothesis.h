@@ -47,6 +47,8 @@ public:
   __host__
   SCORE GetFutureScore() const;
 
+  __host__
+  std::string Debug() const;
 
 protected:
 

@@ -1,9 +1,12 @@
+#include <sstream>
 #include "Hypothesis.h"
 #include "Bitmap.h"
 #include "Phrase.h"
 #include "TargetPhrase.h"
 #include "Manager.h"
 #include "System.h"
+
+using namespace std;
 
 __device__
 Hypothesis::Hypothesis(const Manager &mgr)
@@ -52,6 +55,19 @@ SCORE Hypothesis::getFutureScore() const
   return scores.GetTotal();
 }
 
+__device__
+int Hypothesis::RecombineCompare(const Hypothesis &other) const
+{
+  // -1 = this < compare
+  // +1 = this > compare
+  // 0  = this ==compare
+  int comp = bitmap.Compare(other.bitmap);
+  if (comp != 0)
+    return comp;
+
+  return stateData.Compare(other.stateData);
+}
+
 __global__
 void getTotalScore(const Hypothesis &hypo, SCORE &output)
 {
@@ -79,16 +95,12 @@ SCORE Hypothesis::GetFutureScore() const
     return h_s;
 }
 
-__device__
-int Hypothesis::RecombineCompare(const Hypothesis &other) const
+__host__
+std::string Hypothesis::Debug() const
 {
-  // -1 = this < compare
-  // +1 = this > compare
-  // 0  = this ==compare
-  int comp = bitmap.Compare(other.bitmap);
-  if (comp != 0)
-    return comp;
-
-  return stateData.Compare(other.stateData);
+  stringstream strm;
+  strm << this << " ";
+  return strm.str();;
 }
+
 
