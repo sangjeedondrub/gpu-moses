@@ -10,6 +10,8 @@
 #include "MyVocab.h"
 #include "InputFileStream.h"
 #include "Util.h"
+#include "../System.h"
+#include "../FF/FeatureFunctions.h"
 
 using namespace std;
 
@@ -139,6 +141,7 @@ void PhraseTableMemory::Load(System &system)
     */
 		TargetPhrase *tp = TargetPhrase::CreateFromString(system, toks[1]);
 		tp->GetScores().CreateFromString(system, *this, toks[2], true);
+		system.featureFunctions.EvaluateInIsolation(*tp, *tp);
 		
     TargetPhrases &tps = node.GetTargetPhrases();
 		tps.Add(tp);
