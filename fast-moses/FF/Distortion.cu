@@ -5,6 +5,7 @@
 
 Distortion::Distortion()
 {
+  classId = 123;
 	stateSize = sizeof(size_t);
 	startInd = 4;
 	numScores = 1;

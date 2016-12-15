@@ -60,8 +60,17 @@ void FeatureFunctions::Create()
 __device__
 void FeatureFunctions::EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo) const
 {
-  Distortion *castFF = static_cast<Distortion*>(sfff);
-  castFF->EvaluateWhenApplied(mgr, hypo);
+  for (size_t i = 0; i < statefulFeatureFunctions.size(); ++i) {
+    const StatefulFeatureFunction *sfff = statefulFeatureFunctions[i];
+
+    switch (sfff->classId) {
+    case 123:
+      const Distortion *castFF = static_cast<const Distortion*>(sfff);
+      castFF->EvaluateWhenApplied(mgr, hypo);
+      break;
+
+    }
+  }
 
 }
 
