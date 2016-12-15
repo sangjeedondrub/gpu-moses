@@ -35,6 +35,9 @@ public:
   __host__
   void Load();
 
+  __host__
+  void EvaluateInIsolation(const Phrase &source, TargetPhrase &targetPhrase) const;
+
   __device__
 	void EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo) const;
 

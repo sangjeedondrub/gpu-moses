@@ -112,6 +112,18 @@ void FeatureFunctions::Load()
   pt->Load(m_system);
 }
 
+__host__
+void FeatureFunctions::EvaluateInIsolation(const Phrase &source, TargetPhrase &targetPhrase) const
+{
+  Scores &scores = targetPhrase.GetScores();
+  SCORE estimatedScore = 0;
+
+  for (size_t i = 0; i < statelessFFs.size(); ++i) {
+    const FeatureFunction *ff = statelessFFs[i];
+    ff->EvaluateInIsolation(m_system, source, targetPhrase, scores, estimatedScore);
+  }
+}
+
 __device__
 void FeatureFunctions::EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo) const
 {
