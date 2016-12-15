@@ -8,16 +8,20 @@
 #pragma once
 #include "StatefulFeatureFunction.h"
 #include "../CUDA/Managed.h"
+#include "../CUDA/Vector.h"
 
 class Hypothesis;
 class Manager;
 class System;
+class StatefulFeatureFunction;
 
 class FeatureFunctions : public Managed
 {
 public:
 	size_t totalSize;
 	StatefulFeatureFunction *sfff;
+
+  Vector<const StatefulFeatureFunction*> statefulFeatureFunctions;
 
 	FeatureFunctions(System &system);
 
