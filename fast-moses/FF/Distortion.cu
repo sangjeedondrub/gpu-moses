@@ -9,7 +9,8 @@ Distortion::Distortion(size_t startInd, const std::string &line)
 {
   classId = FeatureFunction::ClassId::Distortion;
 	stateSize = sizeof(size_t);
-	numScores = 1;
+
+	ReadParameters();
 }
 
 __device__

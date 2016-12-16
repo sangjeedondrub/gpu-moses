@@ -33,6 +33,11 @@ public:
   virtual void Load(System &system)
   {}
 
+  const std::string &GetName() const
+  {
+    return m_name;
+  }
+
   __host__
   virtual void EvaluateInIsolation(
       const System &system,
@@ -53,7 +58,10 @@ public:
 protected:
   std::vector<std::vector<std::string> > m_args;
   std::string m_name;
+  bool m_tuneable;
 
+  virtual void SetParameter(const std::string& key, const std::string& value);
+  virtual void ReadParameters();
   void ParseLine(const std::string &line);
 
 };

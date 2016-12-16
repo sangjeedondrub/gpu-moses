@@ -105,9 +105,9 @@ PhraseTableMemory::PhraseTableMemory(size_t startInd, const std::string &line)
 :FeatureFunction(startInd, line)
 {
   classId = FeatureFunction::ClassId::PhraseDictionaryMemory;
-  numScores = 1;
 
-  m_path = "phrase-table";
+  ReadParameters();
+
 }
 
 PhraseTableMemory::~PhraseTableMemory() {
@@ -176,6 +176,25 @@ void PhraseTableMemory::Load(System &system)
 
 	//cerr << "root=" << m_root.GetChildren().Debug() << endl;
 	cerr << "finished loading" << endl;
+}
+
+void PhraseTableMemory::SetParameter(const std::string& key, const std::string& value)
+{
+  if (key == "input-factor") {
+
+  }
+  else if (key == "output-factor") {
+
+  }
+  else if (key == "table-limit") {
+
+  }
+  else if (key == "path") {
+    m_path = value;
+  }
+  else {
+    FeatureFunction::SetParameter(key, value);
+  }
 }
 
 __device__

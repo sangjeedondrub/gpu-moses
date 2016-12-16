@@ -66,5 +66,8 @@ public:
 protected:
 	Node m_root;
 	std::string m_path;
+
+  virtual void SetParameter(const std::string& key, const std::string& value);
+
 };
 
