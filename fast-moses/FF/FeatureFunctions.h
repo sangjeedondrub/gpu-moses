@@ -23,6 +23,7 @@ public:
 	size_t totalStateSize;
 
 	PhraseTableMemory *pt;
+  Vector<FeatureFunction*> ffs;
   Vector<FeatureFunction*> statelessFFs;
   Vector<StatefulFeatureFunction*> statefulFFs;
 

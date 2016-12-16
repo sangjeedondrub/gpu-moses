@@ -43,7 +43,7 @@ void System::SetWeights(const std::string &ffName, const std::vector<float> &ffW
 
   size_t startInd = ff->startInd;
   size_t numScores = ff->numScores;
-  UTIL_THROW_IF2(weights.size() != numScores, "Wrong number of weights. " << weights.size() << "!=" << numScores);
+  UTIL_THROW_IF2(ffWeights.size() != numScores, "Wrong number of weights for " << ff->GetName() << ":" << ffWeights.size() << "!=" << numScores);
 
   for (size_t i = 0; i < numScores; ++i) {
     SCORE weight = ffWeights[i];

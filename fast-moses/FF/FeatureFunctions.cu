@@ -19,6 +19,7 @@ using namespace std;
 
 FeatureFunctions::FeatureFunctions(System &system)
 :m_system(system)
+,ffs(0)
 ,statelessFFs(0)
 ,statefulFFs(0)
 {
@@ -71,7 +72,14 @@ void FeatureFunctions::Create()
 
     // put into correct vector
     assert(ff);
+    cerr << "created "
+        << ff->GetName() << " "
+        << ff->startInd << " "
+        << ff->numScores
+        << endl;
     totalNumScores += ff->numScores;
+
+    ffs.PushBack(ff);
 
     StatefulFeatureFunction *sfff = dynamic_cast<StatefulFeatureFunction*>(ff);
     PhraseTableMemory *pt = dynamic_cast<PhraseTableMemory*>(ff);
@@ -115,13 +123,12 @@ __host__
 const FeatureFunction *FeatureFunctions::FindFeatureFunction(
     const std::string &name) const
 {
-  /*
-  BOOST_FOREACH(const FeatureFunction *ff, m_featureFunctions){
+  for (size_t i = 0; i < ffs.size(); ++i) {
+    const FeatureFunction *ff = ffs[i];
     if (ff->GetName() == name) {
     return ff;
     }
   }
-  */
   return NULL;
 }
 
