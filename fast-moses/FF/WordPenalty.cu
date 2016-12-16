@@ -2,8 +2,8 @@
 #include "../Scores.h"
 #include "../TargetPhrase.h"
 
-WordPenalty::WordPenalty(const std::string &line)
-:FeatureFunction(line)
+WordPenalty::WordPenalty(size_t startInd, const std::string &line)
+:FeatureFunction(startInd, line)
 {
   classId = FeatureFunction::ClassId::WordPenalty;
   numScores = 1;

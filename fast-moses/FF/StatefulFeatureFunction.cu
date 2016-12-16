@@ -1,8 +1,8 @@
 #include "StatefulFeatureFunction.h"
 #include "../Hypothesis.h"
 
-StatefulFeatureFunction::StatefulFeatureFunction(const std::string &line)
-:FeatureFunction(line)
+StatefulFeatureFunction::StatefulFeatureFunction(size_t startInd, const std::string &line)
+:FeatureFunction(startInd, line)
 {
 
 }

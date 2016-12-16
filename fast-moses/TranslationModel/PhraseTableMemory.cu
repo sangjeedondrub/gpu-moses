@@ -101,8 +101,8 @@ const TargetPhrases *Node::Lookup(const Phrase &phrase, size_t start, size_t end
 }
 
 /////////////////////////////////////////////////////////////////////////////////
-PhraseTableMemory::PhraseTableMemory(const std::string &line)
-:FeatureFunction(line)
+PhraseTableMemory::PhraseTableMemory(size_t startInd, const std::string &line)
+:FeatureFunction(startInd, line)
 {
   classId = FeatureFunction::ClassId::PhraseDictionaryMemory;
   numScores = 1;

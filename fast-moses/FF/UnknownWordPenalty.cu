@@ -1,7 +1,7 @@
 #include "UnknownWordPenalty.h"
 
-UnknownWordPenalty::UnknownWordPenalty(const std::string &line)
-:FeatureFunction(line)
+UnknownWordPenalty::UnknownWordPenalty(size_t startInd, const std::string &line)
+:FeatureFunction(startInd, line)
 {
   classId = FeatureFunction::ClassId::UnknownWordPenalty;
   numScores = 1;

@@ -11,7 +11,7 @@
 class WordPenalty : public FeatureFunction
 {
 public:
-  WordPenalty(const std::string &line);
+  WordPenalty(size_t startInd, const std::string &line);
   virtual ~WordPenalty();
 
   __host__

@@ -46,7 +46,7 @@ protected:
 class PhraseTableMemory : public FeatureFunction
 {
 public:
-	PhraseTableMemory(const std::string &line);
+	PhraseTableMemory(size_t startInd, const std::string &line);
 	virtual ~PhraseTableMemory();
 
 	virtual void Load(System &system);

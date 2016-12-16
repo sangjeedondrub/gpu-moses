@@ -54,16 +54,16 @@ void FeatureFunctions::Create()
 
     FeatureFunction *ff;
     if (toks[0] == "Distortion") {
-      ff = new Distortion(line);
+      ff = new Distortion(totalNumScores, line);
     }
     else if (toks[0] == "WordPenalty") {
-      ff = new WordPenalty(line);
+      ff = new WordPenalty(totalNumScores, line);
     }
     else if (toks[0] == "PhraseDictionaryMemory") {
-      ff = new PhraseTableMemory(line);
+      ff = new PhraseTableMemory(totalNumScores, line);
     }
     else if (toks[0] == "UnknownWordPenalty") {
-      ff = new UnknownWordPenalty(line);
+      ff = new UnknownWordPenalty(totalNumScores, line);
     }
     else {
       UTIL_THROW2("Unknown FF:" << line);
@@ -71,7 +71,6 @@ void FeatureFunctions::Create()
 
     // put into correct vector
     assert(ff);
-    ff->startInd = totalNumScores;
     totalNumScores += ff->numScores;
 
     StatefulFeatureFunction *sfff = dynamic_cast<StatefulFeatureFunction*>(ff);

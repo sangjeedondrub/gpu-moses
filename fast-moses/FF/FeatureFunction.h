@@ -25,7 +25,7 @@ public:
   size_t startInd;
   size_t numScores;
 
-  FeatureFunction(const std::string &line);
+  FeatureFunction(size_t startInd, const std::string &line);
 
   virtual ~FeatureFunction()
   {}

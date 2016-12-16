@@ -4,8 +4,8 @@
 #include "../InputPath.h"
 #include "../Manager.h"
 
-Distortion::Distortion(const std::string &line)
-:StatefulFeatureFunction(line)
+Distortion::Distortion(size_t startInd, const std::string &line)
+:StatefulFeatureFunction(startInd, line)
 {
   classId = FeatureFunction::ClassId::Distortion;
 	stateSize = sizeof(size_t);

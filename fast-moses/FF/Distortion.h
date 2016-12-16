@@ -14,7 +14,7 @@ class Range;
 class Distortion : public StatefulFeatureFunction
 {
 public:
-	Distortion(const std::string &line);
+	Distortion(size_t startInd, const std::string &line);
 
   __host__
   virtual void EvaluateInIsolation(
