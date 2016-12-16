@@ -36,6 +36,9 @@ public:
   void Load();
 
   __host__
+  const FeatureFunction *FindFeatureFunction(const std::string &name) const;
+
+  __host__
   void EvaluateInIsolation(const Phrase &source, TargetPhrase &targetPhrase) const;
 
   __device__

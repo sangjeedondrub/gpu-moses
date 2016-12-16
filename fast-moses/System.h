@@ -10,10 +10,12 @@ class System : public Managed
 public:
   const Parameter &params;
 	FeatureFunctions featureFunctions;
+	Vector<SCORE> weights;
 
 	System(const Parameter &paramsArg);
 
 
 protected:
+	void LoadWeights();
 
 };

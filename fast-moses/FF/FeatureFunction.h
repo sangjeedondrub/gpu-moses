@@ -6,6 +6,8 @@
  */
 
 #pragma once
+#include <vector>
+#include <string>
 #include "../CUDA/Managed.h"
 #include "../TypeDef.h"
 
@@ -47,5 +49,9 @@ public:
   };
 
 protected:
+  std::vector<std::vector<std::string> > m_args;
+  std::string m_name;
+
+  void ParseLine(const std::string &line);
 
 };

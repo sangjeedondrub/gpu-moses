@@ -113,6 +113,20 @@ void FeatureFunctions::Load()
 }
 
 __host__
+const FeatureFunction *FeatureFunctions::FindFeatureFunction(
+    const std::string &name) const
+{
+  /*
+  BOOST_FOREACH(const FeatureFunction *ff, m_featureFunctions){
+    if (ff->GetName() == name) {
+    return ff;
+    }
+  }
+  */
+  return NULL;
+}
+
+__host__
 void FeatureFunctions::EvaluateInIsolation(const Phrase &source, TargetPhrase &targetPhrase) const
 {
   Scores &scores = targetPhrase.GetScores();
