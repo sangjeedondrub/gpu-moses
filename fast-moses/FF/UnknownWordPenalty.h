@@ -4,7 +4,7 @@
 class UnknownWordPenalty : public FeatureFunction
 {
 public:
-  UnknownWordPenalty();
+  UnknownWordPenalty(const std::string &line);
 
   __host__
   virtual void EvaluateInIsolation(

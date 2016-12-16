@@ -17,6 +17,7 @@ public:
 	size_t stateSize;
 	size_t stateOffset;
 
+	StatefulFeatureFunction(const std::string &line);
 
   __device__
 	void SetState(Hypothesis &hypo, const char *src) const;

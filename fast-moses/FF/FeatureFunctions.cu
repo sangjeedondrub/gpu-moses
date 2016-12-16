@@ -54,16 +54,16 @@ void FeatureFunctions::Create()
 
     FeatureFunction *ff;
     if (toks[0] == "Distortion") {
-      ff = new Distortion();
+      ff = new Distortion(line);
     }
     else if (toks[0] == "WordPenalty") {
-      ff = new WordPenalty();
+      ff = new WordPenalty(line);
     }
     else if (toks[0] == "PhraseDictionaryMemory") {
-      ff = new PhraseTableMemory();
+      ff = new PhraseTableMemory(line);
     }
     else if (toks[0] == "UnknownWordPenalty") {
-      ff = new UnknownWordPenalty();
+      ff = new UnknownWordPenalty(line);
     }
     else {
       UTIL_THROW2("Unknown FF:" << line);
