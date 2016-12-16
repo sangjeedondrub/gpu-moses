@@ -31,7 +31,22 @@ void System::LoadWeights()
     }
     cerr << endl;
     */
-    //weights.SetWeights(featureFunctions, ffName, ffWeights);
+    SetWeights(ffName, ffWeights);
   }
 
+}
+
+void System::SetWeights(const std::string &ffName, const std::vector<float> &ffWeights)
+{
+  const FeatureFunction *ff = featureFunctions.FindFeatureFunction(ffName);
+  UTIL_THROW_IF2(ff == NULL, "Feature function not found:" << ffName);
+
+  size_t startInd = ff->startInd;
+  size_t numScores = ff->numScores;
+  UTIL_THROW_IF2(weights.size() != numScores, "Wrong number of weights. " << weights.size() << "!=" << numScores);
+
+  for (size_t i = 0; i < numScores; ++i) {
+    SCORE weight = ffWeights[i];
+    weights[startInd + i] = weight;
+  }
 }

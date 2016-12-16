@@ -17,5 +17,6 @@ public:
 
 protected:
 	void LoadWeights();
+	void SetWeights(const std::string &ffName, const std::vector<float> &ffWeights);
 
 };

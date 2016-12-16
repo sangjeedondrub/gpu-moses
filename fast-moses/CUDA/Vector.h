@@ -45,11 +45,11 @@ public:
   { return m_size; }
 
   __host__ __device__
-  const T& operator[](size_t ind) const
+  T& operator[](size_t ind)
   { return m_arr[ind]; }
 
   __host__ __device__
-  T& operator[](size_t ind)
+  const T& operator[](size_t ind) const
   { return m_arr[ind]; }
 
   __device__
