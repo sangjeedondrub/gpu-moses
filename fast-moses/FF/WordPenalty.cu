@@ -22,5 +22,5 @@ void WordPenalty::EvaluateInIsolation(
     SCORE &estimatedScore) const
 {
   size_t size = targetPhrase.GetSize();
-  scores.PlusEqual(system, *this, (SCORE) size);
+  scores.PlusEqual(system, *this, - (SCORE) size);
 }

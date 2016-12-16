@@ -23,7 +23,7 @@ void Distortion::EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo) const
   const Range &prevRange = hypo.prevHypo->path->range;
   const Range &currRange = hypo.path->range;
 
-  int dist = ComputeDistortionDistance(prevRange, currRange);
+  int dist = - ComputeDistortionDistance(prevRange, currRange);
 
   ScoresUnmanaged &scores = hypo.scores;
 

@@ -121,6 +121,13 @@ std::string Hypothesis::Debug() const
 __device__
 void Hypothesis::Debug(char *out) const
 {
+  path->range.Debug(out);
+  StrCat(out, " ");
   scores.Debug(out);
+
+  if (prevHypo) {
+    StrCat(out, "\n");
+    prevHypo->Debug(out);
+  }
 }
 

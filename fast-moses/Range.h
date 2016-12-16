@@ -25,6 +25,8 @@ public:
   __host__
   std::string Debug() const;
 
+  __device__
+  void Debug(char *out) const;
 
 protected:
   // m_endPos is inclusive
