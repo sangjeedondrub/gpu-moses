@@ -6,6 +6,15 @@
 
 using namespace std;
 
+Scores::Scores(size_t size)
+:m_scores(size)
+,m_total(0)
+{
+  for (size_t i = 0; i < size; ++i) {
+    m_scores[i] = 0;
+  }
+}
+
 __host__
 void Scores::CreateFromString(const System &system, const FeatureFunction &ff, const std::string &str, bool transformScores)
 {

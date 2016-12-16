@@ -97,12 +97,6 @@ SCORE Hypothesis::GetFutureScore() const
 }
 
 ///////////////////////////////////////////////////////////////
-__global__
-void debugObj(const Hypothesis &hypo, char *d_str)
-{
-  hypo.Debug(d_str);
-}
-
 __host__
 std::string Hypothesis::Debug() const
 {
@@ -128,11 +122,5 @@ __device__
 void Hypothesis::Debug(char *out) const
 {
   scores.Debug(out);
-  /*
-  SCORE s = getFutureScore();
-  char *str = ftoaDevice(s);
-  StrCpy(out, str);
-  StrCpy(out, " HELLO WORLD!!");
-  */
 }
 

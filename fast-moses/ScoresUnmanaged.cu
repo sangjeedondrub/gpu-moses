@@ -15,6 +15,9 @@ ScoresUnmanaged::ScoresUnmanaged(size_t size, const SCORE &val)
 :m_total(0)
 ,m_scores(size)
 {
+  for (size_t i = 0; i < size; ++i) {
+    m_scores[i] = 0;
+  }
 }
 
 __device__
@@ -53,7 +56,7 @@ void ScoresUnmanaged::Debug(char *out) const
 {
   char *str = ftoaDevice(m_total);
   StrCat(out, str);
-  StrCat(out, "=");
+  StrCat(out, " = ");
 
   for (size_t i = 0; i < m_scores.size(); ++i) {
     char *str = ftoaDevice(m_scores[i]);

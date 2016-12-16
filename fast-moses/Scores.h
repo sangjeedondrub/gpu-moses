@@ -17,18 +17,14 @@ class FeatureFunction;
 class Scores : public Managed
 {
 public:
-  Scores(size_t length)
-  :m_scores(length)
-  ,m_total(0)
-  {
-  }
+  Scores(size_t size);
 
   __host__
   void CreateFromString(const System &system, const FeatureFunction &ff, const std::string &str, bool transformScores);
 
   __device__
   size_t size() const
-        { return m_scores.size(); }
+  { return m_scores.size(); }
 
 
   __device__
