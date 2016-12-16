@@ -13,6 +13,7 @@
 #include "../Parameter.h"
 #include "../System.h"
 #include "../TranslationModel/PhraseTableMemory.h"
+#include "../LM/LanguageModel.h"
 
 using namespace std;
 
@@ -65,6 +66,9 @@ void FeatureFunctions::Create()
     }
     else if (toks[0] == "UnknownWordPenalty") {
       ff = new UnknownWordPenalty(totalNumScores, line);
+    }
+    else if (toks[0] == "LanguageModel") {
+      ff = new LanguageModel(totalNumScores, line);
     }
     else {
       UTIL_THROW2("Unknown FF:" << line);
