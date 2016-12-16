@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "TypeDef.h"
 
 class Range
 {
@@ -18,7 +19,7 @@ public:
   __device__
   inline size_t GetNumWordsCovered() const
   {
-    return endPos - startPos + 1;
+    return (startPos == NOT_FOUND_DEVICE) ? 0 : endPos - startPos + 1;
   }
 
   __host__

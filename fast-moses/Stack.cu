@@ -61,9 +61,6 @@ std::string Stack::Debug() const
     const Hypothesis *hypo = m_coll.GetVec()[i];
     //cerr << "HH2:" << hypo << endl;
 
-    SCORE h_s;
-    h_s = hypo->GetFutureScore();
-
     //cerr << "HH3:" << h_s << endl;
     cerr << "hypo= " << hypo->Debug() << endl;
   }
