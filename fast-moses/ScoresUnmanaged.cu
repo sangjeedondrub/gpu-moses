@@ -47,8 +47,10 @@ __device__
 void ScoresUnmanaged::PlusEqual(const System &sys, const FeatureFunction &ff, SCORE score)
 {
   assert(ff.numScores == 1);
+
+  const Vector<SCORE> &weights = sys.weights;
   m_scores[ff.startInd] += score;
-  m_total += score;
+  m_total += score * weights[ff.startInd];
 }
 
 __device__
