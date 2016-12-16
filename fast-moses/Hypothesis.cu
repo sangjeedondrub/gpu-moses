@@ -112,6 +112,7 @@ std::string Hypothesis::Debug() const
   char *d_str;
   cudaMallocManaged(&d_str, 1000);
   cudaDeviceSynchronize();
+  cudaMemset(d_str, 0, 1000);
 
   debugObj<<<1,1>>>(*this, d_str);
   cudaDeviceSynchronize();
@@ -126,10 +127,12 @@ std::string Hypothesis::Debug() const
 __device__
 void Hypothesis::Debug(char *out) const
 {
+  scores.Debug(out);
+  /*
   SCORE s = getFutureScore();
   char *str = ftoaDevice(s);
   StrCpy(out, str);
   StrCpy(out, " HELLO WORLD!!");
-
+  */
 }
 

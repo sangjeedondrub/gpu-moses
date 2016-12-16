@@ -8,6 +8,7 @@
 #include "System.h"
 #include "Scores.h"
 #include "FF/FeatureFunction.h"
+#include "CUDA/Util.h"
 
 __device__
 ScoresUnmanaged::ScoresUnmanaged(size_t size, const SCORE &val)
@@ -47,4 +48,18 @@ void ScoresUnmanaged::PlusEqual(const System &sys, const FeatureFunction &ff, SC
   m_total += score;
 }
 
+__device__
+void ScoresUnmanaged::Debug(char *out) const
+{
+  char *str = ftoaDevice(m_total);
+  StrCat(out, str);
+  StrCat(out, "=");
+
+  for (size_t i = 0; i < m_scores.size(); ++i) {
+    char *str = ftoaDevice(m_scores[i]);
+    StrCat(out, str);
+    StrCat(out, " ");
+  }
+
+}
 

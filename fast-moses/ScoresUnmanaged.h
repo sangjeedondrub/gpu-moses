@@ -6,6 +6,7 @@
  */
 
 #pragma once
+#include <string>
 #include "TypeDef.h"
 #include "CUDA/Array.h"
 
@@ -33,6 +34,9 @@ public:
 
   __device__ SCORE GetTotal() const
   { return m_total; }
+
+  __device__
+  void Debug(char *out) const;
 
 protected:
   Array<SCORE> m_scores;
