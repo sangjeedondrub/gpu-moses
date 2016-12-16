@@ -55,17 +55,17 @@ std::string Stack::Debug() const
 {
   std::stringstream strm;
   size_t size = GetSize();
-  cerr << "size=" << size << ":";
+  cerr << "stack size=" << size << endl;
   for (size_t i = 0; i < size; ++i) {
-    cerr << "HH1:" << i << endl;
+    //cerr << "HH1:" << i << endl;
     const Hypothesis *hypo = m_coll.GetVec()[i];
-    cerr << "HH2:" << hypo << endl;
+    //cerr << "HH2:" << hypo << endl;
 
     SCORE h_s;
     h_s = hypo->GetFutureScore();
 
-    cerr << "HH3:" << h_s << endl;
-    cerr << "HH4:" << hypo->Debug() << endl;
+    //cerr << "HH3:" << h_s << endl;
+    cerr << "hypo= " << hypo->Debug() << endl;
   }
 
   return strm.str();
