@@ -160,6 +160,7 @@ void Manager::Process()
     //cerr << "HH6" << endl;
  }
 
+  //cerr << "back=" << m_stacks.Get(3).Debug() << endl;
   cerr << "back=" << m_stacks.Back().Debug() << endl;
 
 }

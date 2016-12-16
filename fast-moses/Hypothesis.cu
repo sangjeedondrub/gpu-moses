@@ -123,6 +123,8 @@ void Hypothesis::Debug(char *out) const
 {
   path->range.Debug(out);
   StrCat(out, " ");
+  bitmap.Debug(out);
+  StrCat(out, " ");
   scores.Debug(out);
 
   if (prevHypo) {

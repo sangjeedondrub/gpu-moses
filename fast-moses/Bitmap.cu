@@ -1,5 +1,6 @@
 #include "Bitmap.h"
 #include "Range.h"
+#include "CUDA/Util.h"
 
 __device__
 Bitmap::Bitmap(size_t size)
@@ -51,3 +52,13 @@ __device__
 int Bitmap::Compare (const Bitmap &other) const {
   return m_bitmap.Compare(other.m_bitmap);
 }
+
+__device__
+void Bitmap::Debug(char *out) const
+{
+  for (size_t i = 0; i < m_bitmap.size(); ++i) {
+    bool val = m_bitmap[i];
+    StrCat(out, val?"1":"0");
+  }
+}
+

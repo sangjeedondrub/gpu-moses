@@ -48,6 +48,10 @@ public:
     return Compare(other) < 0;
   }
 
+  __device__
+  void Debug(char *out) const;
+
+
 protected:
   size_t m_numWordsCovered;
 
