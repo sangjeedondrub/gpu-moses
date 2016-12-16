@@ -129,5 +129,7 @@ void Hypothesis::Debug(char *out) const
   SCORE s = getFutureScore();
   char *str = ftoaDevice(s);
   StrCpy(out, str);
+  StrCpy(out, " HELLO WORLD!!");
+
 }
 

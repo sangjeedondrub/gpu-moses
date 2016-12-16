@@ -67,6 +67,11 @@ __device__ void StrCpy(char *dest, const char *src)
   MemCpy(dest, src, len + 1);
 }
 
+__device__ char *StrCat(char *dest, const char *src)
+{
+  StrCpy(&dest[strlenDevice(dest)], src);
+  return dest;
+}
 
 __device__
 static const double powers_of_10[] = { 1, 10, 100, 1000, 10000, 100000, 1000000,
