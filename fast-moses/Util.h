@@ -189,7 +189,7 @@ inline SCORE TransformScore(SCORE prob)
   return FloorScore(log(prob));
 }
 
-inline SCORE TransformSRIScore(SCORE sriScore)
+inline SCORE TransformLMScore(SCORE sriScore)
 {
   return sriScore * 2.30258509299405f;
 }

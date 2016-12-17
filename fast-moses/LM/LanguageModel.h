@@ -15,6 +15,10 @@ public:
 
   virtual ~LanguageModel();
 
+  virtual void Load(System &system);
+
+  virtual void SetParameter(const std::string& key, const std::string& value);
+
   __host__
   virtual void EvaluateInIsolation(
       const System &system,
@@ -22,6 +26,13 @@ public:
       const TargetPhrase &targetPhrase,
       Scores &scores,
       SCORE &estimatedScore) const;
+
+protected:
+  std::string m_path;
+  FactorType m_factorType;
+  size_t m_order;
+
+  SCORE m_oov;
 
 };
 
