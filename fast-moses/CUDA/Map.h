@@ -12,7 +12,7 @@ template<typename Key, typename Value>
 class CompareMap
 {
 public:
-  typedef thrust::pair<Key, Value> Pair;
+  typedef thrust::pair<const Key, Value> Pair;
 
   __host__ __device__
   bool operator()(const Pair &a, const Pair &b)
