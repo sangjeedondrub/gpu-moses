@@ -1,4 +1,5 @@
 #include "LanguageModel.h"
+#include "MyVocab.h"
 #include "../Util.h"
 #include "../InputFileStream.h"
 
@@ -34,6 +35,7 @@ void LanguageModel::SetParameter(const std::string& key,
 
 void LanguageModel::Load(System &system)
 {
+  FastMoses::MyVocab &vocab = FastMoses::MyVocab::Instance();
 
   InputFileStream infile(m_path);
   size_t lineNum = 0;
@@ -60,7 +62,10 @@ void LanguageModel::Load(System &system)
       backoff = TransformLMScore(Scan<SCORE>(substrings[2]));
     }
 
+    // ngram
+    vector<VOCABID> factorKey = vocab.GetOrCreateIds(substrings[1]);
 
+    //m_root.insert(factorKey, LMScores(prob, backoff));
   }
 }
 
