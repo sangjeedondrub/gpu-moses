@@ -37,7 +37,7 @@ public:
 
   // assumes there's nothing there. Otherwise it will be a multiset
   __device__
-  void insert(const T &val)
+  const T &insert(const T &val)
   {
     thrust::pair<bool, size_t> upper;
     upper = upperBound(val);
