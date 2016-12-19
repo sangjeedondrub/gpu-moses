@@ -48,10 +48,10 @@ public:
   }
 
   __host__
-  const Pair &Insert(const Key &key, const Value &value)
+  size_t Insert(const Key &key, const Value &value)
   {
     Pair element(key, value);
-    const Pair &ret = Parent::Insert(element);
+    size_t ret = Parent::Insert(element);
     return ret;
   }
 

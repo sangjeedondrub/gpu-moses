@@ -37,7 +37,7 @@ public:
 
   // assumes there's nothing there. Otherwise it will be a multiset
   __device__
-  const T &insert(const T &val)
+  size_t insert(const T &val)
   {
     thrust::pair<bool, size_t> upper;
     upper = upperBound(val);
@@ -45,12 +45,12 @@ public:
     size_t ind = upper.second;
     //std::cerr << "ind=" << ind << std::endl;
 
-    const T &ret = m_vec.insert(ind, val);
+    size_t ret = m_vec.insert(ind, val);
     return ret;
   }
 
   __host__
-  const T &Insert(const T &val)
+  size_t Insert(const T &val)
   {
     thrust::pair<bool, size_t> upper;
     upper = UpperBound(val);
@@ -58,7 +58,7 @@ public:
     size_t ind = upper.second;
     //std::cerr << "ind=" << ind << std::endl;
 
-    const T &ret = m_vec.Insert(ind, val);
+    size_t ret = m_vec.Insert(ind, val);
     return ret;
   }
 
