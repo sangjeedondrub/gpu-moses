@@ -15,19 +15,15 @@
 
 using namespace std;
 
+__device__ __host__
 Node::Node()
 :m_children()
 ,m_tps(NULL)
 {}
 
+__device__ __host__
 Node::~Node()
 {
-  const Children::Vec &vec = m_children.GetVec();
-  for (size_t i = 0; i < vec.size(); ++i) {
-    const Children::Pair &pair = vec[i];
-    const Node *node = pair.second;
-    delete node;
-  }
 }
 
 TargetPhrases &Node::GetTargetPhrases()
@@ -62,18 +58,17 @@ Node &Node::AddNode(const std::vector<VOCABID> &words, size_t pos)
   cerr << endl;
   */
 
+	size_t ind;
 	thrust::pair<bool, size_t> upper = m_children.UpperBound(vocabId);
 	//cerr << "upper=" << upper.first << " " << upper.second << endl;
 	if (upper.first) {
-	  size_t ind = upper.second;
-	  node = m_children.GetValue(ind);
+	  ind = upper.second;
 	}
 	else {
-	  node = new Node();
 	  //cudaMallocManaged(&node, sizeof(Node));
-    m_children.Insert(vocabId, node);
+    ind = m_children.Insert(vocabId, Node());
 	}
-
+  node = &m_children.GetValue(ind);
 	node = &node->AddNode(words, pos + 1);
 	return *node;
 }
@@ -90,7 +85,7 @@ const TargetPhrases *Node::Lookup(const Phrase &phrase, size_t start, size_t end
   //return (const TargetPhrases *) m_children.size();
 
   if (upper.first) {
-    const Node *node = m_children.GetValue(upper.second);
+    const Node *node = &m_children.GetValue(upper.second);
     assert(node);
     return node->Lookup(phrase, start, end, pos + 1);
   }

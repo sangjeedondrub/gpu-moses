@@ -16,11 +16,13 @@
 class Node : public Managed
 {
 public:
-  typedef Map<VOCABID, Node*> Children;
+  typedef Map<VOCABID, Node> Children;
 
+  __device__ __host__
   Node();
 
-  virtual ~Node();
+  __device__ __host__
+  ~Node();
 
   __host__
   const Children &GetChildren() const
