@@ -206,7 +206,7 @@ public:
   }
 
   __device__
-  void insert(size_t ind, const T &val)
+  T &insert(size_t ind, const T &val)
   {
     resize(m_size + 1);
     //std::cerr << "HH5" << GetSize() << std::endl;
@@ -215,10 +215,11 @@ public:
 
     m_arr[ind] = val;
     //std::cerr << "HH7" << std::endl;
+    return m_arr[ind];
   }
 
   __host__
-  void Insert(size_t ind, const T &val)
+  T &Insert(size_t ind, const T &val)
   {
     Resize(size() + 1);
     //std::cerr << "HH5" << GetSize() << std::endl;
@@ -227,6 +228,7 @@ public:
 
     m_arr[ind] = val;
     //std::cerr << "HH7" << std::endl;
+    return m_arr[ind];
   }
 
 protected:

@@ -48,10 +48,11 @@ public:
   }
 
   __host__
-  void Insert(const Key &key, const Value &value)
+  const Pair &Insert(const Key &key, const Value &value)
   {
     Pair element(key, value);
-    Parent::Insert(element);
+    const Pair &ret = Parent::Insert(element);
+    return ret;
   }
 
   __device__

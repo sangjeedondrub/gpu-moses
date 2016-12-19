@@ -45,11 +45,12 @@ public:
     size_t ind = upper.second;
     //std::cerr << "ind=" << ind << std::endl;
 
-    m_vec.insert(ind, val);
+    const T &ret = m_vec.insert(ind, val);
+    return ret;
   }
 
   __host__
-  void Insert(const T &val)
+  const T &Insert(const T &val)
   {
     thrust::pair<bool, size_t> upper;
     upper = UpperBound(val);
@@ -57,7 +58,8 @@ public:
     size_t ind = upper.second;
     //std::cerr << "ind=" << ind << std::endl;
 
-    m_vec.Insert(ind, val);
+    const T &ret = m_vec.Insert(ind, val);
+    return ret;
   }
 
   template<typename CC = CompareDevice >
