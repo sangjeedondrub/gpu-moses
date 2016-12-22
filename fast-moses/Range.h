@@ -7,7 +7,9 @@ class Range
 public:
   size_t startPos, endPos;
 
-  explicit Range(); // don't implement
+  __device__
+  explicit Range()
+  {}
 
   __device__
   inline Range(size_t s, size_t e) :

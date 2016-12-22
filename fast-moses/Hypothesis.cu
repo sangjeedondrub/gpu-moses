@@ -29,6 +29,9 @@ void Hypothesis::Init(const Manager &mgr)
   targetPhrase = &mgr.initPhrase;
 
   bitmap.Init();
+
+  m_currTargetWordsRange.startPos = NOT_FOUND_DEVICE;
+  m_currTargetWordsRange.endPos = NOT_FOUND_DEVICE;
 }
 
 
@@ -43,6 +46,9 @@ void Hypothesis::Init(const Manager &mgr, const Hypothesis &prevHypo, const Targ
 
   const Bitmap &prevBM = prevHypo.bitmap;
   bitmap.Init(prevBM, path.range);
+
+  m_currTargetWordsRange.startPos = prevHypo.m_currTargetWordsRange.endPos + 1;
+  m_currTargetWordsRange.endPos = prevHypo.m_currTargetWordsRange.endPos + tp.size();
 
   scores.PlusEqual(mgr.system, tp.GetScores());
   scores.PlusEqual(mgr.system, prevHypo.scores);

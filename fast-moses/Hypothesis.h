@@ -54,6 +54,7 @@ public:
   void Debug(char *out) const;
 
 protected:
+  Range m_currTargetWordsRange;
 
 };
 
