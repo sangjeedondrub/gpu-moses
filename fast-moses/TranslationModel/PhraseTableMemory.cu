@@ -15,9 +15,9 @@
 
 using namespace std;
 
-Node::Node()
+Node::Node(TargetPhrases *defVal)
 :m_children()
-,tps(NULL)
+,tps(defVal)
 {}
 
 Node::~Node()
@@ -31,7 +31,7 @@ Node::~Node()
 }
 
 __host__
-Node &Node::AddOrCreateNode(const std::vector<VOCABID> &words, size_t pos)
+Node &Node::AddOrCreateNode(const std::vector<VOCABID> &words, TargetPhrases *defVal, size_t pos)
 {
 	//cerr << "pos=" << pos << endl;
 	if (pos >= words.size()) {
@@ -61,12 +61,12 @@ Node &Node::AddOrCreateNode(const std::vector<VOCABID> &words, size_t pos)
 	  node = m_children.GetValue(ind);
 	}
 	else {
-	  node = new Node();
+	  node = new Node(defVal);
 	  //cudaMallocManaged(&node, sizeof(Node));
     m_children.Insert(vocabId, node);
 	}
 
-	node = &node->AddOrCreateNode(words, pos + 1);
+	node = &node->AddOrCreateNode(words, defVal, pos + 1);
 	return *node;
 }
 
@@ -95,6 +95,7 @@ const TargetPhrases *Node::Lookup(const Phrase &phrase, size_t start, size_t end
 /////////////////////////////////////////////////////////////////////////////////
 PhraseTableMemory::PhraseTableMemory(size_t startInd, const std::string &line)
 :FeatureFunction(startInd, line)
+,m_root(NULL)
 {
   classId = FeatureFunction::ClassId::PhraseDictionaryMemory;
 
@@ -126,7 +127,7 @@ void PhraseTableMemory::Load(System &system)
 
 		vector<VOCABID> sourceIds = vocab.GetOrCreateIds(toks[0]);
 		Phrase sourcePhrase(sourceIds);
-		Node &node = m_root.AddOrCreateNode(sourceIds);
+		Node &node = m_root.AddOrCreateNode(sourceIds, NULL);
 
 		/*
 		cerr << "node=" << &node << " "

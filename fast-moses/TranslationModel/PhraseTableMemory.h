@@ -19,7 +19,7 @@ public:
   typedef Map<VOCABID, Node*> Children;
   TargetPhrases *tps;
 
-  Node();
+  Node(TargetPhrases *defVal);
 
   virtual ~Node();
 
@@ -28,7 +28,7 @@ public:
   { return m_children; }
 
   __host__
-  Node &AddOrCreateNode(const std::vector<VOCABID> &words, size_t pos = 0);
+  Node &AddOrCreateNode(const std::vector<VOCABID> &words, TargetPhrases *defVal, size_t pos = 0);
 
   __device__
   const TargetPhrases *Lookup(const Phrase &phrase, size_t start, size_t end, size_t pos) const;
