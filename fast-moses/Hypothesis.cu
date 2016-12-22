@@ -30,8 +30,8 @@ void Hypothesis::Init(const Manager &mgr)
 
   bitmap.Init();
 
-  m_currTargetWordsRange.startPos = NOT_FOUND_DEVICE;
-  m_currTargetWordsRange.endPos = NOT_FOUND_DEVICE;
+  currTargetWordsRange.startPos = NOT_FOUND_DEVICE;
+  currTargetWordsRange.endPos = NOT_FOUND_DEVICE;
 }
 
 
@@ -47,8 +47,8 @@ void Hypothesis::Init(const Manager &mgr, const Hypothesis &prevHypo, const Targ
   const Bitmap &prevBM = prevHypo.bitmap;
   bitmap.Init(prevBM, path.range);
 
-  m_currTargetWordsRange.startPos = prevHypo.m_currTargetWordsRange.endPos + 1;
-  m_currTargetWordsRange.endPos = prevHypo.m_currTargetWordsRange.endPos + tp.size();
+  currTargetWordsRange.startPos = prevHypo.currTargetWordsRange.endPos + 1;
+  currTargetWordsRange.endPos = prevHypo.currTargetWordsRange.endPos + tp.size();
 
   scores.PlusEqual(mgr.system, tp.GetScores());
   scores.PlusEqual(mgr.system, prevHypo.scores);
@@ -113,7 +113,7 @@ __device__
 VOCABID Hypothesis::GetWord(size_t pos) const
 {
   const Hypothesis *hypo = this;
-  while (pos < hypo->GetCurrTargetWordsRange().startPos) {
+  while (pos < hypo->currTargetWordsRange.startPos) {
     hypo = hypo->prevHypo;
 
     if (hypo == NULL) {
@@ -121,7 +121,7 @@ VOCABID Hypothesis::GetWord(size_t pos) const
       asm("trap;");
     }
   }
-  return hypo->GetCurrWord(pos - hypo->GetCurrTargetWordsRange().startPos);
+  return hypo->GetCurrWord(pos - hypo->currTargetWordsRange.startPos);
 }
 
 

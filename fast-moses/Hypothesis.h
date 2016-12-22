@@ -17,6 +17,7 @@ public:
   const TargetPhrase *targetPhrase;
   Bitmap bitmap;
   const Hypothesis *prevHypo;
+  Range currTargetWordsRange;
 
   ScoresUnmanaged scores;
   Array<char> stateData;
@@ -63,14 +64,7 @@ public:
   __device__
   VOCABID GetWord(size_t pos) const;
 
-  __device__
-  inline const Range &GetCurrTargetWordsRange() const
-  {
-    return m_currTargetWordsRange;
-  }
-
 protected:
-  Range m_currTargetWordsRange;
 
 };
 
