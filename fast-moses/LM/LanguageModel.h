@@ -43,10 +43,11 @@ protected:
   std::string m_path;
   FactorType m_factorType;
   size_t m_order;
-  Node<LMScores> m_trie;
 
   SCORE m_oov;
 
+  LMScores m_unkScores;
+  Node<LMScores> m_root;
 };
 
 
