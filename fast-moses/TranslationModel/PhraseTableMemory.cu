@@ -17,7 +17,7 @@ using namespace std;
 
 Node::Node()
 :m_children()
-,m_tps(NULL)
+,tps(NULL)
 {}
 
 Node::~Node()
@@ -28,14 +28,6 @@ Node::~Node()
     const Node *node = pair.second;
     delete node;
   }
-}
-
-TargetPhrases &Node::GetTargetPhrases()
-{
-  if (m_tps == NULL) {
-    m_tps = new TargetPhrases();
-  }
-  return *m_tps;
 }
 
 __host__
@@ -82,7 +74,7 @@ __device__
 const TargetPhrases *Node::Lookup(const Phrase &phrase, size_t start, size_t end, size_t pos) const
 {
   if (pos > end) {
-    return m_tps;
+    return tps;
   }
 
   VOCABID vocabId = phrase[pos];
@@ -145,8 +137,10 @@ void PhraseTableMemory::Load(System &system)
 		tp->GetScores().CreateFromString(system, *this, toks[2], true);
 		system.featureFunctions.EvaluateInIsolation(sourcePhrase, *tp);
 		
-    TargetPhrases &tps = node.GetTargetPhrases();
-		tps.Add(tp);
+    if (node.tps == NULL) {
+      node.tps = new TargetPhrases();
+    }
+		node.tps->Add(tp);
 
 		/*
 		cerr << endl;
