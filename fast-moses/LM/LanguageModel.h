@@ -41,6 +41,9 @@ public:
       Scores &scores,
       SCORE &estimatedScore) const;
 
+  __device__
+  void EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo) const;
+
 protected:
   std::string m_path;
   FactorType m_factorType;

@@ -10,6 +10,8 @@ LanguageModel::LanguageModel(size_t startInd, const std::string &line)
 ,m_unkScores(false, 99999, 999999)
 ,m_root(m_unkScores)
 {
+  classId = FeatureFunction::ClassId::LanguageModel;
+
   ReadParameters();
 }
 
@@ -44,7 +46,7 @@ void LanguageModel::Load(System &system)
   size_t lineNum = 0;
   string line;
   while (getline(infile, line)) {
-    if (++lineNum % 100000 == 0) {
+    if (++lineNum % 10000 == 0) {
       cerr << lineNum << " ";
     }
 
@@ -84,3 +86,8 @@ void LanguageModel::EvaluateInIsolation(
 
 }
 
+__device__
+void LanguageModel::EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo) const
+{
+
+}

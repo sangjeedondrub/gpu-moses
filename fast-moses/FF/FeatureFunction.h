@@ -53,6 +53,7 @@ public:
     WordPenalty = 567,
     PhraseDictionaryMemory = 6,
     UnknownWordPenalty = 543,
+    LanguageModel = 2
   };
 
 protected:

@@ -156,10 +156,22 @@ void FeatureFunctions::EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo)
 
     switch (sfff->classId) {
     case FeatureFunction::ClassId::Distortion:
+    {
       const Distortion *castFF = static_cast<const Distortion*>(sfff);
       castFF->EvaluateWhenApplied(mgr, hypo);
       break;
-
+    }
+    case FeatureFunction::ClassId::LanguageModel:
+    {
+      const LanguageModel *castFF = static_cast<const LanguageModel*>(sfff);
+      castFF->EvaluateWhenApplied(mgr, hypo);
+      break;
+    }
+    default:
+    {
+      __threadfence();         // ensure store issued before trap
+      asm("trap;");
+    }
     }
   }
 
