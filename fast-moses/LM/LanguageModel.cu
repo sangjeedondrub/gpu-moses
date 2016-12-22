@@ -7,6 +7,7 @@ using namespace std;
 
 LanguageModel::LanguageModel(size_t startInd, const std::string &line)
 :StatefulFeatureFunction(startInd, line)
+,m_trie(LMScores(99999, 999999))
 {
 
 }
@@ -64,6 +65,11 @@ void LanguageModel::Load(System &system)
 
     // ngram
     vector<VOCABID> factorKey = vocab.GetOrCreateIds(substrings[1]);
+
+    for (size_t i = factorKey.size(); i; --i) {
+      VOCABID vocabId = factorKey[i - 1];
+
+    }
 
     //m_root.insert(factorKey, LMScores(prob, backoff));
   }

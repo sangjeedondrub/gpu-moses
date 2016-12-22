@@ -7,6 +7,18 @@
 
 #pragma once
 #include "../FF/StatefulFeatureFunction.h"
+#include "../Node.h"
+
+struct LMScores
+{
+  LMScores(SCORE probA, SCORE backoffA)
+  :prob(probA)
+  ,backoff(backoffA)
+  {
+  }
+
+  SCORE prob, backoff;
+};
 
 class LanguageModel : public StatefulFeatureFunction
 {
@@ -31,6 +43,7 @@ protected:
   std::string m_path;
   FactorType m_factorType;
   size_t m_order;
+  Node<LMScores> m_trie;
 
   SCORE m_oov;
 

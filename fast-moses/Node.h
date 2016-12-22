@@ -8,6 +8,7 @@
 #pragma once
 #include "CUDA/Managed.h"
 #include "CUDA/Map.h"
+#include "Phrase.h"
 
 template<typename T>
 class Node : public Managed
