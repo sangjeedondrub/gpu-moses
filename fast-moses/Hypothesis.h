@@ -53,6 +53,22 @@ public:
   __device__
   void Debug(char *out) const;
 
+  /** curr - pos is relative from CURRENT hypothesis's starting index
+   * (ie, start of sentence would be some negative number, which is
+   * not allowed- USE WITH CAUTION) */
+  __device__
+  VOCABID GetCurrWord(size_t pos) const;
+
+  /** recursive - pos is relative from start of sentence */
+  __device__
+  VOCABID GetWord(size_t pos) const;
+
+  __device__
+  inline const Range &GetCurrTargetWordsRange() const
+  {
+    return m_currTargetWordsRange;
+  }
+
 protected:
   Range m_currTargetWordsRange;
 

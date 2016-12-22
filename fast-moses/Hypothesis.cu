@@ -102,6 +102,29 @@ SCORE Hypothesis::GetFutureScore() const
     return h_s;
 }
 
+__device__
+VOCABID Hypothesis::GetCurrWord(size_t pos) const
+{
+  return (*targetPhrase)[pos];
+}
+
+/** recursive - pos is relative from start of sentence */
+__device__
+VOCABID Hypothesis::GetWord(size_t pos) const
+{
+  const Hypothesis *hypo = this;
+  while (pos < hypo->GetCurrTargetWordsRange().startPos) {
+    hypo = hypo->prevHypo;
+
+    if (hypo == NULL) {
+      __threadfence();         // ensure store issued before trap
+      asm("trap;");
+    }
+  }
+  return hypo->GetCurrWord(pos - hypo->GetCurrTargetWordsRange().startPos);
+}
+
+
 ///////////////////////////////////////////////////////////////
 __host__
 std::string Hypothesis::Debug() const
