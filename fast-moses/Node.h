@@ -15,11 +15,11 @@ class Node : public Managed
 {
 public:
   typedef Map<VOCABID, Node*> Children;
-  T tps;
+  T value;
 
   Node(const T &defVal)
   :m_children()
-  ,tps(defVal)
+  ,value(defVal)
   {}
 
   virtual ~Node()
@@ -80,7 +80,7 @@ public:
   const T &Lookup(const Phrase &phrase, size_t start, size_t end, size_t pos, const T &emptyVal) const
   {
     if (pos > end) {
-      return tps;
+      return value;
     }
 
     VOCABID vocabId = phrase[pos];

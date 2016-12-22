@@ -64,10 +64,10 @@ void PhraseTableMemory::Load(System &system)
 		tp->GetScores().CreateFromString(system, *this, toks[2], true);
 		system.featureFunctions.EvaluateInIsolation(sourcePhrase, *tp);
 		
-    if (node.tps == NULL) {
-      node.tps = new TargetPhrases();
+    if (node.value == NULL) {
+      node.value = new TargetPhrases();
     }
-		node.tps->Add(tp);
+		node.value->Add(tp);
 
 		/*
 		cerr << endl;

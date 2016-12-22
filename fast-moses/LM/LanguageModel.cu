@@ -68,7 +68,7 @@ void LanguageModel::Load(System &system)
     vector<VOCABID> factorKey = vocab.GetOrCreateIds(substrings[1]);
     std::reverse(factorKey.begin(), factorKey.end());
     Node<LMScores> &node = m_root.AddOrCreateNode(factorKey, m_unkScores);
-    node.tps = LMScores(true, prob, backoff);
+    node.value = LMScores(true, prob, backoff);
 
   }
 }
