@@ -13,22 +13,23 @@
 #include "CUDA/Map.h"
 #include "../FF/FeatureFunction.h"
 
+template<typename T>
 class Node : public Managed
 {
 public:
   typedef Map<VOCABID, Node*> Children;
-  TargetPhrases *tps;
+  T tps;
 
-  Node::Node(TargetPhrases *defVal)
+  Node(const T &defVal)
   :m_children()
   ,tps(defVal)
   {}
 
   virtual ~Node()
   {
-    const Children::Vec &vec = m_children.GetVec();
+    const typename Children::Vec &vec = m_children.GetVec();
     for (size_t i = 0; i < vec.size(); ++i) {
-      const Children::Pair &pair = vec[i];
+      const typename Children::Pair &pair = vec[i];
       const Node *node = pair.second;
       delete node;
     }
@@ -39,7 +40,7 @@ public:
   { return m_children; }
 
   __host__
-  Node &AddOrCreateNode(const std::vector<VOCABID> &words, TargetPhrases *defVal, size_t pos = 0)
+  Node &AddOrCreateNode(const std::vector<VOCABID> &words, const T &defVal, size_t pos = 0)
   {
     //cerr << "pos=" << pos << endl;
     if (pos >= words.size()) {
@@ -79,7 +80,7 @@ public:
   }
 
   __device__
-  const TargetPhrases *Lookup(const Phrase &phrase, size_t start, size_t end, size_t pos) const
+  const T &Lookup(const Phrase &phrase, size_t start, size_t end, size_t pos, const T &emptyVal) const
   {
     if (pos > end) {
       return tps;
@@ -92,11 +93,11 @@ public:
     if (upper.first) {
       const Node *node = m_children.GetValue(upper.second);
       assert(node);
-      return node->Lookup(phrase, start, end, pos + 1);
+      return node->Lookup(phrase, start, end, pos + 1, emptyVal);
     }
     else {
       //return (const TargetPhrases *) 0x987;
-      return NULL;
+      return emptyVal;
     }
   }
 
@@ -128,7 +129,7 @@ public:
   {}
 
 protected:
-	Node m_root;
+	Node<TargetPhrases*> m_root;
 	std::string m_path;
 
   virtual void SetParameter(const std::string& key, const std::string& value);

@@ -53,7 +53,7 @@ void PhraseTableMemory::Load(System &system)
 
 		vector<VOCABID> sourceIds = vocab.GetOrCreateIds(toks[0]);
 		Phrase sourcePhrase(sourceIds);
-		Node &node = m_root.AddOrCreateNode(sourceIds, NULL);
+		Node<TargetPhrases*> &node = m_root.AddOrCreateNode(sourceIds, NULL);
 
 		/*
 		cerr << "node=" << &node << " "
@@ -121,6 +121,6 @@ void PhraseTableMemory::SetParameter(const std::string& key, const std::string& 
 __device__
 const TargetPhrases *PhraseTableMemory::Lookup(const Phrase &phrase, size_t start, size_t end) const
 {
-  return m_root.Lookup(phrase, start, end, start);
+  return m_root.Lookup(phrase, start, end, start, NULL);
 }
 
