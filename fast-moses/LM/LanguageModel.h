@@ -11,12 +11,14 @@
 
 struct LMScores
 {
-  LMScores(SCORE probA, SCORE backoffA)
-  :prob(probA)
+  LMScores(bool foundA, SCORE probA, SCORE backoffA)
+  :found(foundA)
+  ,prob(probA)
   ,backoff(backoffA)
   {
   }
 
+  bool found;
   SCORE prob, backoff;
 };
 

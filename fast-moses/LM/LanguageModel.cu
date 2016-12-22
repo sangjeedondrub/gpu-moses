@@ -7,7 +7,7 @@ using namespace std;
 
 LanguageModel::LanguageModel(size_t startInd, const std::string &line)
 :StatefulFeatureFunction(startInd, line)
-,m_unkScores(99999, 999999)
+,m_unkScores(false, 99999, 999999)
 ,m_root(m_unkScores)
 {
 
@@ -68,8 +68,8 @@ void LanguageModel::Load(System &system)
     vector<VOCABID> factorKey = vocab.GetOrCreateIds(substrings[1]);
     std::reverse(factorKey.begin(), factorKey.end());
     Node<LMScores> &node = m_root.AddOrCreateNode(factorKey, m_unkScores);
+    node.tps = LMScores(true, prob, backoff);
 
-    //m_root.insert(factorKey, LMScores(prob, backoff));
   }
 }
 
