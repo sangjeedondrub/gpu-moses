@@ -10,7 +10,7 @@ LanguageModel::LanguageModel(size_t startInd, const std::string &line)
 ,m_unkScores(false, 99999, 999999)
 ,m_root(m_unkScores)
 {
-
+  ReadParameters();
 }
 
 LanguageModel::~LanguageModel()
@@ -37,6 +37,7 @@ void LanguageModel::SetParameter(const std::string& key,
 
 void LanguageModel::Load(System &system)
 {
+  cerr << "Loading LM" << endl;
   FastMoses::MyVocab &vocab = FastMoses::MyVocab::Instance();
 
   InputFileStream infile(m_path);
