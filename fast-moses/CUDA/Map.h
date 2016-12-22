@@ -15,10 +15,6 @@ public:
   typedef thrust::pair<const Key, Value> Pair;
 
   __host__ __device__
-  CompareMap()
-  {}
-
-  __host__ __device__
   bool operator()(const Pair &a, const Pair &b)
   {
     return a.first < b.first;
@@ -33,7 +29,6 @@ public:
   typedef thrust::pair<Key, Value> Pair;
   typedef Set<Pair, CompareDevice, CompareHost> Parent;
 
-  __host__ __device__
   Map()
   :Parent()
   {}
