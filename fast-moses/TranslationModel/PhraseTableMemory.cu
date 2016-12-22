@@ -39,7 +39,7 @@ TargetPhrases &Node::GetTargetPhrases()
 }
 
 __host__
-Node &Node::AddNode(const std::vector<VOCABID> &words, size_t pos)
+Node &Node::AddOrCreateNode(const std::vector<VOCABID> &words, size_t pos)
 {
 	//cerr << "pos=" << pos << endl;
 	if (pos >= words.size()) {
@@ -74,7 +74,7 @@ Node &Node::AddNode(const std::vector<VOCABID> &words, size_t pos)
     m_children.Insert(vocabId, node);
 	}
 
-	node = &node->AddNode(words, pos + 1);
+	node = &node->AddOrCreateNode(words, pos + 1);
 	return *node;
 }
 
@@ -134,7 +134,7 @@ void PhraseTableMemory::Load(System &system)
 
 		vector<VOCABID> sourceIds = vocab.GetOrCreateIds(toks[0]);
 		Phrase sourcePhrase(sourceIds);
-		Node &node = m_root.AddNode(sourceIds);
+		Node &node = m_root.AddOrCreateNode(sourceIds);
 
 		/*
 		cerr << "node=" << &node << " "

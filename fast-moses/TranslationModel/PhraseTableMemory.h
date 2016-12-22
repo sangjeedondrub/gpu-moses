@@ -13,6 +13,11 @@
 #include "CUDA/Map.h"
 #include "../FF/FeatureFunction.h"
 
+class Trie : public Managed
+{
+
+};
+
 class Node : public Managed
 {
 public:
@@ -27,7 +32,7 @@ public:
   { return m_children; }
 
   __host__
-  Node &AddNode(const std::vector<VOCABID> &words, size_t pos = 0);
+  Node &AddOrCreateNode(const std::vector<VOCABID> &words, size_t pos = 0);
 
   __device__
   const TargetPhrases *Lookup(const Phrase &phrase, size_t start, size_t end, size_t pos) const;
