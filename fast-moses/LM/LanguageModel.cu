@@ -2,6 +2,10 @@
 #include "MyVocab.h"
 #include "../Util.h"
 #include "../InputFileStream.h"
+#include "../ScoresUnmanaged.h"
+#include "../Hypothesis.h"
+#include "../Manager.h"
+#include "../CUDA/Array.h"
 
 using namespace std;
 
@@ -89,5 +93,13 @@ void LanguageModel::EvaluateInIsolation(
 __device__
 void LanguageModel::EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo) const
 {
+  Array<VOCABID> context(m_order);
+  context.resize(0);
+
+
+  ScoresUnmanaged &scores = hypo.scores;
+
+  //scores.PlusEqual(mgr.system, *this, 666.66);
+
 
 }
