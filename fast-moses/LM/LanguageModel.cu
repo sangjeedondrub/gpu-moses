@@ -106,17 +106,17 @@ void LanguageModel::EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo) co
 
   // score each ngram
   SCORE score = 0;
+  thrust::pair<SCORE, void*> fromScoring;
   const TargetPhrase &tp = *hypo.targetPhrase;
   for (size_t i = 0; i < tp.size(); ++i) {
     VOCABID vocabId = tp[i];
     ShiftOrPush(context, vocabId);
-
+    fromScoring = Score(context);
+    score += fromScoring.first;
   }
 
   ScoresUnmanaged &scores = hypo.scores;
-
-  //scores.PlusEqual(mgr.system, *this, 666.66);
-
+  scores.PlusEqual(mgr.system, *this, score);
 }
 
 __device__
@@ -133,3 +133,48 @@ void LanguageModel::ShiftOrPush(Array<VOCABID> &context, VOCABID vocabId) const
   context[0] = vocabId;
 
 }
+
+__device__
+thrust::pair<SCORE, void*> LanguageModel::Score(
+    const Array<VOCABID> &context) const
+{
+  thrust::pair<SCORE, void*> ret(0, NULL);
+
+  if (context.size() == 0) {
+    return ret;
+  }
+
+  typedef Node<LMScores> LMNode;
+  const LMScores &scores = m_root.Lookup(context, 0, m_unkScores);
+  if (scores.found) {
+    ret.first = scores.prob;
+    ret.second = NULL; // (void*) node;
+  }
+  else {
+    SCORE backoff = 0;
+
+    Array<VOCABID> backOffContext(context.size() - 1);
+    for (size_t i = 1; i < context.size(); ++i) {
+      backOffContext[i - 1] = context[i];
+    }
+
+    const LMScores &scores = m_root.Lookup(backOffContext, 0, m_unkScores);
+    if (scores.found) {
+      backoff = scores.backoff;
+    }
+
+    Array<VOCABID> newContext(context.size() - 1);
+    for (size_t i = 0; i < context.size() - 1; ++i) {
+      newContext[i] = context[i];
+    }
+
+    thrust::pair<SCORE, void*> newRet = Score(newContext);
+
+    ret.first = backoff + newRet.first;
+    ret.second = newRet.second;
+
+  }
+
+  return ret;
+}
+

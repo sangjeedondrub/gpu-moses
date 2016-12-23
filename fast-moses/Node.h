@@ -8,6 +8,7 @@
 #pragma once
 #include "CUDA/Managed.h"
 #include "CUDA/Map.h"
+#include "CUDA/Array.h"
 #include "Phrase.h"
 
 template<typename T>
@@ -91,6 +92,28 @@ public:
       const Node *node = m_children.GetValue(upper.second);
       assert(node);
       return node->Lookup(phrase, start, end, pos + 1, emptyVal);
+    }
+    else {
+      //return (const TargetPhrases *) 0x987;
+      return emptyVal;
+    }
+  }
+
+  __device__
+  const T &Lookup(const Array<VOCABID> &phrase, size_t pos, const T &emptyVal) const
+  {
+    if (pos >= phrase.size()) {
+      return value;
+    }
+
+    VOCABID vocabId = phrase[pos];
+    thrust::pair<bool, size_t> upper = m_children.upperBound(vocabId);
+    //return (const TargetPhrases *) m_children.size();
+
+    if (upper.first) {
+      const Node *node = m_children.GetValue(upper.second);
+      assert(node);
+      return node->Lookup(phrase, pos + 1, emptyVal);
     }
     else {
       //return (const TargetPhrases *) 0x987;

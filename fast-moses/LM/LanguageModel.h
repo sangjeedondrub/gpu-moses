@@ -58,6 +58,10 @@ protected:
   __device__
   void ShiftOrPush(Array<VOCABID> &context, VOCABID vocabId) const;
 
+  __device__
+  thrust::pair<SCORE, void*> Score(
+      const Array<VOCABID> &context) const;
+
 };
 
 
