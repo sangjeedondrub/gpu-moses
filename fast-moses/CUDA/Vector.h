@@ -175,7 +175,7 @@ public:
     thrust::pair<bool, size_t> ret(false, 0);
     //std::cerr << "sought=" << sought << std::endl;
     //std::cerr << "m_size=" << m_size << std::endl;
-
+    /*
     int l = 0;
     int r = m_size - 1;
     int x;
@@ -204,9 +204,9 @@ public:
     }
 
     return ret;
-
+    */
     // linear search
-    /*
+
     for (size_t i = 0; i < m_size; ++i) {
       const T &currEle = m_arr[i];
       //std::cerr << i << "=" << currEle << std::endl;
@@ -235,7 +235,7 @@ public:
     ret.first = false;
     ret.second = m_size;
     return ret;
-    */
+
   }
 
   __device__
