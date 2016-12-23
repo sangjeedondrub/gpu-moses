@@ -30,8 +30,8 @@ void Hypothesis::Init(const Manager &mgr)
 
   bitmap.Init();
 
-  currTargetWordsRange.startPos = NOT_FOUND_DEVICE;
-  currTargetWordsRange.endPos = NOT_FOUND_DEVICE;
+  currTargetWordsRange.startPos = -1;
+  currTargetWordsRange.endPos = -1;
 }
 
 
@@ -151,9 +151,13 @@ __device__
 void Hypothesis::Debug(char *out) const
 {
   path->range.Debug(out);
+  StrCat(out, "->");
+  currTargetWordsRange.Debug(out);
   StrCat(out, " ");
+
   bitmap.Debug(out);
   StrCat(out, " ");
+
   scores.Debug(out);
 
   if (prevHypo) {

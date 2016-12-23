@@ -8,6 +8,7 @@
 #pragma once
 #include "../FF/StatefulFeatureFunction.h"
 #include "../Node.h"
+#include "../CUDA/Array.h"
 
 struct LMScores
 {
@@ -53,6 +54,10 @@ protected:
 
   LMScores m_unkScores;
   Node<LMScores> m_root;
+
+  __device__
+  void ShiftOrPush(Array<VOCABID> &context, VOCABID vocabId) const;
+
 };
 
 

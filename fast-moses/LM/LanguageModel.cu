@@ -96,10 +96,40 @@ void LanguageModel::EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo) co
   Array<VOCABID> context(m_order);
   context.resize(0);
 
+  // prev words
+  int targetPos = (int) hypo.currTargetWordsRange.startPos - 1;
+  while (context.size() < m_order && targetPos >= 0) {
+    VOCABID vocabId = hypo.GetWord(targetPos);
+    context.push_back(vocabId);
+    --targetPos;
+  }
+
+  // score each ngram
+  SCORE score = 0;
+  const TargetPhrase &tp = *hypo.targetPhrase;
+  for (size_t i = 0; i < tp.size(); ++i) {
+    VOCABID vocabId = tp[i];
+    ShiftOrPush(context, vocabId);
+
+  }
 
   ScoresUnmanaged &scores = hypo.scores;
 
   //scores.PlusEqual(mgr.system, *this, 666.66);
 
+}
+
+__device__
+void LanguageModel::ShiftOrPush(Array<VOCABID> &context, VOCABID vocabId) const
+{
+  if (context.size() < m_order) {
+    context.resize(context.size() + 1);
+  }
+
+  for (size_t i = context.size() - 1; i > 0; --i) {
+    context[i] = context[i - 1];
+  }
+
+  context[0] = vocabId;
 
 }
