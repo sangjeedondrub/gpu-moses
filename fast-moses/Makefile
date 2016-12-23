@@ -8,7 +8,7 @@ CXXFLAGS = -std=c++11 -O3 -I. -I$(BOOST_DIR)/include
 #-DKENLM_MAX_ORDER=7 -DUSE_KENLM 
 
 NVCC = nvcc
-NVCCFLAGS = -std=c++11 -arch=sm_50 -rdc=true  -O3 -I. -I$(BOOST_DIR)/include
+NVCCFLAGS = -std=c++11 -gencode arch=compute_50,code=sm_50 -gencode arch=compute_60,code=sm_60  -rdc=true  -O3 -I. -I$(BOOST_DIR)/include
 
 LIBS = -L$(DALM_DIR)/lib -L$(KENLM_DIR)/lib  \
 	-lz -llzma -lbz2 -lrt -lpthread \
