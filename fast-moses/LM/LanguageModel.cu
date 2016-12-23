@@ -130,6 +130,7 @@ void LanguageModel::EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo) co
   scores.PlusEqual(mgr.system, *this, score);
 
   // state info
+  SetState(hypo, (const char*) &fromScoring.second);
 
 }
 
