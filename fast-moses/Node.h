@@ -78,10 +78,10 @@ public:
   }
 
   __device__
-  const T &Lookup(const Phrase &phrase, size_t start, size_t end, size_t pos, const T &emptyVal) const
+  const Node *Lookup(const Phrase &phrase, size_t start, size_t end, size_t pos) const
   {
     if (pos > end) {
-      return value;
+      return this;
     }
 
     VOCABID vocabId = phrase[pos];
@@ -91,11 +91,11 @@ public:
     if (upper.first) {
       const Node *node = m_children.GetValue(upper.second);
       assert(node);
-      return node->Lookup(phrase, start, end, pos + 1, emptyVal);
+      return node->Lookup(phrase, start, end, pos + 1);
     }
     else {
       //return (const TargetPhrases *) 0x987;
-      return emptyVal;
+      return NULL;
     }
   }
 

@@ -121,6 +121,7 @@ void PhraseTableMemory::SetParameter(const std::string& key, const std::string& 
 __device__
 const TargetPhrases *PhraseTableMemory::Lookup(const Phrase &phrase, size_t start, size_t end) const
 {
-  return m_root.Lookup(phrase, start, end, start, NULL);
+  const Node<TargetPhrases*> *node = m_root.Lookup(phrase, start, end, start);
+  return node ? node->value : NULL;
 }
 
