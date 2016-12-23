@@ -77,8 +77,9 @@ public:
     return *node;
   }
 
+  template<typename PHRASE>
   __device__
-  const Node *Lookup(const Phrase &phrase, size_t start, size_t end, size_t pos) const
+  const Node *Lookup(const PHRASE &phrase, size_t start, size_t end, size_t pos) const
   {
     if (pos > end) {
       return this;
@@ -99,27 +100,7 @@ public:
     }
   }
 
-  __device__
-  const Node *Lookup(const Array<VOCABID> &phrase, size_t start, size_t end, size_t pos) const
-  {
-    if (pos >= phrase.size()) {
-      return this;
-    }
 
-    VOCABID vocabId = phrase[pos];
-    thrust::pair<bool, size_t> upper = m_children.upperBound(vocabId);
-    //return (const TargetPhrases *) m_children.size();
-
-    if (upper.first) {
-      const Node *node = m_children.GetValue(upper.second);
-      assert(node);
-      return node->Lookup(phrase, start, end, pos + 1);
-    }
-    else {
-      //return (const TargetPhrases *) 0x987;
-      return NULL;
-    }
-  }
 
 protected:
   Children m_children;
