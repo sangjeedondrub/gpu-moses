@@ -192,7 +192,8 @@ void InitPathRange(Manager &mgr)
   }
 
   InputPath &path = mgr.GetInputPath(start, end);
-  path.range = Range(start, end);
+  path.range.startPos = start;
+  path.range.endPos = end;
 }
 
 __host__
@@ -202,7 +203,7 @@ void Manager::InitInputPaths()
   m_tpsVec.Resize(inputSize * inputSize);
 
   InitPathRange<<<inputSize, inputSize>>>(*this);
-
+  cudaDeviceSynchronize();
 }
 
 __device__
