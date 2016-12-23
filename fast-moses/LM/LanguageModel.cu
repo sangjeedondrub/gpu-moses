@@ -15,6 +15,7 @@ LanguageModel::LanguageModel(size_t startInd, const std::string &line)
 ,m_root(m_unkScores)
 {
   classId = FeatureFunction::ClassId::LanguageModel;
+  stateSize = sizeof(void*);
 
   ReadParameters();
 }
