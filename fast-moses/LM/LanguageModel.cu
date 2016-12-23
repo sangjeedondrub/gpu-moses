@@ -43,8 +43,10 @@ void LanguageModel::SetParameter(const std::string& key,
 
 void LanguageModel::Load(System &system)
 {
-  cerr << "Loading LM" << endl;
   FastMoses::MyVocab &vocab = FastMoses::MyVocab::Instance();
+
+  m_bos = vocab.GetOrCreateId(BOS_);
+  m_eos = vocab.GetOrCreateId(EOS_);
 
   InputFileStream infile(m_path);
   size_t lineNum = 0;
@@ -115,8 +117,20 @@ void LanguageModel::EvaluateWhenApplied(const Manager &mgr, Hypothesis &hypo) co
     score += fromScoring.first;
   }
 
+  const Bitmap &bm = hypo.bitmap;
+  if (bm.IsComplete()) {
+    // everything translated
+    ShiftOrPush(context, m_eos);
+    fromScoring = Score(context);
+    score += fromScoring.first;
+    fromScoring.second = NULL;
+  }
+
   ScoresUnmanaged &scores = hypo.scores;
   scores.PlusEqual(mgr.system, *this, score);
+
+  // state info
+
 }
 
 __device__

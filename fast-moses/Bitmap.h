@@ -30,6 +30,12 @@ public:
     return m_numWordsCovered;
   }
 
+  //! whether every word has been translated
+  __device__
+  bool IsComplete() const {
+    return GetSize() == GetNumWordsCovered();
+  }
+
   //! whether the wordrange overlaps with any translated word in this bitmap
   __device__
   bool Overlap(const Range &compare) const {

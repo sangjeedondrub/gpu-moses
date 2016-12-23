@@ -51,6 +51,7 @@ protected:
   size_t m_order;
 
   SCORE m_oov;
+  VOCABID m_bos, m_eos;
 
   LMScores m_unkScores;
   Node<LMScores> m_root;
