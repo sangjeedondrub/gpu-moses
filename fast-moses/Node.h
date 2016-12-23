@@ -100,7 +100,7 @@ public:
   }
 
   __device__
-  const Node *Lookup(const Array<VOCABID> &phrase, size_t pos, const T &emptyVal) const
+  const Node *Lookup(const Array<VOCABID> &phrase, size_t pos) const
   {
     if (pos >= phrase.size()) {
       return this;
@@ -113,7 +113,7 @@ public:
     if (upper.first) {
       const Node *node = m_children.GetValue(upper.second);
       assert(node);
-      return node->Lookup(phrase, pos + 1, emptyVal);
+      return node->Lookup(phrase, pos + 1);
     }
     else {
       //return (const TargetPhrases *) 0x987;
