@@ -100,10 +100,10 @@ public:
   }
 
   __device__
-  const T &Lookup(const Array<VOCABID> &phrase, size_t pos, const T &emptyVal) const
+  const Node *Lookup(const Array<VOCABID> &phrase, size_t pos, const T &emptyVal) const
   {
     if (pos >= phrase.size()) {
-      return value;
+      return this;
     }
 
     VOCABID vocabId = phrase[pos];
@@ -117,7 +117,7 @@ public:
     }
     else {
       //return (const TargetPhrases *) 0x987;
-      return emptyVal;
+      return NULL;
     }
   }
 

@@ -159,10 +159,10 @@ thrust::pair<SCORE, void*> LanguageModel::Score(
   }
 
   typedef Node<LMScores> LMNode;
-  const LMScores &scores = m_root.Lookup(context, 0, m_unkScores);
-  if (scores.found) {
-    ret.first = scores.prob;
-    ret.second = NULL; // (void*) node;
+  const LMNode *node = m_root.Lookup(context, 0, m_unkScores);
+  if (node) {
+    ret.first = node->value.prob;
+    ret.second = (void*) node;
   }
   else {
     SCORE backoff = 0;
@@ -172,9 +172,9 @@ thrust::pair<SCORE, void*> LanguageModel::Score(
       backOffContext[i - 1] = context[i];
     }
 
-    const LMScores &scores = m_root.Lookup(backOffContext, 0, m_unkScores);
-    if (scores.found) {
-      backoff = scores.backoff;
+    node = m_root.Lookup(backOffContext, 0, m_unkScores);
+    if (node) {
+      backoff = node->value.backoff;
     }
 
     Array<VOCABID> newContext(context.size() - 1);
