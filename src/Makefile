@@ -4,17 +4,17 @@ CC = gcc
 CCFLAGS = -O3 -I. -I$(BOOST_DIR)/include
 
 CXX = g++ #clang++
-#CXXFLAGS = -std=c++11 -O3 -I. -I$(BOOST_DIR)/include
-CXXFLAGS = -std=c++11 -I. -I$(BOOST_DIR)/include -lprofiler -Og
+CXXFLAGS = -std=c++11 -O3 -I. -I$(BOOST_DIR)/include
+#CXXFLAGS = -std=c++11 -I. -I$(BOOST_DIR)/include -lprofiler -Og
 #-DKENLM_MAX_ORDER=7 -DUSE_KENLM 
 
 NVCC = nvcc
-#NVCCFLAGS = -std=c++11 -gencode arch=compute_50,code=sm_50 -gencode arch=compute_60,code=sm_60  -rdc=true  -O3 -I. -I$(BOOST_DIR)/include
-NVCCFLAGS = -std=c++11 -gencode arch=compute_50,code=sm_50 -gencode arch=compute_60,code=sm_60  -rdc=true   -I. -I$(BOOST_DIR)/include  -lprofiler -O0
+NVCCFLAGS = -std=c++11 -gencode arch=compute_50,code=sm_50 -gencode arch=compute_60,code=sm_60  -rdc=true  -O3 -I. -I$(BOOST_DIR)/include
+#NVCCFLAGS = -std=c++11 -gencode arch=compute_50,code=sm_50 -gencode arch=compute_60,code=sm_60  -rdc=true   -I. -I$(BOOST_DIR)/include  -lprofiler -O0
 
 LIBS = -L$(DALM_DIR)/lib -L$(KENLM_DIR)/lib  \
 	-lz -llzma -lbz2 -lrt -lpthread \
-	-lboost_program_options -lboost_system -lprofiler -ltcmalloc_and_profiler
+	-lboost_program_options -lboost_system #-lprofiler -ltcmalloc_and_profiler
         #-lkenlm  -liconv #-lrt # 
 
 .SUFFIXES: .c .cpp .cu .o
@@ -64,13 +64,13 @@ OBJECTS = InputFileStream.o MyVocab.o TypeDef.o \
 # util/multi_intersection_test.cc util/sorted_uniform_test.cc util/cat_compressed_main.cc
 # util/probing_hash_table_benchmark_main.cc
 
-OBJECTS_fast_moses = $(OBJECTS)
+OBJECTS_gpu_moses = $(OBJECTS)
 
-all: fast-moses
+all: gpu-moses
 
-fast-moses: $(OBJECTS_fast_moses)
-	$(NVCC) $(NVCCFLAGS) -o fast-moses $(OBJECTS_fast_moses) $(LIBS)
+gpu-moses: $(OBJECTS_fast_moses)
+	$(NVCC) $(NVCCFLAGS) -o gpu-moses $(OBJECTS_gpu_moses) $(LIBS)
 
 clean:
-	rm -f fast-moses *.o */*.o */*/*.o */*/*/*.o
+	rm -f gpu-moses *.o */*.o */*/*.o */*/*/*.o
 
