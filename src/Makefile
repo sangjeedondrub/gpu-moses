@@ -14,7 +14,8 @@ NVCCFLAGS = -std=c++11 -gencode arch=compute_50,code=sm_50 -gencode arch=compute
 
 LIBS = -L$(DALM_DIR)/lib -L$(KENLM_DIR)/lib  \
 	-lz -llzma -lbz2 -lrt -lpthread \
-	-lboost_program_options -lboost_system #-lprofiler -ltcmalloc_and_profiler
+	-lboost_program_options -lboost_system 
+	#-lprofiler -ltcmalloc_and_profiler
         #-lkenlm  -liconv #-lrt # 
 
 .SUFFIXES: .c .cpp .cu .o
@@ -68,7 +69,7 @@ OBJECTS_gpu_moses = $(OBJECTS)
 
 all: gpu-moses
 
-gpu-moses: $(OBJECTS_fast_moses)
+gpu-moses: $(OBJECTS_gpu_moses)
 	$(NVCC) $(NVCCFLAGS) -o gpu-moses $(OBJECTS_gpu_moses) $(LIBS)
 
 clean:
