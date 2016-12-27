@@ -10,6 +10,8 @@
 class Stack : public Managed
 {
 public:
+  char debugStr[200];
+
   __host__
   Stack();
 

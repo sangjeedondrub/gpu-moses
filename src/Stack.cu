@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Stack.h"
 #include "Hypothesis.h"
+#include "CUDA/Util.h"
 
 using namespace std;
 
@@ -12,6 +13,8 @@ Stack::Stack()
 
   cudaDeviceSynchronize();
   //cerr << "m_arr=" << m_arr << endl;
+
+  debugStr[0] = 0x0;
 }
 
 __host__
@@ -26,6 +29,13 @@ Stack::~Stack()
 __device__
 void Stack::add(Hypothesis *hypo)
 {
+  /*
+  char str[50];
+  str[0] = 0x0;
+  hypo->Debug(str);
+  StrCat(debugStr, str);
+  StrCat(debugStr, " === ");
+  */
   thrust::pair<bool, size_t> upper = m_coll.upperBound(hypo);
   if (upper.first) {
     // same hypo exist
@@ -36,15 +46,22 @@ void Stack::add(Hypothesis *hypo)
 
     if (newScore > otherScore) {
       // new hypo is better
+
+      StrCat(debugStr, "ADDED loser=");
+      //StrCat(debugStr,  otherHypo->bitmap);
+      StrCat(debugStr, "\n");
+
       delete otherHypo;
       m_coll.GetVec()[upper.second] = hypo;
     }
     else {
       // existing hypo is better
+      StrCat(debugStr, "not ADDED\n");
       delete hypo;
     }
   }
   else {
+    StrCat(debugStr, "ADDED\n");
     m_coll.insert(hypo);
     //(*m_arr)[m_size] = hypo;
   }
