@@ -160,8 +160,16 @@ void Hypothesis::Debug(char *out) const
 
   scores.Debug(out);
 
+  StrCat(out, "state=");
+  for (size_t i = 0; i < stateData.size(); ++i) {
+    unsigned int c = stateData[i];
+    char *str = itoaDevice(c);
+    StrCat(out, str);
+    StrCat(out, " ");
+  }
+
   if (prevHypo) {
-    StrCat(out, "\n");
+     StrCat(out, "\n");
     prevHypo->Debug(out);
   }
 }
