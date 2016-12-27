@@ -130,7 +130,7 @@ __host__
 std::string Hypothesis::Debug() const
 {
   stringstream strm;
-  strm << this << " ";
+  strm << (int) (size_t) this << " ";
 
   char *d_str;
   cudaMallocManaged(&d_str, 1000);

@@ -29,13 +29,9 @@ Stack::~Stack()
 __device__
 void Stack::add(Hypothesis *hypo)
 {
-  /*
-  char str[50];
-  str[0] = 0x0;
-  hypo->Debug(str);
-  StrCat(debugStr, str);
-  StrCat(debugStr, " === ");
-  */
+  StrCat(debugStr, "hypo=");
+  StrCat(debugStr, itoaDevice((size_t) hypo));
+
   thrust::pair<bool, size_t> upper = m_coll.upperBound(hypo);
   if (upper.first) {
     // same hypo exist
@@ -47,8 +43,8 @@ void Stack::add(Hypothesis *hypo)
     if (newScore > otherScore) {
       // new hypo is better
 
-      StrCat(debugStr, "ADDED loser=");
-      //StrCat(debugStr,  otherHypo->bitmap);
+      StrCat(debugStr, " ADDED loser=");
+      StrCat(debugStr,  itoaDevice((size_t) otherHypo));
       StrCat(debugStr, "\n");
 
       delete otherHypo;
@@ -56,12 +52,12 @@ void Stack::add(Hypothesis *hypo)
     }
     else {
       // existing hypo is better
-      StrCat(debugStr, "not ADDED\n");
+      StrCat(debugStr, " not ADDED\n");
       delete hypo;
     }
   }
   else {
-    StrCat(debugStr, "ADDED\n");
+    StrCat(debugStr, " ADDED\n");
     m_coll.insert(hypo);
     //(*m_arr)[m_size] = hypo;
   }
