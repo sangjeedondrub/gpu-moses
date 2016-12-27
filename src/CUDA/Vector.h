@@ -97,19 +97,22 @@ public:
   __host__
   void PushBack(const T &v)
   {
-    if (m_size >= m_maxSize) {
-      Resize(1 + m_maxSize * 2);
+    size_t currSize = size();
+    size_t maxSize = m_maxSize;
+
+    if (currSize >= maxSize) {
+      Resize(1 + maxSize * 2);
     }
 
-    m_arr[m_size] = v;
-    ++m_size;
+    m_arr[currSize] = v;
+    m_size = currSize + 1;
   }
 
   __device__
   void push_back(const T &v)
   {
     if (m_size >= m_maxSize) {
-      resize(1 + m_maxSize * 2);
+      resize(m_size + 1);
     }
 
     m_arr[m_size] = v;
