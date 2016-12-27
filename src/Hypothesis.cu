@@ -148,8 +148,12 @@ std::string Hypothesis::Debug() const
 }
 
 __device__
-void Hypothesis::Debug(char *out) const
+void Hypothesis::Debug(char *out, size_t indent) const
 {
+  for (size_t i = 0; i < indent; ++i) {
+    StrCat(out, "  ");
+  }
+
   path->range.Debug(out);
   StrCat(out, "->");
   currTargetWordsRange.Debug(out);
@@ -170,7 +174,7 @@ void Hypothesis::Debug(char *out) const
 
   if (prevHypo) {
      StrCat(out, "\n");
-    prevHypo->Debug(out);
+    prevHypo->Debug(out, indent + 1);
   }
 }
 

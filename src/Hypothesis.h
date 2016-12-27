@@ -52,7 +52,7 @@ public:
   std::string Debug() const;
 
   __device__
-  void Debug(char *out) const;
+  void Debug(char *out, size_t indent = 0) const;
 
   /** curr - pos is relative from CURRENT hypothesis's starting index
    * (ie, start of sentence would be some negative number, which is
