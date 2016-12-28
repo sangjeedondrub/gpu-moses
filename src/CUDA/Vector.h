@@ -174,9 +174,40 @@ public:
   __device__
   thrust::pair<bool, size_t> upperBound(const T &sought) const
   {
-    thrust::pair<bool, size_t> ret;
+    thrust::pair<bool, size_t> ret(false, m_size);
     //std::cerr << "sought=" << sought << std::endl;
     //std::cerr << "m_size=" << m_size << std::endl;
+    int l = 0;
+    int r = m_size - 1;
+    int x;
+
+    CC comparer;
+    while (r >= l) {
+      x = (l + r) / 2;
+
+      const T &obj = m_arr[x];
+      if (comparer(sought, obj)) {
+        r = x - 1;
+
+        if (x < ret.second) {
+          ret.second = x;
+        }
+      }
+      else if (comparer(obj, sought)) {
+        l = x + 1;
+      }
+      else {
+        // found
+        ret.first = true;
+        ret.second = x;
+        break;
+      }
+    }
+    //std::cerr << "ret.second=" << ret.second << std::endl;
+    return ret;
+
+
+    /*
     for (size_t i = 0; i < m_size; ++i) {
       const T &currEle = m_arr[i];
       //std::cerr << i << "=" << currEle << std::endl;
@@ -205,6 +236,7 @@ public:
     ret.first = false;
     ret.second = m_size;
     return ret;
+    */
   }
 
   template<typename CC>
