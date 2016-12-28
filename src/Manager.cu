@@ -110,7 +110,7 @@ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks)
 }
 
 __global__
-void GetBestHypo(const Manager &mgr, const Stack &lastStack, Vector<VOCABID> &vocabIds)
+void GetBestHypo(const Manager &mgr, const Stack &lastStack, VOCABID *vocabIds)
 {
   const Hypothesis *bestHypo = NULL;
   SCORE bestScore = -999999;
@@ -195,10 +195,10 @@ void Manager::Process()
   cerr << m_stacks.Back().Debug() << endl;
 
   Vector<VOCABID> bestHypo(100, NOT_FOUND_DEVICE);
-  cudaDeviceSynchronize();
   cerr << "before=" << bestHypo.Debug() << endl;
+  cudaDeviceSynchronize();
 
-  GetBestHypo<<<1,1>>>(*this, m_stacks.Back(), bestHypo);
+  GetBestHypo<<<1,1>>>(*this, m_stacks.Back(), bestHypo.data());
   cudaDeviceSynchronize();
 
   cerr << "after=" << bestHypo.Debug() << endl;
