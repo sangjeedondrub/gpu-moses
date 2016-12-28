@@ -43,8 +43,20 @@ void Stack::add(Hypothesis *hypo)
     if (newScore > otherScore) {
       // new hypo is better
 
-      StrCat(debugStr, " ADDED loser=");
-      StrCat(debugStr,  itoaDevice((size_t) otherHypo));
+      StrCat(debugStr, " ADDED winner=");
+
+      char str[500];
+
+      str[0] = 0x0;
+      hypo->Debug(str);
+      StrCat(debugStr,  str);
+
+      StrCat(debugStr,  "\nloser=");
+      str[0] = 0x0;
+      otherHypo->Debug(str);
+      StrCat(debugStr,  str);
+
+      //StrCat(debugStr,  itoaDevice((size_t) otherHypo));
       StrCat(debugStr, "\n");
 
       delete otherHypo;
