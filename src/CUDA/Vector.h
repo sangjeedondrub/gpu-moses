@@ -226,13 +226,13 @@ public:
       const T &obj = m_arr[x];
       if (comparer(sought, obj)) {
         r = x - 1;
+
+        if (x < ret.second) {
+          ret.second = x;
+        }
       }
       else if (comparer(obj, sought)) {
         l = x + 1;
-
-        if (ret.second < x) {
-          ret.second = x;
-        }
       }
       else {
         // found
