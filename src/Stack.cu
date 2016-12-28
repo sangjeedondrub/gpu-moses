@@ -6,9 +6,10 @@
 using namespace std;
 
 
-Stack::Stack()
+Stack::Stack(const Manager &mgr)
 :m_coll()
 {
+  //mgr.system.params.
   m_coll.GetVec().Reserve(5000);
 
   cudaDeviceSynchronize();

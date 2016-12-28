@@ -6,6 +6,7 @@
 #include "CUDA/Vector.h"
 #include "Hypothesis.h"
 
+class Manager;
 
 class Stack : public Managed
 {
@@ -13,7 +14,7 @@ public:
   //char debugStr[2000];
 
   __host__
-  Stack();
+  Stack(const Manager &mgr);
 
   __host__
   ~Stack();
