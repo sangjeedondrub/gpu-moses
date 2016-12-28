@@ -1,7 +1,9 @@
 #include <iostream>
+#include "CUDA/Util.h"
 #include "Stack.h"
 #include "Hypothesis.h"
-#include "CUDA/Util.h"
+#include "Manager.h"
+#include "System.h"
 
 using namespace std;
 
@@ -10,7 +12,7 @@ Stack::Stack(const Manager &mgr)
 :m_coll()
 {
   //mgr.system.params.
-  m_coll.GetVec().Reserve(5000);
+  m_coll.GetVec().Reserve(mgr.system.options.search.stack_size * 2);
 
   cudaDeviceSynchronize();
   //cerr << "m_arr=" << m_arr << endl;
