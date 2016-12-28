@@ -55,13 +55,7 @@ public:
   __device__
   void resize(size_t newSize, const T &val = T())
   {
-    //std::cerr << "newSize=" << newSize << std::endl;
-    if (newSize > m_maxSize) {
-      //*status = 45;
-      __threadfence();         // ensure store issued before trap
-      asm("trap;");
-    }
-
+    reserve(newSize);
     m_size = newSize;
   }
 
@@ -125,6 +119,40 @@ public:
 
     m_arr[m_size] = v;
     ++m_size;
+  }
+
+  __host__
+  size_t Insert(size_t ind, const T &val)
+  {
+    if (m_size >= m_maxSize) {
+      Reserve(1 + m_maxSize * 2);
+    }
+
+    Resize(m_size + 1);
+    //std::cerr << "HH5" << GetSize() << std::endl;
+    Shift(ind, 1);
+    //std::cerr << "HH6" << std::endl;
+
+    m_arr[ind] = val;
+    //std::cerr << "HH7" << std::endl;
+    return ind;
+  }
+
+  __device__
+  size_t insert(size_t ind, const T &val)
+  {
+    if (m_size >= m_maxSize) {
+      reserve(1 + m_maxSize * 2);
+    }
+
+    resize(m_size + 1);
+    //std::cerr << "HH5" << GetSize() << std::endl;
+    Shift(ind, 1);
+    //std::cerr << "HH6" << std::endl;
+
+    m_arr[ind] = val;
+    //std::cerr << "HH7" << std::endl;
+    return ind;
   }
 
   __host__
@@ -246,31 +274,6 @@ public:
 
   }
 
-  __device__
-  size_t insert(size_t ind, const T &val)
-  {
-    resize(m_size + 1);
-    //std::cerr << "HH5" << GetSize() << std::endl;
-    Shift(ind, 1);
-    //std::cerr << "HH6" << std::endl;
-
-    m_arr[ind] = val;
-    //std::cerr << "HH7" << std::endl;
-    return ind;
-  }
-
-  __host__
-  size_t Insert(size_t ind, const T &val)
-  {
-    Resize(m_size + 1);
-    //std::cerr << "HH5" << GetSize() << std::endl;
-    Shift(ind, 1);
-    //std::cerr << "HH6" << std::endl;
-
-    m_arr[ind] = val;
-    //std::cerr << "HH7" << std::endl;
-    return ind;
-  }
 
 protected:
   size_t m_size, m_maxSize;
