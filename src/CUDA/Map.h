@@ -79,7 +79,7 @@ public:
   std::string Debug() const
   {
     std::ostringstream strm;
-
+    strm << "size=" << Parent::size() << ":";
     for (size_t i = 0; i < Parent::m_vec.size(); ++i) {
       const Pair &pair = Parent::m_vec[i];
       const Key &key = pair.first;

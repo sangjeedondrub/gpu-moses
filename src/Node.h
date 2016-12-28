@@ -100,7 +100,13 @@ public:
     }
   }
 
-
+  __host__
+  std::string Debug() const
+  {
+    std::stringstream strm;
+    strm << m_children.Debug();
+    return strm.str();
+  }
 
 protected:
   Children m_children;

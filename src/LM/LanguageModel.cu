@@ -81,6 +81,8 @@ void LanguageModel::Load(System &system)
     node.value = LMScores(true, prob, backoff);
 
   }
+
+  cerr << "root=" << m_root.Debug() << endl;
 }
 
 void LanguageModel::EvaluateInIsolation(
