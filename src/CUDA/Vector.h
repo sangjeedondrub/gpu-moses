@@ -28,6 +28,9 @@ public:
 
     if (size) {
       cudaMallocManaged(&m_arr, sizeof(T) * size);
+      for (size_t i = 0; i < size; ++i) {
+        m_arr[i] = val;
+      }
     }
     else {
       m_arr = NULL;

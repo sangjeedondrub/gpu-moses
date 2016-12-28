@@ -5,6 +5,7 @@
 #include "Stack.h"
 #include "Range.h"
 #include "System.h"
+#include "MyVocab.h"
 #include "FF/FeatureFunctions.h"
 #include "TranslationModel/PhraseTableMemory.h"
 
@@ -108,6 +109,36 @@ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks)
   }
 }
 
+__global__
+void GetBestHypo(const Manager &mgr, const Stack &lastStack, Vector<VOCABID> &vocabIds)
+{
+  const Hypothesis *bestHypo = NULL;
+  SCORE bestScore = -999999;
+
+  const Vector<Hypothesis*> &hypos = lastStack.getArr();
+  for (size_t i = 0; i < hypos.size(); ++i) {
+    const Hypothesis *hypo = hypos[i];
+    if (hypo->getFutureScore() > bestScore) {
+      bestScore = hypo->getFutureScore();
+      bestHypo = hypo;
+    }
+  }
+
+  assert(bestHypo);
+  size_t pos = 0;
+  while (bestHypo) {
+    const TargetPhrase &tp = *bestHypo->targetPhrase;
+
+    for (size_t i = tp.size(); i > 0; --i) {
+      VOCABID id = tp[i - 1];
+      vocabIds[pos] = id;
+
+      ++pos;
+    }
+
+    bestHypo = bestHypo->prevHypo;
+  }
+}
 ///////////////////////////////////////
 __host__
 void Manager::Process()
@@ -163,6 +194,25 @@ void Manager::Process()
 
   cerr << m_stacks.Back().Debug() << endl;
 
+  Vector<VOCABID> bestHypo(100, NOT_FOUND_DEVICE);
+  cudaDeviceSynchronize();
+  cerr << "before=" << bestHypo.Debug() << endl;
+
+  GetBestHypo<<<1,1>>>(*this, m_stacks.Back(), bestHypo);
+  cudaDeviceSynchronize();
+
+  cerr << "after=" << bestHypo.Debug() << endl;
+
+  cerr << "Best Translation: ";
+  for (size_t i = 0; i < bestHypo.size(); ++i) {
+    VOCABID id = bestHypo[i];
+    if (id == NOT_FOUND_DEVICE) {
+      break;
+    }
+    //cerr << "id=" << id << " ";
+    cerr << FastMoses::MyVocab::Instance().GetString(id) << " ";
+  }
+  cerr << endl;
 }
 
 std::string Manager::DebugTPSArr() const
