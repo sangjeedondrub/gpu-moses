@@ -140,11 +140,7 @@ void Manager::Process()
 
   for (size_t stackInd = 0; stackInd < inputSize; ++stackInd) {
     const Stack &stack = m_stacks.Get(stackInd);
-    cerr << "HH1:" << stack.debugStr << endl;
-
-    if (stackInd == 2) {
-      cerr << "stack2=" << m_stacks.Get(2).Debug() << endl;
-    }
+    //cerr << "HH1:" << stack.debugStr << endl;
 
     size_t stackSize = stack.GetSize();
     //cerr << "HH2" << endl;

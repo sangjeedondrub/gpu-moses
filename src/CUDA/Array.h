@@ -96,10 +96,13 @@ public:
     }
 
     for (size_t i = 0; i < thisSize; ++i) {
-      bool thisVal = m_arr[i];
-      bool otherVal = other[i];
-      if (thisVal != otherVal) {
-        return thisVal ? 1 : -1;
+      const T &thisVal = m_arr[i];
+      const T &otherVal = other[i];
+      if (thisVal < otherVal) {
+        return +1;
+      }
+      else if (otherVal < thisVal) {
+        return -1;
       }
     }
 

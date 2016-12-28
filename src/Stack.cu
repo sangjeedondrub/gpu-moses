@@ -14,7 +14,7 @@ Stack::Stack()
   cudaDeviceSynchronize();
   //cerr << "m_arr=" << m_arr << endl;
 
-  debugStr[0] = 0x0;
+  //debugStr[0] = 0x0;
 }
 
 __host__
@@ -29,9 +29,10 @@ Stack::~Stack()
 __device__
 void Stack::add(Hypothesis *hypo)
 {
+  /*
   StrCat(debugStr, "hypo=");
   StrCat(debugStr, itoaDevice((size_t) hypo));
-
+  */
   thrust::pair<bool, size_t> upper = m_coll.upperBound(hypo);
   if (upper.first) {
     // same hypo exist
@@ -42,7 +43,7 @@ void Stack::add(Hypothesis *hypo)
 
     if (newScore > otherScore) {
       // new hypo is better
-
+      /*
       StrCat(debugStr, " ADDED winner=");
 
       char str[500];
@@ -58,18 +59,18 @@ void Stack::add(Hypothesis *hypo)
 
       //StrCat(debugStr,  itoaDevice((size_t) otherHypo));
       StrCat(debugStr, "\n");
-
+      */
       delete otherHypo;
       m_coll.GetVec()[upper.second] = hypo;
     }
     else {
       // existing hypo is better
-      StrCat(debugStr, " not ADDED\n");
+      //StrCat(debugStr, " not ADDED\n");
       delete hypo;
     }
   }
   else {
-    StrCat(debugStr, " ADDED\n");
+    //StrCat(debugStr, " ADDED\n");
     m_coll.insert(hypo);
     //(*m_arr)[m_size] = hypo;
   }
