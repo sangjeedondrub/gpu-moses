@@ -43,25 +43,25 @@ OBJECTS = InputFileStream.o MyVocab.o TypeDef.o \
 		FF/UnknownWordPenalty.o \
 		LM/LanguageModel.o \
 		TranslationModel/PhraseTableMemory.o \
-		util/bit_packing.cc                                 util/read_compressed.cc \
-		util/mmap.cc                                \
-		util/scoped.cc \
-		util/ersatz_progress.cc         util/murmur_hash.cc                         \
-		util/exception.cc               util/parallel_read.cc                       \
-		util/file.cc                                           util/string_piece.cc \
-		util/file_piece.cc              util/pool.cc                                \
-		util/float_to_string.cc          \
-		util/integer_to_string.cc       util/random.cc                              \
-		util/usage.cc \
-		util/double-conversion/bignum.cc       util/double-conversion/cached-powers.cc \
-		util/double-conversion/double-conversion.cc  util/double-conversion/fixed-dtoa.cc \
-		util/double-conversion/bignum-dtoa.cc  util/double-conversion/diy-fp.cc         \
-		util/double-conversion/fast-dtoa.cc          util/double-conversion/strtod.cc \
-		parameters/AllOptions.cpp 	parameters/BookkeepingOptions.cpp 	parameters/ContextParameters.cpp \
-		parameters/CubePruningOptions.cpp 	parameters/InputOptions.cpp 	parameters/LMBR_Options.cpp \
-		parameters/MBR_Options.cpp	parameters/NBestOptions.cpp parameters/OOVHandlingOptions.cpp \
-		parameters/OptionsBaseClass.cpp	parameters/ReorderingOptions.cpp	parameters/ReportingOptions.cpp \
-		parameters/SearchOptions.cpp	#parameters/ServerOptions.cpp parameters/SyntaxOptions.cpp	
+		util/bit_packing.o     	util/read_compressed.o \
+		util/mmap.o                                \
+		util/scoped.o \
+		util/ersatz_progress.o  util/murmur_hash.o                         \
+		util/exception.o        util/parallel_read.o                       \
+		util/file.o             util/string_piece.o \
+		util/file_piece.o       util/pool.o                                \
+		util/float_to_string.o          \
+		util/integer_to_string.o	util/random.o                              \
+		util/usage.o \
+		util/double-conversion/bignum.o       util/double-conversion/cached-powers.o \
+		util/double-conversion/double-conversion.o  util/double-conversion/fixed-dtoa.o \
+		util/double-conversion/bignum-dtoa.o  util/double-conversion/diy-fp.o         \
+		util/double-conversion/fast-dtoa.o          util/double-conversion/strtod.o \
+		parameters/AllOptions.o 	parameters/BookkeepingOptions.o 	parameters/ContextParameters.o \
+		parameters/CubePruningOptions.o 	parameters/InputOptions.o 	parameters/LMBR_Options.o \
+		parameters/MBR_Options.o	parameters/NBestOptions.o parameters/OOVHandlingOptions.o \
+		parameters/OptionsBaseClass.o	parameters/ReorderingOptions.o	parameters/ReportingOptions.o \
+		parameters/SearchOptions.o	#parameters/ServerOptions.cpp parameters/SyntaxOptions.cpp	
 
 # util/joint_sort_test.cc util/bit_packing_test.cc util/sized_iterator_test.cc util/pcqueue_test.cc util/string_stream_test.cc
 # util/file_piece_test.cc util/tempfile_test.cc util/probing_hash_table_test.cc            util/tokenize_piece_test.cc
