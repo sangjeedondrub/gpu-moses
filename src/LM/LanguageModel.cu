@@ -82,7 +82,7 @@ void LanguageModel::Load(System &system)
 
   }
 
-  cerr << "root=" << m_root.Debug() << endl;
+  //cerr << "root=" << m_root.Debug() << endl;
 }
 
 void LanguageModel::EvaluateInIsolation(

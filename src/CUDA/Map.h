@@ -84,7 +84,8 @@ public:
       const Pair &pair = Parent::m_vec[i];
       const Key &key = pair.first;
       const Value &value = pair.second;
-      strm << key << "=" << value << " ";
+      //strm << key << "=" << value << " ";
+      strm << key << " ";
     }
 
     return strm.str();
