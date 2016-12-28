@@ -55,10 +55,6 @@ public:
   const T& operator[](size_t ind) const
   { return m_arr[ind]; }
 
-  __host__ __device__
-  T *data()
-  { return m_arr; }
-
   __device__
   void resize(size_t newSize, const T &val = T())
   {

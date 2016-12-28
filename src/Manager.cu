@@ -110,7 +110,7 @@ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks)
 }
 
 __global__
-void GetBestHypo(const Manager &mgr, const Stack &lastStack, VOCABID *vocabIds)
+void GetBestHypo(const Manager &mgr, const Stack &lastStack, Vector<VOCABID> &vocabIds)
 {
   const Hypothesis *bestHypo = NULL;
   SCORE bestScore = -999999;
@@ -194,18 +194,17 @@ void Manager::Process()
 
   cerr << m_stacks.Back().Debug() << endl;
 
-  Vector<VOCABID> bestHypo(100, NOT_FOUND_DEVICE);
-  cerr << "before=" << bestHypo.Debug() << endl;
+  Vector<VOCABID> *bestHypo = new Vector<VOCABID>(100, NOT_FOUND_DEVICE);
+  cerr << "before=" << bestHypo->Debug() << endl;
+
+  GetBestHypo<<<1,1>>>(*this, m_stacks.Back(), *bestHypo);
   cudaDeviceSynchronize();
 
-  GetBestHypo<<<1,1>>>(*this, m_stacks.Back(), bestHypo.data());
-  cudaDeviceSynchronize();
-
-  cerr << "after=" << bestHypo.Debug() << endl;
+  cerr << "after=" << bestHypo->Debug() << endl;
 
   cerr << "Best Translation: ";
-  for (size_t i = 0; i < bestHypo.size(); ++i) {
-    VOCABID id = bestHypo[i];
+  for (size_t i = 0; i < bestHypo->size(); ++i) {
+    VOCABID id = (*bestHypo)[i];
     if (id == NOT_FOUND_DEVICE) {
       break;
     }
@@ -213,6 +212,8 @@ void Manager::Process()
     cerr << FastMoses::MyVocab::Instance().GetString(id) << " ";
   }
   cerr << endl;
+
+  delete(bestHypo);
 }
 
 std::string Manager::DebugTPSArr() const
