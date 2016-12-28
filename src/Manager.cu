@@ -161,6 +161,7 @@ void Manager::Process()
     //cerr << "HH6" << endl;
  }
 
+  cerr << m_stacks.Back().Debug() << endl;
 
 }
 

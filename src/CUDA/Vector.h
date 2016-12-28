@@ -262,7 +262,7 @@ public:
   __host__
   size_t Insert(size_t ind, const T &val)
   {
-    Resize(size() + 1);
+    Resize(m_size + 1);
     //std::cerr << "HH5" << GetSize() << std::endl;
     Shift(ind, 1);
     //std::cerr << "HH6" << std::endl;
