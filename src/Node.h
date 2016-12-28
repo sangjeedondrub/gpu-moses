@@ -70,9 +70,9 @@ public:
     else {
       node = new Node(defVal);
       //cudaMallocManaged(&node, sizeof(Node));
-      std::cerr << "before=" << m_children.Debug() << std::endl;
+      //std::cerr << "before=" << m_children.Debug() << std::endl;
       m_children.Insert(vocabId, node);
-      std::cerr << "after=" << m_children.Debug() << std::endl;
+      //std::cerr << "after=" << m_children.Debug() << std::endl;
     }
 
     node = &node->AddOrCreateNode(words, defVal, pos + 1);
