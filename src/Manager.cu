@@ -194,13 +194,10 @@ void Manager::Process()
 
   cerr << m_stacks.Back().Debug() << endl;
 
+  // output
   Vector<VOCABID> *bestHypo = new Vector<VOCABID>(100, NOT_FOUND_DEVICE);
-  cerr << "before=" << bestHypo->Debug() << endl;
-
   GetBestHypo<<<1,1>>>(*this, m_stacks.Back(), *bestHypo);
   cudaDeviceSynchronize();
-
-  cerr << "after=" << bestHypo->Debug() << endl;
 
   cerr << "Best Translation: ";
   for (size_t i = 0; i < bestHypo->size(); ++i) {
