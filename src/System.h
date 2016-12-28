@@ -2,6 +2,7 @@
 
 #include "CUDA/Managed.h"
 #include "FF/FeatureFunctions.h"
+#include "parameters/AllOptions.h"
 
 class Parameter;
 
@@ -11,6 +12,7 @@ public:
   const Parameter &params;
 	FeatureFunctions featureFunctions;
 	Vector<SCORE> weights;
+	AllOptions options;
 
 	System(const Parameter &paramsArg);
 

@@ -4,12 +4,12 @@ CC = gcc
 CCFLAGS = -O3 -I. -I$(BOOST_DIR)/include
 
 CXX = g++ #clang++
-CXXFLAGS = -std=c++11 -O3 -I. -I$(BOOST_DIR)/include
+CXXFLAGS = -std=c++11 -O3 -I. -I$(BOOST_DIR)/include -I../xmlrpc-c/include
 #CXXFLAGS = -std=c++11 -I. -I$(BOOST_DIR)/include -lprofiler -Og
 #-DKENLM_MAX_ORDER=7 -DUSE_KENLM 
 
 NVCC = nvcc
-NVCCFLAGS = -std=c++11 -gencode arch=compute_50,code=sm_50 -gencode arch=compute_60,code=sm_60  -rdc=true  -O3 -I. -I$(BOOST_DIR)/include
+NVCCFLAGS = -std=c++11 -gencode arch=compute_50,code=sm_50 -gencode arch=compute_60,code=sm_60  -rdc=true  -O3 -I. -I$(BOOST_DIR)/include -I../xmlrpc-c/include
 #NVCCFLAGS = -std=c++11 -gencode arch=compute_50,code=sm_50 -gencode arch=compute_60,code=sm_60  -rdc=true   -I. -I$(BOOST_DIR)/include  -lprofiler -O0
 
 LIBS = -L$(DALM_DIR)/lib -L$(KENLM_DIR)/lib  \
@@ -56,8 +56,12 @@ OBJECTS = InputFileStream.o MyVocab.o TypeDef.o \
 		util/double-conversion/bignum.cc       util/double-conversion/cached-powers.cc \
 		util/double-conversion/double-conversion.cc  util/double-conversion/fixed-dtoa.cc \
 		util/double-conversion/bignum-dtoa.cc  util/double-conversion/diy-fp.cc         \
-		util/double-conversion/fast-dtoa.cc          util/double-conversion/strtod.cc
-
+		util/double-conversion/fast-dtoa.cc          util/double-conversion/strtod.cc \
+		parameters/AllOptions.cpp 	parameters/BookkeepingOptions.cpp 	parameters/ContextParameters.cpp \
+		parameters/CubePruningOptions.cpp 	parameters/InputOptions.cpp 	parameters/LMBR_Options.cpp \
+		parameters/MBR_Options.cpp	parameters/NBestOptions.cpp parameters/OOVHandlingOptions.cpp \
+		parameters/OptionsBaseClass.cpp	parameters/ReorderingOptions.cpp	parameters/ReportingOptions.cpp \
+		parameters/SearchOptions.cpp	#parameters/ServerOptions.cpp parameters/SyntaxOptions.cpp	
 
 # util/joint_sort_test.cc util/bit_packing_test.cc util/sized_iterator_test.cc util/pcqueue_test.cc util/string_stream_test.cc
 # util/file_piece_test.cc util/tempfile_test.cc util/probing_hash_table_test.cc            util/tokenize_piece_test.cc

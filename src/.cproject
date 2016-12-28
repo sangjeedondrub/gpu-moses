@@ -30,6 +30,7 @@
 								<option id="nvcc.compiler.cpp11option.1566464943" name="Enable C++11 support (-std=c++11)" superClass="nvcc.compiler.cpp11option" value="true" valueType="boolean"/>
 								<option id="nvcc.compiler.include.paths.190599173" name="Include paths (-I)" superClass="nvcc.compiler.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/}/xmlrpc-c/include&quot;"/>
 								</option>
 								<inputType id="nvcc.compiler.input.cu.1377964509" superClass="nvcc.compiler.input.cu"/>
 								<inputType id="nvcc.compiler.input.cpp.290349385" superClass="nvcc.compiler.input.cpp"/>
@@ -63,8 +64,10 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
+					<fileInfo id="com.nvidia.cuda.ide.eight_zero.configuration.debug.583185998.1205412092" name="SyntaxOptions.h" rcbsApplicability="disable" resourcePath="parameters/SyntaxOptions.h" toolsToInvoke=""/>
+					<fileInfo id="com.nvidia.cuda.ide.eight_zero.configuration.debug.583185998.1424247000" name="ServerOptions.h" rcbsApplicability="disable" resourcePath="parameters/ServerOptions.h" toolsToInvoke=""/>
 					<sourceEntries>
-						<entry excluding="util/stream/io_test.cc|util/stream/stream_test.cc|util/stream/rewindable_stream_test.cc|util/stream/sort_test.cc|util/tokenize_test.cc|util/tempfile_test.cc|util/random_test.cc|util/tokenize_piece_test.cc|util/string_stream_test.cc|util/sorted_uniform_test.cc|util/sized_iterator_test.cc|util/read_compressed_test.cc|util/probing_hash_table_test.cc|util/probing_hash_table_benchmark_main.cc|util/pcqueue_test.cc|util/joint_sort_test.cc|util/multi_intersection_test.cc|util/integer_to_string_test.cc|util/file_piece_test.cc|util/cat_compressed_main.cc|util/bit_packing_test.cc|old" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="parameters/ServerOptions.h|parameters/ServerOptions.cpp|parameters/SyntaxOptions.cpp|parameters/SyntaxOptions.h|util/stream/io_test.cc|util/stream/stream_test.cc|util/stream/rewindable_stream_test.cc|util/stream/sort_test.cc|util/tokenize_test.cc|util/tempfile_test.cc|util/random_test.cc|util/tokenize_piece_test.cc|util/string_stream_test.cc|util/sorted_uniform_test.cc|util/sized_iterator_test.cc|util/read_compressed_test.cc|util/probing_hash_table_test.cc|util/probing_hash_table_benchmark_main.cc|util/pcqueue_test.cc|util/joint_sort_test.cc|util/multi_intersection_test.cc|util/integer_to_string_test.cc|util/file_piece_test.cc|util/cat_compressed_main.cc|util/bit_packing_test.cc|old" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
