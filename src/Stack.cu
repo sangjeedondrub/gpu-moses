@@ -35,7 +35,7 @@ __device__
 void Stack::add(Hypothesis *hypo)
 {
   if (m_coll.size() >= m_tolerance) {
-    prune(*hypo->mgr);
+    //prune(*hypo->mgr);
   }
   /*
   StrCat(debugStr, "hypo=");
@@ -103,7 +103,6 @@ void Stack::prune(const Manager &mgr)
   }
 
   // add back into m_coll
-  /*
   m_coll.GetVec().Clear();
 
   for (size_t i = 0; i < mgr.system.options.search.stack_size; ++i) {
@@ -116,7 +115,6 @@ void Stack::prune(const Manager &mgr)
     Hypothesis *hypo = sortedHypos[i];
     delete hypo;
   }
-  */
 }
 
 
