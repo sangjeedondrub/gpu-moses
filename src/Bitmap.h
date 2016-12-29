@@ -30,6 +30,12 @@ public:
     return m_numWordsCovered;
   }
 
+  //! position of 1st word not yet translated, or NOT_FOUND if everything already translated
+  __device__
+  size_t GetFirstGapPos() const {
+    return m_firstGap;
+  }
+
   //! whether every word has been translated
   __device__
   bool IsComplete() const {
@@ -60,6 +66,7 @@ public:
 
 protected:
   size_t m_numWordsCovered;
+  size_t m_firstGap; //! Cached position of first gap, or NOT_FOUND.
 
   Array<bool> m_bitmap;
 

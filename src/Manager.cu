@@ -97,7 +97,24 @@ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks)
     }
   }
 
-  // go thru each tp
+  /*
+  const size_t hypoFirstGapPos = prevBM.GetFirstGapPos();
+  bool isLeftMostEdge = (hypoFirstGapPos == start);
+  if (isLeftMostEdge) {
+    // any length extension is okay if starting at left-most edge
+  }
+  else {
+    Range bestNextExtension(hypoFirstGapPos, hypoFirstGapPos);
+
+    if (mgr.ComputeDistortionDistance(end,
+        bestNextExtension.startPos) > mgr.system.options.reordering.max_distortion) {
+      //cerr << " NO" << endl;
+      return;
+    }
+  }
+  */
+
+  // CAN EXTEND - go thru each tp
   for (size_t i = 0; i < tps->size(); ++i) {
     const TargetPhrase *tp = (*tps)[i];
     assert(tp);
