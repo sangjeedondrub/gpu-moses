@@ -185,9 +185,46 @@ public:
     */
   }
 
+  __device__
+  size_t insert(size_t ind, const T &val)
+  {
+    if (m_size >= m_maxSize) {
+      reserve(1 + m_maxSize * 2);
+    }
+
+    resize(m_size + 1);
+    //std::cerr << "HH5" << GetSize() << std::endl;
+    Shift(ind, 1);
+    //std::cerr << "HH6" << std::endl;
+
+    m_arr[ind] = val;
+    //std::cerr << "HH7" << std::endl;
+    return ind;
+  }
+
+  __device__
+  void Clear()
+  {
+    m_size = 0;
+  }
+
 protected:
   size_t m_size, m_maxSize;
   T *m_arr;
+
+  __device__
+  void Shift(int start, int offset)
+  {
+    for (int destInd = m_size - 1; destInd >= start; --destInd) {
+      int sourceInd = destInd - offset;
+      if (sourceInd < start) {
+        return;
+      }
+      //std::cerr << sourceInd << "->" << destInd << " " << m_arr <<  std::endl;
+      m_arr[destInd] = m_arr[sourceInd];
+    }
+  }
+
 
 };
 

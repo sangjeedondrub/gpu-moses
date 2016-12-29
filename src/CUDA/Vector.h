@@ -309,6 +309,11 @@ public:
     */
   }
 
+  __host__ __device__
+  void Clear()
+  {
+    m_size = 0;
+  }
 
 protected:
   size_t m_size, m_maxSize;

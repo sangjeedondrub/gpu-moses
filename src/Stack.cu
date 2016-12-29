@@ -90,13 +90,29 @@ void Stack::prune(const Manager &mgr)
       return;
   }
 
+  // sort hypos into score order
   Array<Hypothesis*> sortedHypos(0);
   sortedHypos.reserve(m_coll.size());
 
   const Vector<Hypothesis*> &vec = m_coll.GetVec();
   for (size_t i = 0; i < vec.size(); ++i) {
     Hypothesis *hypo = vec[i];
+    thrust::pair<bool, size_t> upper = sortedHypos.upperBound<HypothesisFutureScoreOrderer>(hypo);
+    sortedHypos.insert(upper.second, hypo);
+  }
 
+  // add back into m_coll
+  m_coll.GetVec().Clear();
+
+  for (size_t i = 0; i < mgr.system.options.search.stack_size; ++i) {
+    Hypothesis *hypo = sortedHypos[i];
+
+    m_coll.insert(hypo);
+  }
+
+  for (size_t i = mgr.system.options.search.stack_size; i < sortedHypos.size(); ++i) {
+    Hypothesis *hypo = sortedHypos[i];
+    delete hypo;
   }
 }
 

@@ -90,6 +90,18 @@ public:
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////
+class HypothesisFutureScoreOrderer
+{
+public:
+  __device__
+  bool operator()(const Hypothesis* a, const Hypothesis* b) const
+  {
+    return a->getFutureScore() > b->getFutureScore();
+  }
+
+};
+
+////////////////////////////////////////////////////////////////////////////////////////////
 
 __global__
 void getTotalScore(const Hypothesis &hypo, SCORE &output);
