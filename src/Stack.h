@@ -23,7 +23,7 @@ public:
 	void add(Hypothesis *hypo);
 
   __device__
-  const Vector<Hypothesis*> &getArr() const
+  const Vector<Hypothesis*> &GetVec() const
   { return m_coll.GetVec(); }
 
   __device__

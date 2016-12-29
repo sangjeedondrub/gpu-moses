@@ -81,7 +81,7 @@ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks)
   }
 
   const Stack &stack = stacks[stackInd];
-  const Vector<Hypothesis*> &vec = stack.getArr();
+  const Vector<Hypothesis*> &vec = stack.GetVec();
   const Hypothesis &prevHypo = *vec[hypoInd];
   const Bitmap &prevBM = prevHypo.bitmap;
 
@@ -115,7 +115,7 @@ void GetBestHypo(const Manager &mgr, const Stack &lastStack, Vector<VOCABID> &vo
   const Hypothesis *bestHypo = NULL;
   SCORE bestScore = -999999;
 
-  const Vector<Hypothesis*> &hypos = lastStack.getArr();
+  const Vector<Hypothesis*> &hypos = lastStack.GetVec();
   for (size_t i = 0; i < hypos.size(); ++i) {
     const Hypothesis *hypo = hypos[i];
     if (hypo->getFutureScore() > bestScore) {

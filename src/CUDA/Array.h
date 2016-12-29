@@ -40,10 +40,6 @@ public:
   { return m_arr[ind]; }
 
   __device__
-  const T* getArray() const
-  { return m_arr; }
-
-  __device__
   void resize(size_t newSize)
   {
     reserve(newSize);
