@@ -110,6 +110,12 @@ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks)
 }
 
 __global__
+void PruneStack(const Manager &mgr, Stack &stack)
+{
+  stack.prune(mgr);
+}
+
+__global__
 void GetBestHypo(const Manager &mgr, const Stack &lastStack, Vector<VOCABID> &vocabIds)
 {
   const Hypothesis *bestHypo = NULL;
@@ -153,6 +159,8 @@ void Manager::Process()
   cerr << "mgr=" << str << endl;
   */
 
+  cerr << "mgr.system.options.search.stack_size=" << system.options.search.stack_size << endl;
+
   size_t inputSize = m_input->GetSize();
   cerr << "inputSize=" << inputSize << endl;
   InitInputPaths();
@@ -170,11 +178,14 @@ void Manager::Process()
   cerr << "1st stack=" << stack.GetSize() << endl;
 
   for (size_t stackInd = 0; stackInd < inputSize; ++stackInd) {
-    const Stack &stack = m_stacks.Get(stackInd);
+    Stack &stack = m_stacks.Get(stackInd);
     //cerr << "HH1:" << stack.debugStr << endl;
 
     size_t stackSize = stack.GetSize();
     //cerr << "HH2" << endl;
+
+    PruneStack<<<1,1>>>(*this, stack);
+    cudaDeviceSynchronize();
 
     //ProcessStack<<<1,1>>>(stackInd, *this, m_stacks);
     //ProcessStack<<<stackSize, 1>>>(stackInd, *this, m_stacks);

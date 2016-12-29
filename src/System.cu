@@ -9,6 +9,7 @@ System::System(const Parameter &paramsArg)
 ,featureFunctions(*this)
 ,weights(0)
 {
+  options.init(paramsArg);
   featureFunctions.Create();
   LoadWeights();
 
