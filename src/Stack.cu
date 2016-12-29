@@ -86,7 +86,18 @@ void Stack::add(Hypothesis *hypo)
 __device__
 void Stack::prune(const Manager &mgr)
 {
+  if (m_coll.size() < mgr.system.options.search.stack_size) {
+      return;
+  }
 
+  Array<Hypothesis*> sortedHypos(0);
+  sortedHypos.reserve(m_coll.size());
+
+  const Vector<Hypothesis*> &vec = m_coll.GetVec();
+  for (size_t i = 0; i < vec.size(); ++i) {
+    Hypothesis *hypo = vec[i];
+
+  }
 }
 
 

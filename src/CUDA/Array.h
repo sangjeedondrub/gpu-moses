@@ -7,6 +7,7 @@
 
 #pragma once
 #include <cuda.h>
+#include <thrust/pair.h>
 
 template<typename T>
 class Array
@@ -113,6 +114,75 @@ public:
   __device__
   bool operator< (const Array<T> &compare) const {
     return Compare(compare) < 0;
+  }
+
+  template<typename CC>
+  __device__
+  thrust::pair<bool, size_t> upperBound(const T &sought) const
+  {
+    thrust::pair<bool, size_t> ret(false, m_size);
+    //std::cerr << "sought=" << sought << std::endl;
+    //std::cerr << "m_size=" << m_size << std::endl;
+    int l = 0;
+    int r = m_size - 1;
+    int x;
+
+    CC comparer;
+    while (r >= l) {
+      x = (l + r) / 2;
+
+      const T &obj = m_arr[x];
+      if (comparer(sought, obj)) {
+        r = x - 1;
+
+        if (x < ret.second) {
+          ret.second = x;
+        }
+      }
+      else if (comparer(obj, sought)) {
+        l = x + 1;
+      }
+      else {
+        // found
+        ret.first = true;
+        ret.second = x;
+        break;
+      }
+    }
+    //std::cerr << "ret.second=" << ret.second << std::endl;
+    return ret;
+
+
+    /*
+    for (size_t i = 0; i < m_size; ++i) {
+      const T &currEle = m_arr[i];
+      //std::cerr << i << "=" << currEle << std::endl;
+
+      if (CC()(currEle, sought)) {
+        // carry on, do nothing
+        //std::cerr << "HH1" << std::endl;
+      }
+      else if (CC()(sought, currEle)) {
+        // overshot without finding sought
+        //std::cerr << "HH2" << std::endl;
+        ret.first = false;
+        ret.second = i;
+        return ret;
+      }
+      else {
+        // found it
+        //std::cerr << "HH3" << std::endl;
+        ret.first = true;
+        ret.second = i;
+        return ret;
+      }
+    }
+
+    // sought is not in array
+    ret.first = false;
+    ret.second = m_size;
+    return ret;
+    */
   }
 
 protected:
