@@ -7,5 +7,5 @@ MOSES_DIR=/home/hieu/workspace/github/mosesdecoder.perf
 DIR=~/workspace/github/gpu-moses/src
 time $DIR/gpu-moses -f moses.ini.gpu -i in
 
-#CPUPROFILE=/tmp/prof.out $DIR/gpu-moses -f moses.ini.gpu
+#CPUPROFILE=/tmp/prof.out $DIR/gpu-moses -f moses.ini.gpu -i in
 
