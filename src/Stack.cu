@@ -13,8 +13,7 @@ Stack::Stack(const Manager &mgr)
 ,m_tolerance(mgr.system.options.search.stack_size * 2)
 {
   //mgr.system.params.
-  m_coll.GetVec().Reserve(200);
-  //m_coll.GetVec().Reserve(m_tolerance);
+  m_coll.GetVec().Reserve(m_tolerance);
 
   cudaDeviceSynchronize();
   //cerr << "m_arr=" << m_arr << endl;
