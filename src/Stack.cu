@@ -35,7 +35,7 @@ __device__
 void Stack::add(Hypothesis *hypo)
 {
   if (m_coll.size() >= m_tolerance) {
-    //prune(*hypo->mgr);
+    prune(*hypo->mgr);
   }
   /*
   StrCat(debugStr, "hypo=");

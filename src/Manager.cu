@@ -178,17 +178,15 @@ void Manager::Process()
   cerr << "1st stack=" << stack.GetSize() << endl;
 
   for (size_t stackInd = 0; stackInd < inputSize; ++stackInd) {
-    cerr << "HH0:" << stackInd << endl;
+    //cerr << "HH0:" << stackInd << endl;
     Stack &stack = m_stacks.Get(stackInd);
     //cerr << "HH1:" << stack.debugStr << endl;
 
-    cerr << "before:" << stack.Debug() << endl;
     PruneStack<<<1,1>>>(*this, stack);
     cudaDeviceSynchronize();
-    cerr << "after:" << stack.Debug() << endl;
 
     size_t stackSize = stack.GetSize();
-    cerr << "HH2:" << stackSize << endl;
+    //cerr << "HH2:" << stackSize << endl;
 
     //ProcessStack<<<1,1>>>(stackInd, *this, m_stacks);
     //ProcessStack<<<stackSize, 1>>>(stackInd, *this, m_stacks);
