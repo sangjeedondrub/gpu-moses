@@ -13,7 +13,8 @@ Stack::Stack(const Manager &mgr)
 ,m_tolerance(mgr.system.options.search.stack_size * 2)
 {
   //mgr.system.params.
-  m_coll.GetVec().Reserve(m_tolerance);
+  m_coll.GetVec().Reserve(200);
+  //m_coll.GetVec().Reserve(m_tolerance);
 
   cudaDeviceSynchronize();
   //cerr << "m_arr=" << m_arr << endl;
@@ -102,6 +103,7 @@ void Stack::prune(const Manager &mgr)
   }
 
   // add back into m_coll
+  /*
   m_coll.GetVec().Clear();
 
   for (size_t i = 0; i < mgr.system.options.search.stack_size; ++i) {
@@ -114,6 +116,7 @@ void Stack::prune(const Manager &mgr)
     Hypothesis *hypo = sortedHypos[i];
     delete hypo;
   }
+  */
 }
 
 
@@ -122,14 +125,14 @@ std::string Stack::Debug() const
 {
   std::stringstream strm;
   size_t size = GetSize();
-  cerr << "stack size=" << size << endl;
+  strm << "stack size=" << size << endl;
   for (size_t i = 0; i < size; ++i) {
     //cerr << "HH1:" << i << endl;
     const Hypothesis *hypo = m_coll.GetVec()[i];
     //cerr << "HH2:" << hypo << endl;
 
     //cerr << "HH3:" << h_s << endl;
-    cerr << "hypo= " << hypo->Debug() << endl;
+    strm << "hypo= " << hypo->Debug() << endl;
   }
 
   return strm.str();

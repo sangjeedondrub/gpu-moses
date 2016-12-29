@@ -184,8 +184,12 @@ void Manager::Process()
     size_t stackSize = stack.GetSize();
     //cerr << "HH2" << endl;
 
-    PruneStack<<<1,1>>>(*this, stack);
-    cudaDeviceSynchronize();
+    cerr << "before:" << stack.Debug() << endl;
+    cerr << "HH2" << endl;
+    //PruneStack<<<1,1>>>(*this, stack);
+    //cudaDeviceSynchronize();
+    cerr << "after:" << stack.Debug() << endl;
+    cerr << "HH3" << endl;
 
     //ProcessStack<<<1,1>>>(stackInd, *this, m_stacks);
     //ProcessStack<<<stackSize, 1>>>(stackInd, *this, m_stacks);
