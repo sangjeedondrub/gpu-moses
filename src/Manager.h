@@ -41,6 +41,9 @@ public:
   __device__
   const InputPath &GetInputPath(int start, int end) const;
 
+  __device__
+  int ComputeDistortionDistance(size_t prevEndPos,
+      size_t currStartPos) const;
 
 protected:
 	Phrase *m_input;

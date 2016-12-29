@@ -89,6 +89,15 @@ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks)
     return;
   }
 
+  if (mgr.system.options.reordering.max_distortion >= 0) {
+    int distortion = mgr.ComputeDistortionDistance(prevHypo.path->range.endPos, start);
+    if (distortion > mgr.system.options.reordering.max_distortion) {
+      //cerr << " NO" << endl;
+      return;
+    }
+  }
+
+  // go thru each tp
   for (size_t i = 0; i < tps->size(); ++i) {
     const TargetPhrase *tp = (*tps)[i];
     assert(tp);
@@ -288,4 +297,18 @@ const InputPath &Manager::GetInputPath(int start, int end) const
 {
   const InputPath &path = m_tpsVec[RangeToInd(start, end)];
   return path;
+}
+
+__device__
+int Manager::ComputeDistortionDistance(size_t prevEndPos,
+    size_t currStartPos) const
+{
+  int dist = 0;
+  if (prevEndPos == NOT_FOUND_DEVICE) {
+    dist = currStartPos;
+  }
+  else {
+    dist = (int)prevEndPos - (int)currStartPos + 1;
+  }
+  return abs(dist);
 }
