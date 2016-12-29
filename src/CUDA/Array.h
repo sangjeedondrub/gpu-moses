@@ -13,12 +13,12 @@ class Array
 {
 public:
   __device__
-  Array(size_t size, const T &val = T())
+  Array(size_t size)
   {
     m_size = size;
     m_maxSize = size;
-
     m_arr = (T*) malloc(sizeof(T) * size);
+
   }
 
   __device__
@@ -46,7 +46,13 @@ public:
   __device__
   void resize(size_t newSize)
   {
-    //std::cerr << "newSize=" << newSize << std::endl;
+    reserve(newSize);
+    m_size = newSize;
+  }
+
+  __device__
+  void reserve(size_t newSize)
+  {
     if (newSize > m_maxSize) {
       T *newArr = (T*) malloc(sizeof(T) * newSize);
 
@@ -58,18 +64,17 @@ public:
 
       m_maxSize = newSize;
     }
-
-    m_size = newSize;
   }
 
   __device__
   void push_back(const T &v)
   {
     if (m_size >= m_maxSize) {
-      resize(m_size + 1);
+      reserve(1 + m_maxSize * 2);
     }
 
-    m_arr[m_size- 1] = v;
+    m_arr[m_size] = v;
+    ++m_size;
   }
 
   __host__
