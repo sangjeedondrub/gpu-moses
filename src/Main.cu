@@ -15,20 +15,24 @@
 
 using namespace std;
 
-istream &GetInput()
+istream &GetInput(const System &system)
 {
-  //return cin;
+  cerr << "in=" << system.options.input.input_file_path << endl;
 
-  ifstream *inStrm = new ifstream();
-  inStrm->open("in");
-  return *inStrm;
-
+  if (system.options.input.input_file_path.empty()) {
+    return cin;
+  }
+  else {
+    ifstream *inStrm = new ifstream();
+    inStrm->open(system.options.input.input_file_path.c_str());
+    return *inStrm;
+  }
 }
 
 int main(int argc, char* argv[])
 {
   cerr << "Starting..." << endl;
-  Test();
+  //Test();
 
   Parameter params;
   params.LoadParam(argc, argv);
@@ -39,7 +43,7 @@ int main(int argc, char* argv[])
 
   cerr << "Start Decoding:" << endl;
 
-  istream &inStrm = GetInput();
+  istream &inStrm = GetInput(*system);
   string line;
   while (getline(inStrm, line)) {
 	  Manager *mgr = new Manager(*system, line);
