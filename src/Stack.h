@@ -23,6 +23,9 @@ public:
 	void add(Hypothesis *hypo);
 
   __device__
+  void prune(const Manager &mgr);
+
+  __device__
   const Vector<Hypothesis*> &GetVec() const
   { return m_coll.GetVec(); }
 
@@ -43,6 +46,7 @@ protected:
   //Vector<Hypothesis*> m_arr;
 	//Set<Hypothesis*> m_coll;
   Set<Hypothesis*, HypothesisRecombinationOrderer> m_coll;
+  size_t m_tolerance;
   
   Lock m_lock;
 };

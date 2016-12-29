@@ -10,9 +10,10 @@ using namespace std;
 
 Stack::Stack(const Manager &mgr)
 :m_coll()
+,m_tolerance(mgr.system.options.search.stack_size * 2)
 {
   //mgr.system.params.
-  m_coll.GetVec().Reserve(mgr.system.options.search.stack_size * 2);
+  m_coll.GetVec().Reserve(m_tolerance);
 
   cudaDeviceSynchronize();
   //cerr << "m_arr=" << m_arr << endl;
@@ -32,6 +33,9 @@ Stack::~Stack()
 __device__
 void Stack::add(Hypothesis *hypo)
 {
+  if (m_coll.size() >= m_tolerance) {
+    prune(*hypo->mgr);
+  }
   /*
   StrCat(debugStr, "hypo=");
   StrCat(debugStr, itoaDevice((size_t) hypo));
@@ -78,6 +82,13 @@ void Stack::add(Hypothesis *hypo)
     //(*m_arr)[m_size] = hypo;
   }
 }
+
+__device__
+void Stack::prune(const Manager &mgr)
+{
+
+}
+
 
 __host__
 std::string Stack::Debug() const
