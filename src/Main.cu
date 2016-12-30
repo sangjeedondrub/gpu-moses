@@ -17,8 +17,6 @@ using namespace std;
 
 istream &GetInput(const System &system)
 {
-  cerr << "in=" << system.options.input.input_file_path << endl;
-
   if (system.options.input.input_file_path.empty()) {
     return cin;
   }
