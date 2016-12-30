@@ -12,7 +12,7 @@
     : continue_partial_translation(false)
     , input_type(SentenceInput)
     , xml_policy(XmlPassThrough)
-    , placeholder_factor(NOT_FOUND)
+    , placeholder_factor(NOT_FOUND_DEVICE)
   { 
     xml_brackets.first  = "<";
     xml_brackets.second = ">";
@@ -75,7 +75,7 @@
     pspec = param.GetParam("input-factors");
     if (pspec) factor_order = Scan<FactorType>(*pspec);
     if (factor_order.empty()) factor_order.assign(1,0);
-    param.SetParameter(placeholder_factor, "placeholder-factor", NOT_FOUND);
+    param.SetParameter(placeholder_factor, "placeholder-factor", (FactorType) NOT_FOUND_DEVICE);
 
     param.SetParameter<std::string>(factor_delimiter, "factor-delimiter", "|");
     param.SetParameter<std::string>(input_file_path,"input-file","");
