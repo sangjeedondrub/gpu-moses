@@ -143,6 +143,7 @@ void PruneStack(const Manager &mgr, Stack &stack)
 __global__
 void GetBestHypo(const Manager &mgr, const Stack &lastStack, Vector<VOCABID> &vocabIds)
 {
+  // find best hypo
   const Hypothesis *bestHypo = NULL;
   SCORE bestScore = -999999;
 
@@ -155,6 +156,7 @@ void GetBestHypo(const Manager &mgr, const Stack &lastStack, Vector<VOCABID> &vo
     }
   }
 
+  // copy each word to array
   assert(bestHypo);
   size_t pos = 0;
   while (bestHypo) {
@@ -168,6 +170,13 @@ void GetBestHypo(const Manager &mgr, const Stack &lastStack, Vector<VOCABID> &vo
     }
 
     bestHypo = bestHypo->prevHypo;
+  }
+
+  // reverse
+  for (size_t i = 0; i < pos/2; ++i) {
+    VOCABID tmpId = vocabIds[i];
+    vocabIds[i] = vocabIds[pos - i - 1];
+    vocabIds[pos - i - 1] = tmpId;
   }
 }
 ///////////////////////////////////////
@@ -225,7 +234,7 @@ void Manager::Process()
     cudaDeviceSynchronize();
     //cerr << "HH4" << endl;
     m_stacks.PrintStacks();
-    cerr << "stack" << stackInd << "=" << stack.Debug() << endl;
+    //cerr << "stack" << stackInd << "=" << stack.Debug() << endl;
     //cerr << "HH6" << endl;
  }
 
