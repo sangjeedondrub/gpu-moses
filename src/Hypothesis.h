@@ -22,7 +22,7 @@ public:
   ScoresUnmanaged scores;
   Array<char> stateData;
 
-  SCORE sss;
+  //SCORE sss;
 
   __device__
   Hypothesis(const Manager &mgr);

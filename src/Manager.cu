@@ -102,13 +102,16 @@ void ProcessStack(size_t stackInd, const Manager &mgr, Stacks &stacks)
   if (isLeftMostEdge) {
     // any length extension is okay if starting at left-most edge
   }
+  else if (mgr.system.options.reordering.max_distortion < 0) {
+    // unlimmited distortion
+  }
   else {
-    if (mgr.ComputeDistortionDistance(end, hypoFirstGapPos) > mgr.system.options.reordering.max_distortion) {
+    int distortion = mgr.ComputeDistortionDistance(end, hypoFirstGapPos);
+    if (distortion > mgr.system.options.reordering.max_distortion) {
       //cerr << " NO" << endl;
       return;
     }
   }
-
 
   // CAN EXTEND - go thru each tp
   for (size_t i = 0; i < tps->size(); ++i) {

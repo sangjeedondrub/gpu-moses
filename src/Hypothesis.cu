@@ -16,7 +16,6 @@ Hypothesis::Hypothesis(const Manager &mgr)
 ,scores(mgr.system.featureFunctions.totalNumScores)
 ,stateData(mgr.system.featureFunctions.totalStateSize)
 {
-  sss = 453.54;
 }
 
   __device__
@@ -171,6 +170,9 @@ void Hypothesis::Debug(char *out, size_t indent) const
     StrCat(out, str);
     StrCat(out, " ");
   }
+
+  //StrCat(out, "sss=");
+  //StrCat(out, ftoaDevice(sss));
 
   if (prevHypo) {
      StrCat(out, "\n");
