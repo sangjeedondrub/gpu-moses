@@ -226,11 +226,11 @@ void Manager::Process()
     cudaDeviceSynchronize();
     //cerr << "HH4" << endl;
     m_stacks.PrintStacks();
-    //cerr << "stack=" << stack.Debug() << endl;
+    cerr << "stack" << stackInd << "=" << stack.Debug() << endl;
     //cerr << "HH6" << endl;
  }
 
-  cerr << m_stacks.Back().Debug() << endl;
+  //cerr << m_stacks.Back().Debug() << endl;
 
   // output
   Vector<VOCABID> *bestHypo = new Vector<VOCABID>(100, NOT_FOUND_DEVICE);

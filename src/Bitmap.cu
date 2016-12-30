@@ -76,5 +76,8 @@ void Bitmap::Debug(char *out) const
     bool val = m_bitmap[i];
     StrCat(out, val?"1":"0");
   }
+  StrCat(out, "(");
+  StrCat(out, itoaDevice(m_firstGap));
+  StrCat(out, ")");
 }
 
