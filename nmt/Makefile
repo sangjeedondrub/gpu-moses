@@ -32,7 +32,7 @@ LIBS = -L$(DALM_DIR)/lib -L$(KENLM_DIR)/lib  \
 %.o: %.cc
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-OBJECTS = Main.o
+OBJECTS = Main.o God.o EncoderDecoder.o
 
 OBJECTS_nmt = $(OBJECTS)
 
